@@ -3,12 +3,9 @@ import DashboardLayout from '../../../components/DashBoardLayout/DashboardLayout
 import styles from './dashboard.module.css';
 import { BsFillWalletFill } from 'react-icons/bs';
 import { AiOutlineWhatsApp } from 'react-icons/ai';
-import { flutterWave_icon, paystack_icon } from '../../../assets';
-import TransactionTable from '../../../components/TransactionTable/TransactionTable';
 import Image from 'next/image';
 import { FaWallet } from 'react-icons/fa';
-import { RiInformationLine } from 'react-icons/ri';
-import { MdOutlineCancel, MdRefresh } from 'react-icons/md';
+import { MdRefresh } from 'react-icons/md';
 import { useRouter } from 'next/router';
 import { useStore } from '../../../context';
 import { authConstants } from '../../../context/constants';
@@ -17,7 +14,6 @@ import { useSearchParams } from 'next/navigation';
 import axios from 'axios';
 import { BalanceLoader2 } from '../../../components/BalanceLoader/BalanceLoader';
 import { useSession } from 'next-auth/react';
-import { TransactionTable2 } from '../../../components/TransactionTable/TransactionTable';
 
 const UserDashboard = () => {
   const router = useRouter();
