@@ -1,0 +1,49 @@
+.about_container {
+  max-width: 700px;
+  margin: 50px auto;
+  padding: 20px;
+}
+
+.about_container h1 {
+  text-align: center;
+  font-size: 57px;
+  /* font-family: 'Rubik', sans-serif; */
+  font-weight: 500;
+}
+.divider {
+  width: 120px;
+  height: 4px;
+  background: rgba(253, 181, 21, 0.4);
+  margin: 0 auto;
+  margin-bottom: 60px;
+  margin-top: 10px;
+}
+
+.about_container h3 {
+  margin-top: 30px;
+  font-size: 24px;
+  font-weight: 500;
+}
+
+.about_container p {
+  font-size: 15px;
+  font-family: 'Source Sans Pro', sans-serif;
+  letter-spacing: 0.05em;
+  line-height: 1.7rem;
+  margin-top: 15px;
+  /* opacity: 0.8; */
+}
+
+@media screen and (max-width: 900px) {
+  .about_container h1 {
+    font-size: 26px;
+  }
+
+  .about_container h3 {
+    font-size: 20px;
+  }
+
+  .divider {
+    width: 90px;
+  }
+}
