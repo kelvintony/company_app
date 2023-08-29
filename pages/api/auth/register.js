@@ -1,8 +1,6 @@
 import bcryptjs from 'bcryptjs';
 import userModel from '../../../models/user';
 import db from '../../../utils/db';
-import transactionProfileModel from '../../../models/transactionProfile';
-import { createVirtualAccount } from '../monnify/create-customer/index';
 
 async function handler(req, res) {
   if (req.method !== 'POST') {
@@ -50,29 +48,9 @@ async function handler(req, res) {
       superUser: false,
     });
 
-    const newUserTransactionProfile = await transactionProfileModel.create({
-      userId: newUser?._id,
+    return res.status(201).send({
+      message: 'user Created!',
     });
-
-    //generate user Virtual Account
-    if (newUser) {
-      const data = {
-        accountName: newUser?.firstName,
-        accountReference: newUser?._id,
-        customerName: newUser?.phoneNumber,
-        customerEmail: newUser?.email,
-      };
-
-      let accountResponse = await createVirtualAccount(data);
-      // console.log(accountResponse);
-      if (accountResponse !== 200) {
-        throw new Error(`internal server error!, could not create account`);
-      }
-
-      return res.status(201).send({
-        message: 'user Created!',
-      });
-    }
   } catch (error) {
     return res.status(409).json({ message: error.message });
   }

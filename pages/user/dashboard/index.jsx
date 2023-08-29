@@ -12,7 +12,6 @@ import { MdOutlineCancel, MdRefresh } from 'react-icons/md';
 import { useRouter } from 'next/router';
 import { useStore } from '../../../context';
 import { authConstants } from '../../../context/constants';
-import PaymentModal from '../../../components/PaymentModal/PaymentModal';
 
 import { useSearchParams } from 'next/navigation';
 import axios from 'axios';
@@ -293,7 +292,7 @@ const UserDashboard = () => {
           </div>
         </div>
         <div className={styles.transaction_container}>
-          <TransactionTable2 />
+          <h1>Transaction</h1>
         </div>
       </>
     </DashboardLayout>
