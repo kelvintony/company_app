@@ -17,7 +17,7 @@ export default async (req, res) => {
   }
 };
 
-export const fetchWalletBalance = async (req, res) => {
+const fetchWalletBalance = async (req, res) => {
   try {
     // const user = await getToken({ req });
     const user = await getToken({
