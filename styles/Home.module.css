@@ -23,12 +23,14 @@
 .hero_section .inner_a h1 {
   font-size: 50px;
   color: #fff;
+  opacity: 0.9;
   text-transform: capitalize;
   margin-bottom: 20px;
 }
 .type_writter {
   font-size: 20px;
   color: #fff;
+  opacity: 0.9;
   margin-bottom: 20px;
 }
 
@@ -37,39 +39,31 @@
   gap: 5px;
 }
 
-/* @ Our Word our bond  */
-.ourWord_container {
-  /* border: 1px solid black; */
-  padding: 20px;
+/* @Youtube section  */
+.youtube_container {
   max-width: 1200px;
   margin: 80px auto;
-}
-.ourWord_container > h3 {
-  font-size: 40px;
-  letter-spacing: 0.05em;
-}
-.ourWord_container > p {
-  font-size: 20px;
-  letter-spacing: 0.05em;
-  opacity: 0.8;
-  margin-top: 15px;
+  padding: 20px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  /* align-items: center; */
+  gap: 40px;
 }
 
-.list_of_offers {
-  margin-top: 80px;
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  /* grid-template-columns: 2fr 1fr; */
-  gap: 20px;
-  align-items: center;
-}
-.the_offers > h3 {
+.youtube_inner_b h3 {
   font-size: 30px;
   letter-spacing: 0.05em;
-  opacity: 0.9;
-  border-left: 10px solid #f05822;
-  margin-bottom: 40px;
-  padding-left: 5px;
+  margin-bottom: 20px;
+}
+
+.youtube_inner_b p {
+  margin-bottom: 15px;
+  font-size: 15px;
+}
+
+.youtube_inner_b ul {
+  list-style-type: disc;
+  padding-left: 30px;
 }
 
 /* utilities */
@@ -150,6 +144,7 @@
   /* hero section */
   .hero_section {
     grid-template-columns: 1fr;
+    padding-top: 60px;
   }
   .hero_section .inner_a h1 {
     font-size: 40px;
@@ -162,33 +157,21 @@
     height: 50px;
   }
 
-  /* @ Our Word our bond  */
-  .ourWord_container {
-    margin-top: 170px;
-  }
-  .ourWord_container > h3 {
-    font-size: 24px;
-    letter-spacing: 0.05em;
+  /* @ YOUTUBE SECTION  */
+
+  .youtube_container {
+    margin-top: 180px;
+    grid-template-columns: 1fr;
   }
 
-  .ourWord_container > p {
-    font-size: 14px;
+  .youtube_inner_a {
+    order: 2;
   }
-  .list_of_offers {
-    grid-template-columns: 1fr;
-    gap: 20px;
-    align-items: center;
+  .youtube_inner_b {
+    order: -1;
   }
-  .the_offers > h3 {
-    font-size: 20px;
-    letter-spacing: 0.05em;
-    opacity: 0.9;
-    border-left: 10px solid #f05822;
-    margin-bottom: 40px;
-  }
-  .list_animation {
-    border: 1px solid rgba(255, 163, 145, 0.4);
-    border-radius: 8px;
+  .youtube_inner_b h3 {
+    font-size: 26px;
   }
 
   /* utilities  */
