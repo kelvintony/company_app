@@ -136,6 +136,11 @@
 }
 
 @media screen and (max-width: 900px) {
+  .navbar_container {
+    padding-top: 25px !important;
+    /* padding-bottom: 25px !important; */
+    height: 100px;
+  }
   .navbar_elements .nav_menu_items {
     display: none;
   }

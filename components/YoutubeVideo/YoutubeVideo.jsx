@@ -1,24 +1,20 @@
-// import React from 'react';
-// import YouTube from 'react-youtube';
-
-// const YoutubeVideo = () => {
-//   const videoUrl =
-//     'https://www.youtube.com/watch?v=i7ul4LNTnfI&pp=ygUWaW52ZXN0bWVudCBzaG9ydCB2aWRlbw%3D%3D';
-//   const opts = {
-//     height: '390',
-//     width: '640',
-//   };
-
-//   return <YouTube videoId={videoUrl} opts={opts} />;
-// };
-
-// export default YoutubeVideo;
 import React from 'react';
+import styles from './YoutubeVideo.module.css';
 
 const YoutubeVideo = () => {
+  const videoId = 'i7ul4LNTnfI';
+
   return (
-    <div>
-      <h1>YoutubeVideo</h1>
+    <div className={styles.video_responsive}>
+      <iframe
+        width='853'
+        height='480'
+        src={`https://www.youtube.com/embed/${videoId}`}
+        frameBorder='0'
+        allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'
+        allowFullScreen
+        title='Embedded youtube'
+      />
     </div>
   );
 };
