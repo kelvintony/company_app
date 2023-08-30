@@ -46,8 +46,8 @@ const Layout = ({ children }) => {
   return (
     <div>
       <Head>
-        <title>Cheap and affordable data</title>
-        <meta name='description' content='Cheap and affordable data' />
+        <title>No. 1 Leading Arbitrage platform</title>
+        <meta name='description' content='No. 1 Leading Arbitrage platform' />
         <link rel='icon' href='/favicon.ico' />
       </Head>
       {regex.test(pathname) || regexa.test(pathname) ? null : <Navbar />}
