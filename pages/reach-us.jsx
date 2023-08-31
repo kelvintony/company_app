@@ -31,11 +31,11 @@ const ReachUs = () => {
           </div>
           <div className={styles.contact_details}>
             <h4>Email Address:</h4>
-            <p>info@datafarm.ng</p>
+            <p>info@dpayai.vercel.app</p>
           </div>
           <div className={styles.contact_details}>
             <h4>Phone Numbers:</h4>
-            <p>+2349064484416</p>
+            <p>+910064484416</p>
           </div>
         </div>
 
