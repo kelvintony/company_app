@@ -48,7 +48,9 @@ const Home = () => {
                   delay: 50,
                   typeSpeed: 200,
                   strings: [
-                    ' Delivering winning results and transforming losses into success',
+                    'Delivering winning results and transforming losses into success.',
+                    'Achieving victorious outcomes and turning defeats into triumphs.',
+                    'Delivering triumphant results and converting setbacks into victories.',
                   ],
                 }}
               />
