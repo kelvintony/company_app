@@ -10,9 +10,11 @@ import LogoItem from '../LogoItem/LogoItem';
 
 const Footer = () => {
   return (
-    <div>
+    <>
       <div className={styles.footer_container}>
-        <LogoItem />
+        <div className={styles.logo_container_footer}>
+          <LogoItem />
+        </div>
         <p>
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint earum
           illum quaerat cum, autem eligendi facere possimus nisi officia soluta?
@@ -31,7 +33,7 @@ const Footer = () => {
           <button className={styles.menu_items}>About us</button>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 
