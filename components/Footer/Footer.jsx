@@ -18,16 +18,17 @@ const Footer = () => {
           <LogoItem />
         </div>
         <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint earum
-          illum quaerat cum, autem eligendi facere possimus nisi officia soluta?
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto
-          adipisci ea ducimus? Ab perspiciatis eligendi voluptas eos ipsam porro
+          Welcome to DexomPay, your premier destination for sports trading! At
+          DPay, we are passionate about helping you make the most out of every
+          sporting event. Our cutting-edge AI and innovative algorithms work
+          tirelessly to identify profitable arbitrage opportunities across
+          various sports markets.
         </p>
         <div className={styles.social_icons}>
           <CiFacebook className={styles.social_items} />
           <AiOutlineInstagram className={styles.social_items} />
           <FiTwitter className={styles.social_items} />
-          <AiOutlineLinkedin className={styles.social_items} />
+          {/* <AiOutlineLinkedin className={styles.social_items} /> */}
         </div>
         <div className={styles.footer_menuIcons}>
           <button
