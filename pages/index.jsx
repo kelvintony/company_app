@@ -2,12 +2,28 @@ import React from 'react';
 import styles from '../styles/Home.module.css';
 import Image from 'next/image';
 import DP1 from '../assets/DP1.png';
-import Lottie from 'lottie-react';
-import animationData from '../assets/hand-scrolls-the-messages-on-the-phone.json';
 import YoutubeVideo from '../components/YoutubeVideo/YoutubeVideo';
 import { GoArrowRight } from 'react-icons/go';
 import { useRouter } from 'next/router';
 import Typewriter from 'typewriter-effect';
+import Marquee from 'react-fast-marquee';
+import {
+  partner1,
+  partner2,
+  partner3,
+  partner4,
+  partner5,
+  partner6,
+  partner7,
+  partner8,
+  partner9,
+  partner10,
+  partner11,
+  partner12,
+  partner13,
+  partner14,
+  partner15,
+} from '../assets';
 
 const Home = () => {
   const router = useRouter();
@@ -83,6 +99,121 @@ const Home = () => {
             </li>
           </ul>
         </div>
+      </section>
+
+      {/* Partners section  */}
+      <section className={styles.partners_container}>
+        <h3>Some Partners We Have Worked With</h3>
+        <section className={styles.our_partners}>
+          {/* pauseOnHover={true} */}
+          <Marquee speed={100} gradient={false}>
+            <div className={styles.our_partners_inner}>
+              <Image
+                className={styles.partner_image}
+                src={partner1}
+                alt='pix_1'
+              />
+            </div>
+            <div className={styles.our_partners_inner}>
+              <Image
+                className={styles.partner_image}
+                src={partner2}
+                alt='pix_1'
+              />
+            </div>
+            <div className={styles.our_partners_inner}>
+              <Image
+                className={styles.partner_image}
+                src={partner3}
+                alt='pix_1'
+              />
+            </div>
+            <div className={styles.our_partners_inner}>
+              <Image
+                className={styles.partner_image}
+                src={partner4}
+                alt='pix_1'
+              />
+            </div>
+            <div className={styles.our_partners_inner}>
+              <Image
+                className={styles.partner_image}
+                src={partner5}
+                alt='pix_1'
+              />
+            </div>
+            <div className={styles.our_partners_inner}>
+              <Image
+                className={styles.partner_image}
+                src={partner6}
+                alt='pix_1'
+              />
+            </div>
+            <div className={styles.our_partners_inner}>
+              <Image
+                className={styles.partner_image}
+                src={partner7}
+                alt='pix_1'
+              />
+            </div>
+            <div className={styles.our_partners_inner}>
+              <Image
+                className={styles.partner_image}
+                src={partner8}
+                alt='pix_1'
+              />
+            </div>
+            <div className={styles.our_partners_inner}>
+              <Image
+                className={styles.partner_image}
+                src={partner9}
+                alt='pix_1'
+              />
+            </div>
+            <div className={styles.our_partners_inner}>
+              <Image
+                className={styles.partner_image}
+                src={partner10}
+                alt='pix_1'
+              />
+            </div>
+            <div className={styles.our_partners_inner}>
+              <Image
+                className={styles.partner_image}
+                src={partner11}
+                alt='pix_1'
+              />
+            </div>
+            <div className={styles.our_partners_inner}>
+              <Image
+                className={styles.partner_image}
+                src={partner12}
+                alt='pix_1'
+              />
+            </div>
+            <div className={styles.our_partners_inner}>
+              <Image
+                className={styles.partner_image}
+                src={partner13}
+                alt='pix_1'
+              />
+            </div>
+            <div className={styles.our_partners_inner}>
+              <Image
+                className={styles.partner_image}
+                src={partner14}
+                alt='pix_1'
+              />
+            </div>
+            <div className={styles.our_partners_inner}>
+              <Image
+                className={styles.partner_image}
+                src={partner15}
+                alt='pix_1'
+              />
+            </div>
+          </Marquee>
+        </section>
       </section>
     </div>
   );
