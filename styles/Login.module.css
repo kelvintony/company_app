@@ -19,7 +19,7 @@
 .logo_item {
   margin-bottom: 20px;
   display: flex;
-  justify-content: center;
+  padding-left: 25%;
 }
 .login_wrapper {
   width: 458px;
@@ -119,6 +119,7 @@
   .login_container {
     justify-content: flex-start;
     padding-top: 50px;
+    height: 640px;
   }
   .login_wrapper > h3 {
     font-size: 23px;
@@ -131,6 +132,10 @@
     background-color: #ffffff;
 
     padding: 20px;
+  }
+
+  .logo_item {
+    padding-left: 21%;
   }
 
   /* utilities  */

@@ -3,8 +3,24 @@
   height: auto !important;
 }
 
+.logo_container {
+  position: relative;
+}
+.logo_container p {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  z-index: 5;
+  color: #fff;
+  color: #ffedad;
+  margin: 38% 80px;
+}
 @media screen and (max-width: 900px) {
   .mylogo {
-    width: 150px !important;
+    width: 100px !important;
+  }
+
+  .logo_container p {
+    margin: 38% 78px;
   }
 }
