@@ -6,8 +6,9 @@ import styles from './LogoItem.module.css';
 
 const LogoItem = () => {
   return (
-    <div>
+    <div className={styles.logo_container}>
       <Image src={dp4_removebg} alt='dataLogo2' className={styles.mylogo} />
+      <p>DexomPay</p>
     </div>
   );
 };
