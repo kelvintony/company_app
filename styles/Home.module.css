@@ -91,6 +91,40 @@
   height: 100%;
   object-fit: contain;
 }
+
+/* @ why join us section  */
+.why_join_wrapper {
+  background-color: #0d333f;
+}
+
+.why_join_container h3 {
+  color: #fff;
+  font-size: 30px;
+  text-align: center;
+}
+.why_join_container {
+  max-width: 1200px;
+  margin: 80px auto;
+  padding: 20px;
+  /* height: 500px; */
+  margin-bottom: 0px;
+}
+
+.why_join_inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  align-items: center;
+  gap: 20px;
+}
+.join_inner_a {
+  width: 300px;
+  height: auto;
+}
+
+.join_inner_a p {
+  color: #fff;
+  text-align: center;
+}
 /* utilities */
 .btn_hero {
   background: linear-gradient(170.04deg, #f0aa22 -8.91%, #f05822 99.52%);
@@ -209,6 +243,33 @@
   }
   .our_partners {
     margin-top: 0px;
+  }
+
+  /* @ why join us  */
+  .why_join_container {
+    padding: 50px 30px;
+  }
+
+  .why_join_container h3 {
+    font-size: 26px;
+    margin-bottom: 30px;
+  }
+  .why_join_inner {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .join_inner_a {
+    width: 300px;
+    height: auto;
+    border: 1px solid rgb(100, 100, 100);
+    padding: 0px 10px;
+    padding-bottom: 10px;
+  }
+
+  .join_inner_a p {
+    color: #fff;
+    text-align: center;
   }
   /* utilities  */
   .btn_hero {

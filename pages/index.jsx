@@ -7,6 +7,12 @@ import { GoArrowRight } from 'react-icons/go';
 import { useRouter } from 'next/router';
 import Typewriter from 'typewriter-effect';
 import Marquee from 'react-fast-marquee';
+import Lottie from 'lottie-react';
+import animation_lm2czdts from '../assets/animation_file/animation_lm2czdts.json';
+import animation_lm3whktr from '../assets/animation_file/animation_lm3whktr.json';
+import animation_lm3wusmr from '../assets/animation_file/animation_lm3wusmr.json';
+import animation_lm3x2njy from '../assets/animation_file/animation_lm3x2njy.json';
+
 import {
   partner1,
   partner2,
@@ -216,6 +222,27 @@ const Home = () => {
             </div>
           </Marquee>
         </section>
+      </section>
+
+      {/* why join us section  */}
+      <section className={styles.why_join_wrapper}>
+        <div className={styles.why_join_container}>
+          <h3>Why Join Us</h3>
+          <div className={styles.why_join_inner}>
+            <div className={styles.join_inner_a}>
+              <Lottie animationData={animation_lm3x2njy} />
+              <p>Earn A Minimum Of 10% ROI Weekly</p>
+            </div>
+            <div className={styles.join_inner_a}>
+              <Lottie animationData={animation_lm3whktr} />
+              <p> Work Smart, Starting With As Little As $10</p>
+            </div>
+            <div className={styles.join_inner_a}>
+              <Lottie animationData={animation_lm3wusmr} />
+              <p>Earn 10% Bonus On Deposits By Referrals</p>
+            </div>
+          </div>
+        </div>
       </section>
     </div>
   );
