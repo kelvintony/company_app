@@ -253,7 +253,7 @@ const Register = () => {
           <p>
             By clicking the &#34;Create My Account&#34; button, you agree to{' '}
             <br />
-            DataFarm&apos;s{' '}
+            DaxomPay&apos;s{' '}
             <span
               style={{ cursor: 'pointer' }}
               className={styles.create_account_inner}
