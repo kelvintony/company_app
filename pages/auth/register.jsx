@@ -107,7 +107,7 @@ const Register = () => {
         </div>
         <div className={styles.login_wrapper}>
           <h3>Create account</h3>
-          <p>Let&apos;s get you started with your DataFarm account.</p>
+          <p>Let&apos;s get you started with your DaxomPay account.</p>
 
           {errorMessage && (
             <Snackbar open={open} autoHideDuration={5000} onClose={handleClose}>
