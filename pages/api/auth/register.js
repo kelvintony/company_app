@@ -6,15 +6,21 @@ async function handler(req, res) {
   if (req.method !== 'POST') {
     return;
   }
-  const { firstName, lastName, phoneNumber, email, password, confirmPassword } =
-    req.body;
+  const {
+    firstName,
+    lastName,
+    walletAddress,
+    email,
+    password,
+    confirmPassword,
+  } = req.body;
   if (
     !firstName ||
     !lastName ||
     !email ||
     !email.includes('@') ||
     !password ||
-    !phoneNumber
+    !walletAddress
   ) {
     return res.status(409).json({
       message: 'Validation error',
@@ -42,14 +48,14 @@ async function handler(req, res) {
       firstName,
       lastName,
       fullName: `${firstName} ${lastName}`,
-      phoneNumber,
+      walletAddress,
       email,
       password: bcryptjs.hashSync(password),
       superUser: false,
     });
 
     return res.status(201).send({
-      message: 'user Created!',
+      message: 'User created, check email to verify your account',
     });
   } catch (error) {
     return res.status(409).json({ message: error.message });
