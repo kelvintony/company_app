@@ -123,6 +123,7 @@
   height: 100%;
   border: 1px solid rgb(90, 90, 90);
   padding: 0px 20px;
+  border-radius: 20px;
 }
 .join_inner_a:nth-of-type(1) {
   padding-top: 73px;
@@ -153,59 +154,6 @@
   box-shadow: none;
 }
 
-.btn_priceList {
-  margin-top: 20px;
-  width: 180px;
-  border: 1px solid #063a4f;
-  color: #063a4f;
-  padding: 5px 10px;
-  border-radius: 5px;
-  font-size: 17px;
-  font-family: 'Poppins', sans-serif;
-  font-weight: 600;
-  outline: none;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 5px;
-
-  animation: myAnim 2s ease-in 0s infinite normal forwards;
-
-  transition: all 0.2s ease-in-out;
-}
-.btn_priceList:hover {
-  border: 1px solid #f0aa22;
-  color: #f0aa22;
-}
-
-@keyframes myAnim {
-  0% {
-    animation-timing-function: ease-out;
-    transform: scale(1);
-    transform-origin: center center;
-  }
-
-  10% {
-    animation-timing-function: ease-in;
-    transform: scale(0.91);
-  }
-
-  17% {
-    animation-timing-function: ease-out;
-    transform: scale(0.98);
-  }
-
-  33% {
-    animation-timing-function: ease-in;
-    transform: scale(0.87);
-  }
-
-  45% {
-    animation-timing-function: ease-out;
-    transform: scale(1);
-  }
-}
 @media screen and (max-width: 900px) {
   /* hero section */
   .hero_wrapper {
@@ -283,21 +231,6 @@
   }
   /* utilities  */
   .btn_hero {
-    font-weight: 500;
-    font-size: 12px;
-    font-family: 'Rubik', sans-serif;
-  }
-
-  .btn_priceList {
-    background: linear-gradient(170.04deg, #f0aa22 -8.91%, #f05822 99.52%);
-    box-shadow: 0 14px 14px rgba(0, 0, 0, 0.07),
-      0 7px 14px rgba(241, 140, 65, 0.26);
-    color: #fff !important;
-    outline: none;
-    text-align: center;
-    border: none;
-
-    width: 150px;
     font-weight: 500;
     font-size: 12px;
     font-family: 'Rubik', sans-serif;

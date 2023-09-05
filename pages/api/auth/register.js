@@ -1,6 +1,12 @@
 import bcryptjs from 'bcryptjs';
 import userModel from '../../../models/user';
 import db from '../../../utils/db';
+import tokenModel from '../../../models/token';
+import { Resend } from 'resend';
+import crypto from 'crypto';
+
+const RESEND_API_KEY = `${process.env.RESEND_API_KEY}`;
+const resend = new Resend(RESEND_API_KEY);
 
 async function handler(req, res) {
   if (req.method !== 'POST') {
@@ -54,8 +60,33 @@ async function handler(req, res) {
       superUser: false,
     });
 
+    //! create the token
+
+    let newToken = new tokenModel({
+      userId: newUser._id,
+      token: crypto.randomBytes(32).toString('hex'),
+    });
+    await newToken.save();
+
+    const url = `https://dpayai.vercel.app/auth/verify-account?userid=${newUser._id}&token=${newToken.token}`;
+
+    const message = `Click this link to verify your account: ${url} <br> If you have not requested this email please ignore`;
+
+    const data = await resend.emails.send({
+      from: 'DaxomPay <noreply@datafarm.ng>',
+      to: newUser.email,
+      subject: 'Verify Account',
+      html: message,
+    });
+
+    if (!data) {
+      throw new Error('something went wwrong');
+    }
+    //! Token creation ends here
+
     return res.status(201).send({
-      message: 'User created, check email to verify your account',
+      message:
+        'Registration successful, kindly check your email to verify account',
     });
   } catch (error) {
     return res.status(409).json({ message: error.message });

@@ -41,6 +41,7 @@
     "react-youtube": "^10.1.0",
     "resend": "^0.17.2",
     "styled-components": "^5.3.11",
+    "sweetalert2": "^11.7.27",
     "typewriter-effect": "^2.20.1",
     "uuid": "^9.0.0"
   }
