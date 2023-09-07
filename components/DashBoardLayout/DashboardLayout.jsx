@@ -179,7 +179,7 @@ const Dashboard = ({ children }) => {
         </div>
         <div className={styles.notify_container}>
           <div className={styles.red_dot}>2</div>
-          <BsBell size={30} className={styles.bell_icon} />
+          <BsBell size={25} className={styles.bell_icon} />
         </div>
         <RiMenu3Line onClick={toggleMenu} className={styles.mobile_men_close} />
       </div>
