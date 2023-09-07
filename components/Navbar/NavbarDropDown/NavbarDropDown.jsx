@@ -28,6 +28,7 @@ const NavbarDropDownDesktop = ({
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
+            color: '#fff',
           }}
           onClick={toggleDashboard}
         >
@@ -63,17 +64,7 @@ const NavbarDropDownDesktop = ({
                 Transactions
               </Link>
             </li>
-            <li onClick={toggleDashboard} className={styles.profileItems}>
-              <Link style={{ display: 'block' }} href='/user/pricing'>
-                Pricing
-              </Link>
-            </li>
 
-            {/* <li onClick={toggleDashboard} className={styles.profileItems}>
-              <Link style={{ display: 'block' }} href='/user-settings'>
-                Settings
-              </Link>
-            </li> */}
             <hr />
 
             {session?.user?.superUser === true && (
