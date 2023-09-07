@@ -9,9 +9,11 @@
 
 .left_panel,
 .right_panel {
-  border: 1px solid rgb(201, 201, 201);
+  /* border: 1px solid rgb(201, 201, 201); */
   border-radius: 20px;
   padding: 15px;
+  background-color: #fff;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 }
 .profit_target > p:nth-of-type(1) {
   font-size: 27px;
