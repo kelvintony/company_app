@@ -1,0 +1,126 @@
+.dashboard_container {
+  /* height: 500px; */
+  margin-top: 30px;
+  display: grid;
+  /* grid-template-columns: 60% 40%; */
+  grid-template-columns: 3fr 2fr;
+  gap: 30px;
+}
+
+.left_panel,
+.right_panel {
+  border: 1px solid rgb(201, 201, 201);
+  border-radius: 20px;
+  padding: 15px;
+}
+.profit_target > p:nth-of-type(1) {
+  font-size: 27px;
+  font-weight: 500;
+}
+.profit_target > p:nth-of-type(2) {
+  font-size: 15px;
+}
+.match_event {
+  background-color: #0d333f;
+  color: #fff;
+  padding: 15px;
+  border-radius: 20px;
+  margin-top: 20px;
+  text-align: center;
+}
+/* .match_event p:nth-of-type(1) {
+  text-align: center;
+} */
+.match_event > p:nth-of-type(1) {
+  color: #0fd46c;
+}
+.match_event > p:nth-of-type(2) {
+  font-size: 30px;
+  font-weight: 600;
+}
+.event_computations {
+  margin-top: 30px;
+}
+.computation_wrapper {
+  /* border: 1px solid gray; */
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+  gap: 50px;
+}
+
+/* @right panel  */
+.right_panel p:nth-of-type(1) {
+  font-size: 30px;
+  margin-bottom: 5px;
+  font-weight: 300;
+}
+.right_panel p:nth-of-type(2) {
+  font-size: 20px;
+  font-weight: 500;
+  background-color: #24738b;
+
+  color: #fff;
+  padding: 20px;
+  margin-top: 20px;
+}
+.right_panel p:nth-of-type(3) {
+  font-size: 20px;
+  font-weight: 500;
+  background-color: #0d333f;
+
+  color: #fff;
+  padding: 20px;
+  margin-top: 20px;
+}
+.right_panel p:nth-of-type(4) {
+  font-size: 20px;
+  font-weight: 500;
+  background-color: #65ce4d;
+
+  color: #0d333f;
+  padding: 20px;
+  margin-top: 20px;
+}
+.right_panel p:nth-of-type(5) {
+  font-size: 20px;
+  font-weight: 500;
+
+  background-color: #397c2a;
+
+  color: #fff;
+  padding: 20px;
+  margin-top: 20px;
+}
+
+/* @utilities  */
+
+.btn_stake {
+  margin-top: 15px;
+  background: linear-gradient(170.04deg, #f0aa22 -8.91%, #f05822 99.52%);
+  padding: 5px 10px;
+  border-radius: 5px;
+  color: #fff !important;
+  outline: none;
+  width: 200px;
+  height: 40px;
+  font-size: 16px;
+  font-family: 'Poppins', sans-serif;
+  text-align: center;
+  transition: all 0.2s ease-in-out;
+}
+
+.btn_stake:hover {
+  background: linear-gradient(170.04deg, #ebb54b -8.91%, #e97247 99.52%);
+}
+
+@media screen and (max-width: 900px) {
+  .dashboard_container {
+    grid-template-columns: 1fr;
+  }
+  .btn_stake {
+    font-weight: 500;
+    font-size: 12px;
+    font-family: 'Rubik', sans-serif;
+  }
+}

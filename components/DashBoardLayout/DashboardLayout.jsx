@@ -39,19 +39,19 @@ const menuItems = [
     iconsType: <RxDashboard />,
   },
   {
-    id: 'buyData',
+    id: 'profile',
     url: '/user/dashboard',
     menuName: 'Profile',
     iconsType: <BsPersonCircle />,
   },
   {
-    id: 'buyData',
+    id: 'withdraw',
     url: '/user/dashboard',
     menuName: 'Withdraw',
     iconsType: <FaMoneyBillAlt />,
   },
   {
-    id: 'buyAirtime',
+    id: 'deposit',
     url: '/user/dashboard',
     menuName: 'Deposit',
     iconsType: <RiLuggageDepositLine />,
@@ -75,7 +75,7 @@ const Dashboard = ({ children }) => {
 
   console.log('dashboard Layout ran');
 
-  // console.log('from dashboard', state?.userTransactionProfile);
+  console.log('from dashboard', state?.userTransactionProfile);
 
   useEffect(() => {
     const fetchUserTransaction = async () => {
