@@ -39,7 +39,7 @@ export const verifyConfirmationLink = async (req, res) => {
 
     await user.save();
 
-    // await orderToken.remove();
+    await orderToken.remove();
 
     res.status(200).json({ message: 'Account verification was successful' });
   } catch (error) {

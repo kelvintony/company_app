@@ -36,7 +36,11 @@ export default NextAuth({
           email: credentials.email,
         });
 
-        if (user && bcryptjs.compareSync(credentials.password, user.password)) {
+        if (
+          user &&
+          bcryptjs.compareSync(credentials.password, user.password) &&
+          user.verified === true
+        ) {
           return {
             _id: user._id,
             fullName: user.fullName,
@@ -46,6 +50,12 @@ export default NextAuth({
           };
 
           //   console.log('checking the signin')
+        } else if (
+          user &&
+          bcryptjs.compareSync(credentials.password, user.password) &&
+          user.verified === false
+        ) {
+          throw new Error('Your email has not been verified');
         }
 
         throw new Error('Invalid email or password');
