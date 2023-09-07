@@ -65,7 +65,7 @@ const NavbarDropDownDesktop = ({
               </Link>
             </li>
 
-            <hr />
+            {/* <hr /> */}
 
             {session?.user?.superUser === true && (
               <li onClick={toggleDashboard} className={styles.profileItems}>
