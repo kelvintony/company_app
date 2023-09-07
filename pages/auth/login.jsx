@@ -47,7 +47,6 @@ const Login = () => {
   const [loading, setLoading] = useState(false);
 
   const submitFormData = async () => {
-    return;
     setErrorMessage(null);
     setResponseMessage(null);
     if (formData.email.length === 0 || formData.password.length === 0) {

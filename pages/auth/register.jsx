@@ -74,7 +74,7 @@ const Register = () => {
         if (res) {
           setLoading(false);
           setResponseMessage(res.data.message);
-          router.push('/auth/register/#register_container');
+          router.push('/auth/register/#verify_user');
           await new Promise((resolve) => setTimeout(resolve, 2000));
           // router.push('/auth/login');
           setFormData({
@@ -100,7 +100,7 @@ const Register = () => {
     router.push('/auth/login');
   };
   return (
-    <div id='register_container' className={styles.login_container}>
+    <div id='verify_user' className={styles.login_container}>
       <div className={styles.container_inner}>
         <div onClick={() => router.push('/')} className={styles.logo_item}>
           <LogoItem />

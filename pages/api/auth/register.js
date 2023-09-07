@@ -2,6 +2,8 @@ import bcryptjs from 'bcryptjs';
 import userModel from '../../../models/user';
 import db from '../../../utils/db';
 import tokenModel from '../../../models/token';
+import walletProfileModel from '../../../models/walletProfile';
+
 import { Resend } from 'resend';
 import crypto from 'crypto';
 
@@ -58,6 +60,11 @@ async function handler(req, res) {
       email,
       password: bcryptjs.hashSync(password),
       superUser: false,
+    });
+
+    //! create wallet profile
+    const newWalletProfile = await walletProfileModel.create({
+      userId: newUser?._id,
     });
 
     //! create the token

@@ -1,18 +1,18 @@
 import mongoose from 'mongoose';
 
-const transactionProfileSchema = new mongoose.Schema(
+const walletProfileSchema = new mongoose.Schema(
   {
     userId: { type: mongoose.Schema.Types.ObjectId, ref: 'user' },
-    accountBalance: { type: Number, default: 0 },
-    accountType: { type: String, default: 'customer' },
+    accountBalance: { type: mongoose.Schema.Types.Decimal128, default: 0 },
+    // accountType: { type: String, default: 'customer' },
   },
   {
     timestamps: true,
   }
 );
 
-const transactionProfile =
-  mongoose.models.transactionProfile ||
-  mongoose.model('transactionProfile', transactionProfileSchema);
+const walletProfile =
+  mongoose.models.walletProfile ||
+  mongoose.model('walletProfile', walletProfileSchema);
 
-export default transactionProfile;
+export default walletProfile;

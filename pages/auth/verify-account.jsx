@@ -1,4 +1,4 @@
-import React, { useState, forwardRef, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from '../../styles/Register.module.css';
 import { useRouter } from 'next/router';
 import LogoItem from '../../components/LogoItem/LogoItem';
@@ -12,11 +12,7 @@ import NewLoader from '../../components/NewLoader/NewLoader';
 const VerifyAccount = () => {
   const router = useRouter();
 
-  const [formData, setFormData] = useState({});
-
   const [responseMessage, setResponseMessage] = useState(null);
-
-  const [errorMessage, setErrorMessage] = useState(null);
 
   const [loading, setLoading] = useState(false);
   const { userid, token } = router.query;
