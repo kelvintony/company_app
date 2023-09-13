@@ -139,13 +139,13 @@
     font-family: 'Rubik', sans-serif;
   }
 
-  .left_panel {
+  /* .left_panel {
     order: 2;
   }
 
   .right_panel {
     order: -1;
-  }
+  } */
   .right_panel p {
     font-size: 15px !important;
   }
