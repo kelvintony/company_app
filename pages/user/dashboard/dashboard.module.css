@@ -43,6 +43,14 @@
 .event_computations {
   margin-top: 30px;
 }
+
+.event_computations > p {
+  display: none !important;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 15px;
+}
 .computation_wrapper {
   /* border: 1px solid gray; */
   margin-top: 10px;
@@ -61,6 +69,7 @@
   font-size: 20px;
   font-weight: 500;
   background-color: #24738b;
+  background-color: #24738b;
 
   color: #fff;
   padding: 20px;
@@ -70,8 +79,10 @@
   font-size: 20px;
   font-weight: 500;
   background-color: #0d333f;
+  background-color: #a1cda8;
 
   color: #fff;
+  color: #0d333f;
   padding: 20px;
   margin-top: 20px;
 }
@@ -79,6 +90,7 @@
   font-size: 20px;
   font-weight: 500;
   background-color: #65ce4d;
+  background-color: #b5dfca;
 
   color: #0d333f;
   padding: 20px;
@@ -89,8 +101,9 @@
   font-weight: 500;
 
   background-color: #397c2a;
+  background-color: #c5e7e2;
 
-  color: #fff;
+  color: #0d333f;
   padding: 20px;
   margin-top: 20px;
 }
@@ -124,5 +137,31 @@
     font-weight: 500;
     font-size: 12px;
     font-family: 'Rubik', sans-serif;
+  }
+
+  .left_panel {
+    order: 2;
+  }
+
+  .right_panel {
+    order: -1;
+  }
+  .right_panel p {
+    font-size: 15px !important;
+  }
+  .right_panel p:nth-of-type(1) {
+    font-size: 26px !important;
+    font-weight: 300;
+  }
+
+  .event_computations > p {
+    display: block !important;
+  }
+
+  .hide_container {
+    display: none !important;
+  }
+  .show_container {
+    display: block !important;
   }
 }

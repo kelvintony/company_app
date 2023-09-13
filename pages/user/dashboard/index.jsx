@@ -10,6 +10,9 @@ import axios from 'axios';
 import { useSession } from 'next-auth/react';
 import { useStore } from '../../../context';
 
+import { FiArrowDown } from 'react-icons/fi';
+import { FiArrowUp } from 'react-icons/fi';
+
 const UserDashboard = () => {
   const router = useRouter();
 
@@ -23,11 +26,17 @@ const UserDashboard = () => {
 
   const reference = searchParams.get('reference');
 
+  const [showStats, setShowStats] = useState(false);
+
+  const toggleStats = () => {
+    setShowStats(!showStats);
+  };
+
   return (
     <DashboardLayout>
       <>
         <div className={styles.section_a}>
-          <h3>Hello {state?.user?.fullName}!</h3>
+          {state?.user?.fullName && <h3>Hello {state?.user?.fullName}!</h3>}
           <div className={styles.dashboard_container}>
             <div className={styles.left_panel}>
               <div className={styles.profit_target}>
@@ -39,11 +48,43 @@ const UserDashboard = () => {
                 <p>Football</p>
                 <p>BURNLEY VS MANCHESTER CITY</p>
                 <p>
-                  20:00 GMT+1 <br /> 11/08
+                  20:00 GMT+1 <br />{' '}
+                  <span style={{ fontSize: '14px' }}>11th Jun, 2023</span>
                 </p>
 
                 <div className={styles.event_computations}>
-                  <div className={styles.computation_container}>
+                  <p onClick={toggleStats}>
+                    {showStats ? (
+                      <span
+                        style={{
+                          display: 'inline-flex',
+                          alignItems: 'center',
+                          fontSize: '14px',
+                          gap: '5px',
+                          color: '#0fd46c',
+                        }}
+                      >
+                        Hide stats <FiArrowUp />
+                      </span>
+                    ) : (
+                      <span
+                        style={{
+                          display: 'inline-flex',
+                          alignItems: 'center',
+                          fontSize: '14px',
+                          gap: '5px',
+                          color: '#0fd46c',
+                        }}
+                      >
+                        Show stats <FiArrowDown />
+                      </span>
+                    )}
+                  </p>
+                  <div
+                    className={`${styles.computation_container} ${
+                      showStats ? styles.show_container : styles.hide_container
+                    }`}
+                  >
                     <div className={styles.computation_wrapper}>
                       <div className={styles.wrapper_innera}>
                         <p>Event 1</p>
