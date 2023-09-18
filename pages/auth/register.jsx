@@ -206,7 +206,7 @@ const Register = () => {
                     }
                   />
                   <br />
-                  {formDataError && formData.phoneNumber.length <= 0 ? (
+                  {formDataError && formData.walletAddress.length <= 0 ? (
                     <span style={{ color: 'red' }}>* required</span>
                   ) : (
                     ''

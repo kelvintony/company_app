@@ -46,7 +46,7 @@ const menuItems = [
   },
   {
     id: 'withdraw',
-    url: '/user/dashboard',
+    url: '/user/withdraw',
     menuName: 'Withdraw',
     iconsType: <FaMoneyBillAlt />,
   },
