@@ -52,7 +52,7 @@ const menuItems = [
   },
   {
     id: 'deposit',
-    url: '/user/dashboard',
+    url: '/user/deposit',
     menuName: 'Deposit',
     iconsType: <RiLuggageDepositLine />,
   },
