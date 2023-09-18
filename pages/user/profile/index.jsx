@@ -53,7 +53,7 @@ const Profile = () => {
 
           <div className={styles.profile_items}>
             <p>Wallet Address:</p>
-            <p>USDT - {userProfile?.walletAddress}</p>
+            <p>USDT (TRC-20) - {userProfile?.walletAddress}</p>
           </div>
 
           <button className={styles.edit_wallet}>Edit Wallet Address</button>

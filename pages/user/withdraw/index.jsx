@@ -52,6 +52,10 @@ const Withdraw = () => {
           >
             {loading ? <SiginLoader /> : 'Withdraw'}
           </button>
+
+          <p className={styles.withdraw_text}>
+            withdrawals takes 5mins - 24hrs to be processed.
+          </p>
         </div>
       </section>
     </DashboardLayout>
