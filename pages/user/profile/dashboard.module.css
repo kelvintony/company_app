@@ -1,0 +1,67 @@
+.header {
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  font-size: 30px;
+  margin-top: 20px;
+}
+
+.profile_container {
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+  text-align: center;
+}
+
+.profile_items > p:nth-of-type(1) {
+  font-weight: 500;
+  font-size: 20px;
+}
+.profile_items > p:nth-of-type(2) {
+  font-size: 15px;
+}
+
+/* @utilities  */
+
+.edit_wallet {
+  margin-top: 15px;
+  background: linear-gradient(170.04deg, #f0aa22 -8.91%, #f05822 99.52%);
+  padding: 5px 10px;
+  border-radius: 5px;
+  color: #fff !important;
+  outline: none;
+  width: 200px;
+  height: 40px;
+  font-size: 16px;
+  font-family: 'Poppins', sans-serif;
+  text-align: center;
+  transition: all 0.2s ease-in-out;
+}
+
+.edit_wallet:hover {
+  background: linear-gradient(170.04deg, #ebb54b -8.91%, #e97247 99.52%);
+}
+
+@media screen and (max-width: 900px) {
+  .header {
+    font-size: 26px;
+  }
+
+  .profile_items > p:nth-of-type(1) {
+    font-size: 17px;
+  }
+  .profile_items > p:nth-of-type(2) {
+    font-size: 14px;
+  }
+
+  /* utilitties  */
+  .edit_wallet {
+    height: 40px;
+    font-size: 16px;
+    font-family: 'Poppins', sans-serif;
+  }
+}

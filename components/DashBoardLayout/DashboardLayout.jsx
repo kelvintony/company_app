@@ -40,7 +40,7 @@ const menuItems = [
   },
   {
     id: 'profile',
-    url: '/user/dashboard',
+    url: '/user/profile',
     menuName: 'Profile',
     iconsType: <BsPersonCircle />,
   },
@@ -75,7 +75,7 @@ const Dashboard = ({ children }) => {
 
   console.log('dashboard Layout ran');
 
-  console.log('from dashboard', state?.userTransactionProfile);
+  // console.log('from dashboard', state?.userTransactionProfile);
 
   useEffect(() => {
     const fetchUserTransaction = async () => {
