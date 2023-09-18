@@ -4,6 +4,7 @@ import DashboardLayout from '../../../components/DashBoardLayout/DashboardLayout
 import { RiInformationLine } from 'react-icons/ri';
 import { useState } from 'react';
 import { FaMoneyBillAlt } from 'react-icons/fa';
+import SiginLoader from '../../../components/SigninLoader/SiginLoader';
 
 const Withdraw = () => {
   const [loading, setLoading] = useState(false);
