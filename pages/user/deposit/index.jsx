@@ -54,20 +54,22 @@ const Deposit = () => {
           </Alert>
         </Snackbar>
       )}
-      <section className={styles.desposit_container}>
-        <p>
-          Your wallet is credited automatically when you make payment to this
-          wallet address
-        </p>
-        <p>
-          USDT (TRC-20) - <span>1TFBbqZHks9XKqDLCF3C0Lo2Hje6QCQNwS5</span>
-        </p>
-        <CopyToClipboard text={walletAddress} onCopy={handleCopy}>
-          <button className={styles.btn_copy}>
-            Copy <BiCopy />
-          </button>
-        </CopyToClipboard>
-      </section>
+      <main className={styles.dashboard_wrapper}>
+        <section className={styles.desposit_container}>
+          <p>
+            Your wallet is credited automatically when you make payment to this
+            wallet address
+          </p>
+          <p>
+            USDT (TRC-20) - <span>{walletAddress}</span>
+          </p>
+          <CopyToClipboard text={walletAddress} onCopy={handleCopy}>
+            <button className={styles.btn_copy}>
+              Copy <BiCopy />
+            </button>
+          </CopyToClipboard>
+        </section>
+      </main>
     </DashboardLayout>
   );
 };
