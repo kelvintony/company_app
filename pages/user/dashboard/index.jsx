@@ -87,12 +87,42 @@ const UserDashboard = () => {
                   >
                     <div className={styles.computation_wrapper}>
                       <div className={styles.wrapper_innera}>
-                        <p>Event 1</p>
-                        <p>0v2.5</p>
+                        <p
+                          style={{
+                            fontWeight: '700',
+                          }}
+                          className={styles.event_right}
+                        >
+                          Event 1:
+                        </p>
+                        <p
+                          style={{
+                            fontWeight: '700',
+                            borderBottom: '1px solid gray',
+                          }}
+                          className={styles.event_right}
+                        >
+                          over 7.5 conners
+                        </p>
                       </div>
                       <div className={styles.wrapper_innerb}>
-                        <p>Event 2</p>
-                        <p>Un2.5</p>
+                        <p
+                          style={{
+                            fontWeight: '700',
+                          }}
+                          className={styles.event_left}
+                        >
+                          Event 2:
+                        </p>
+                        <p
+                          style={{
+                            fontWeight: '700',
+                            borderBottom: '1px solid gray',
+                          }}
+                          className={styles.event_left}
+                        >
+                          under 7.5 conners
+                        </p>
                       </div>
                     </div>
                     <div className={styles.computation_wrapper}>
