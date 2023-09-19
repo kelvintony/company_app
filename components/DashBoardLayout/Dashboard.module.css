@@ -336,7 +336,9 @@
     justify-content: center;
     gap: 10px;
   }
-
+  .bottom_bar_icon {
+    font-size: 17px;
+  }
   /* utilities  */
   .btn_upgradeNow {
     height: 40px;
