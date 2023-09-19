@@ -334,7 +334,7 @@ const Dashboard = ({ children }) => {
             router.pathname === '/user/transactions' ? styles.active_link : ''
           }
         >
-          <BsJournalRichtext className={styles.bottom_bar_icon} /> Transaction
+          <BsJournalRichtext className={styles.bottom_bar_icon} /> Transactions
         </button>
       </div>
     </div>
