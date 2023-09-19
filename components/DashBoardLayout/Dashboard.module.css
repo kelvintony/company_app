@@ -339,6 +339,10 @@
   .bottom_bar_icon {
     font-size: 17px;
   }
+  .active_link {
+    color: #0fd46c;
+  }
+
   /* utilities  */
   .btn_upgradeNow {
     height: 40px;
@@ -351,5 +355,6 @@
     font-size: 12px;
     font-weight: 400;
     font-family: 'Rubik', sans-serif;
+    padding: 2px;
   }
 }

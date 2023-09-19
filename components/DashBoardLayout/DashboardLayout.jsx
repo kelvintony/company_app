@@ -133,6 +133,7 @@ const Dashboard = ({ children }) => {
     // Cookies.clear();
   };
 
+  console.log('dashboard path', router.pathname);
   return (
     <div className={styles.dashboard_container}>
       {/* ist content  */}
@@ -295,19 +296,44 @@ const Dashboard = ({ children }) => {
 
       {/* bottom bar  */}
       <div className={styles.dashboard_bottomBar}>
-        <button>
+        <button
+          onClick={() => router.push('/user/dashboard')}
+          className={
+            router.pathname === '/user/dashboard' ? styles.active_link : ''
+          }
+        >
           <RxDashboard className={styles.bottom_bar_icon} /> Dashboard
         </button>
-        <button>
+        <button
+          onClick={() => router.push('/user/profile')}
+          className={
+            router.pathname === '/user/profile' ? styles.active_link : ''
+          }
+        >
           <BsPersonCircle className={styles.bottom_bar_icon} /> Profile
         </button>
-        <button>
+        <button
+          onClick={() => router.push('/user/withdraw')}
+          className={
+            router.pathname === '/user/withdraw' ? styles.active_link : ''
+          }
+        >
           <FaMoneyBillAlt className={styles.bottom_bar_icon} /> Withdraw
         </button>
-        <button>
+        <button
+          onClick={() => router.push('/user/deposit')}
+          className={
+            router.pathname === '/user/deposit' ? styles.active_link : ''
+          }
+        >
           <RiLuggageDepositLine className={styles.bottom_bar_icon} /> Deposit
         </button>
-        <button>
+        <button
+          onClick={() => router.push('/user/transactions')}
+          className={
+            router.pathname === '/user/transactions' ? styles.active_link : ''
+          }
+        >
           <BsJournalRichtext className={styles.bottom_bar_icon} /> Transaction
         </button>
       </div>
