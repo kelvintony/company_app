@@ -292,6 +292,25 @@ const Dashboard = ({ children }) => {
 
         <div>{children}</div>
       </div>
+
+      {/* bottom bar  */}
+      <div className={styles.dashboard_bottomBar}>
+        <button>
+          <RxDashboard className={styles.bottom_bar_icon} /> Dashboard
+        </button>
+        <button>
+          <BsPersonCircle className={styles.bottom_bar_icon} /> Profile
+        </button>
+        <button>
+          <FaMoneyBillAlt className={styles.bottom_bar_icon} /> Withdraw
+        </button>
+        <button>
+          <RiLuggageDepositLine className={styles.bottom_bar_icon} /> Deposit
+        </button>
+        <button>
+          <BsJournalRichtext className={styles.bottom_bar_icon} /> Transaction
+        </button>
+      </div>
     </div>
   );
 };
