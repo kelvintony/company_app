@@ -158,6 +158,23 @@
   font-weight: 600;
   color: rgb(70, 165, 15);
 }
+
+/* dashboard bottom section  */
+.dashboard_bottomBar {
+  display: none;
+  position: fixed;
+  width: 100%;
+  background-color: #f4f6f8;
+  bottom: 0;
+  left: 0;
+  margin-left: 20%;
+  padding: 10px;
+  z-index: 8;
+
+  border-top: 1px solid rgb(199, 199, 199);
+  border-top: 1px solid rgb(216, 216, 216);
+}
+
 /* utilitie  */
 .mobile_men,
 .mobile_men_close {
@@ -312,11 +329,25 @@
     font-size: 11px;
   }
 
+  .dashboard_bottomBar {
+    display: block;
+    margin-left: 0px;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+  }
+
   /* utilities  */
   .btn_upgradeNow {
     height: 40px;
     justify-content: center;
     align-items: center;
     font-weight: 500;
+  }
+
+  .dashboard_bottomBar button {
+    font-size: 12px;
+    font-weight: 400;
+    font-family: 'Rubik', sans-serif;
   }
 }
