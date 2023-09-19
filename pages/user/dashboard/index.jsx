@@ -98,36 +98,38 @@ const UserDashboard = () => {
                     <div className={styles.computation_wrapper}>
                       <div className={styles.wrapper_innera}>
                         <p className={styles.event_right}>
-                          Total equity: &#36;512.2
+                          Total equity: <br /> &#36;512.2
                         </p>
                       </div>
                       <div className={styles.wrapper_innerb}>
                         <p className={styles.event_left}>
                           {' '}
-                          Total equity: &#36;487.8
+                          Total equity: <br /> &#36;487.8
                         </p>
                       </div>
                     </div>
                     <div className={styles.computation_wrapper}>
                       <div className={styles.wrapper_innera}>
                         <p className={styles.event_right}>
-                          Expected returns: &#36;1,010
+                          Expected returns: <br /> &#36;1,010
                         </p>
                       </div>
                       <div className={styles.wrapper_innerb}>
                         <p className={styles.event_left}>
-                          Expected returns: &#36;1,010
+                          Expected returns: <br /> &#36;1,010
                         </p>
                       </div>
                     </div>
                     <div className={styles.computation_wrapper}>
                       <div className={styles.wrapper_innera}>
                         <p className={styles.event_right}>
-                          Event RO1: &#36;910
+                          Event RO1: <br /> &#36;910
                         </p>
                       </div>
                       <div className={styles.wrapper_innerb}>
-                        <p className={styles.event_left}>Event RO1: &#36;910</p>
+                        <p className={styles.event_left}>
+                          Event RO1: <br /> &#36;910
+                        </p>
                       </div>
                     </div>
                   </div>
