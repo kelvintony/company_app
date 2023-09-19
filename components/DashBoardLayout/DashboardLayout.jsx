@@ -58,7 +58,7 @@ const menuItems = [
   },
   {
     id: 'transaction',
-    url: '/user/dashboard',
+    url: '/user/transactions',
     menuName: 'Transactions',
     iconsType: <BsJournalRichtext />,
   },
