@@ -133,7 +133,6 @@ const Dashboard = ({ children }) => {
     // Cookies.clear();
   };
 
-  console.log('dashboard path', router.pathname);
   return (
     <div className={styles.dashboard_container}>
       {/* ist content  */}
