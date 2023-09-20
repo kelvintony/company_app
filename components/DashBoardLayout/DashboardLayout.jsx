@@ -148,7 +148,9 @@ const Dashboard = ({ children }) => {
       <div className={`${styles.dashboard_topBar} ${styles.extra_menu}`}>
         <div className={`${styles.user_info} ${styles.margin_top}`}>
           {state?.user?.fullName && (
-            <h4>{state?.user?.fullName.slice(0, 2)}</h4>
+            <h4 onClick={() => router.push('/user/profile')}>
+              {state?.user?.fullName.slice(0, 2)}
+            </h4>
           )}
           <div className={styles.user_balance}>
             <p className={styles.user_name}>{state?.user?.fullName}</p>
@@ -197,7 +199,9 @@ const Dashboard = ({ children }) => {
         />
         <div className={styles.user_info}>
           {state?.user?.fullName && (
-            <h4>{state?.user?.fullName.slice(0, 2)}</h4>
+            <h4 onClick={() => router.push('/user/profile')}>
+              {state?.user?.fullName.slice(0, 2)}
+            </h4>
           )}
           {/* state?.userTransactionProfile?.loading */}
           <div className={styles.user_balance}>
@@ -232,7 +236,11 @@ const Dashboard = ({ children }) => {
               <Link
                 onClick={closeMenu}
                 key={item.id}
-                className={styles.menu_items}
+                className={
+                  router.pathname === item.url
+                    ? styles.menu_items_active
+                    : styles.menu_items
+                }
                 href={item.url}
               >
                 <span className={styles.item_icon}>{item.iconsType}</span>
@@ -243,7 +251,11 @@ const Dashboard = ({ children }) => {
           {session?.user?.superUser === true && (
             <button
               onClick={() => router.push('/user/admin')}
-              className={styles.user_admin}
+              className={
+                router.pathname === '/user/admin'
+                  ? styles.menu_items_active
+                  : styles.user_admin
+              }
             >
               <RiAdminLine className={styles.item_icon} />
               Admin

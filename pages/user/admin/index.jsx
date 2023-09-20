@@ -2,6 +2,7 @@ import React from 'react';
 import Dashboard from '../../../components/DashBoardLayout/DashboardLayout';
 import styles from './Admin.module.css';
 import { FaSmile } from 'react-icons/fa';
+import AdminTab from '../../../components/AdminComponents/AdminTab/AdminTab';
 
 const Home = () => {
   return (
@@ -10,6 +11,9 @@ const Home = () => {
         Welcome Admin
         <FaSmile className={styles.smile_icon} />
       </h3>
+      <div className={styles.admin_tab_container}>
+        <AdminTab />
+      </div>
     </Dashboard>
   );
 };
