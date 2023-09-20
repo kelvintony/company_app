@@ -4,10 +4,21 @@ import styles from './EventSetup.module.css';
 
 const EventSetup = () => {
   const [loading, setLoading] = useState(false);
-  const [formData, setFormData] = useState({ email: '' });
+  const [formData, setFormData] = useState({
+    eventType: '',
+    eventSelection: '',
+    eventOption1: '',
+    eventOption1Odd: '',
+    eventOption2: '',
+    eventOption2Odd: '',
+    eventDate: '',
+    eventTime: '',
+  });
   const [formDataError, setFormDataError] = useState(false);
 
-  const submitFormData = () => {};
+  const submitFormData = () => {
+    console.log(formData);
+  };
   return (
     <div className={styles.event_container}>
       <h3>Event Setup</h3>
@@ -19,14 +30,14 @@ const EventSetup = () => {
               type='text'
               name='eventType'
               className={styles.form_control}
-              value={formData?.email}
+              value={formData?.eventType}
               placeholder='e.g football / table tennis / basketball'
               onChange={(e) =>
-                setFormData({ ...formData, email: e.target.value })
+                setFormData({ ...formData, eventType: e.target.value })
               }
             />
             <br />
-            {formDataError && formData.email.length <= 0 ? (
+            {formDataError && formData.eventType.length <= 0 ? (
               <span style={{ color: 'red' }}>* required</span>
             ) : (
               ''
@@ -38,16 +49,16 @@ const EventSetup = () => {
             Event Selection : <br />
             <input
               type='text'
-              name='event'
+              name='eventSelection'
               className={styles.form_control}
-              value={formData?.email}
+              value={formData?.eventSelection}
               placeholder='e.g BURNLEY VS MANCHESTER CITY'
               onChange={(e) =>
-                setFormData({ ...formData, email: e.target.value })
+                setFormData({ ...formData, eventSelection: e.target.value })
               }
             />
             <br />
-            {formDataError && formData.email.length <= 0 ? (
+            {formDataError && formData.eventSelection.length <= 0 ? (
               <span style={{ color: 'red' }}>* required</span>
             ) : (
               ''
@@ -63,14 +74,14 @@ const EventSetup = () => {
                 type='text'
                 name='eventOption1'
                 className={styles.form_control}
-                value={formData?.email}
+                value={formData?.eventOption1}
                 placeholder='e.g over 2.5'
                 onChange={(e) =>
-                  setFormData({ ...formData, email: e.target.value })
+                  setFormData({ ...formData, eventOption1: e.target.value })
                 }
               />
               <br />
-              {formDataError && formData.email.length <= 0 ? (
+              {formDataError && formData.eventOption1.length <= 0 ? (
                 <span style={{ color: 'red' }}>* required</span>
               ) : (
                 ''
@@ -82,16 +93,16 @@ const EventSetup = () => {
               Odd 1 : <br />
               <input
                 type='text'
-                name='odd1'
+                name='eventOption1Odd'
                 className={styles.form_control}
-                value={formData?.email}
+                value={formData?.eventOption1Odd}
                 placeholder='e.g 1.90'
                 onChange={(e) =>
-                  setFormData({ ...formData, email: e.target.value })
+                  setFormData({ ...formData, eventOption1Odd: e.target.value })
                 }
               />
               <br />
-              {formDataError && formData.email.length <= 0 ? (
+              {formDataError && formData.eventOption1Odd.length <= 0 ? (
                 <span style={{ color: 'red' }}>* required</span>
               ) : (
                 ''
@@ -105,14 +116,14 @@ const EventSetup = () => {
                 type='text'
                 name='eventOption2'
                 className={styles.form_control}
-                value={formData?.email}
+                value={formData?.eventOption2}
                 placeholder='e.g under 2.5'
                 onChange={(e) =>
-                  setFormData({ ...formData, email: e.target.value })
+                  setFormData({ ...formData, eventOption2: e.target.value })
                 }
               />
               <br />
-              {formDataError && formData.email.length <= 0 ? (
+              {formDataError && formData.eventOption2.length <= 0 ? (
                 <span style={{ color: 'red' }}>* required</span>
               ) : (
                 ''
@@ -124,16 +135,16 @@ const EventSetup = () => {
               Odd 2 : <br />
               <input
                 type='text'
-                name='odd2'
+                name='eventOption2Odd'
                 className={styles.form_control}
-                value={formData?.email}
+                value={formData?.eventOption2Odd}
                 placeholder='e.g 2.01'
                 onChange={(e) =>
-                  setFormData({ ...formData, email: e.target.value })
+                  setFormData({ ...formData, eventOption2Odd: e.target.value })
                 }
               />
               <br />
-              {formDataError && formData.email.length <= 0 ? (
+              {formDataError && formData.eventOption2Odd.length <= 0 ? (
                 <span style={{ color: 'red' }}>* required</span>
               ) : (
                 ''
@@ -148,13 +159,13 @@ const EventSetup = () => {
               type='date'
               name='eventDate'
               className={styles.form_control}
-              value={formData?.email}
+              value={formData?.eventDate}
               onChange={(e) =>
-                setFormData({ ...formData, email: e.target.value })
+                setFormData({ ...formData, eventDate: e.target.value })
               }
             />
             <br />
-            {formDataError && formData.email.length <= 0 ? (
+            {formDataError && formData.eventDate.length <= 0 ? (
               <span style={{ color: 'red' }}>* required</span>
             ) : (
               ''
@@ -168,13 +179,13 @@ const EventSetup = () => {
               type='time'
               name='eventTime'
               className={styles.form_control}
-              value={formData?.email}
+              value={formData?.eventTime}
               onChange={(e) =>
-                setFormData({ ...formData, email: e.target.value })
+                setFormData({ ...formData, eventTime: e.target.value })
               }
             />
             <br />
-            {formDataError && formData.email.length <= 0 ? (
+            {formDataError && formData.eventTime.length <= 0 ? (
               <span style={{ color: 'red' }}>* required</span>
             ) : (
               ''
