@@ -64,6 +64,7 @@
 .kickStart_container {
   border: 1px solid rgb(218, 218, 218);
   padding: 5px;
+  height: 400px;
 }
 
 .kickStart_container > h3 {
@@ -135,11 +136,12 @@
 }
 
 .btn_create_event_inactive {
-  box-shadow: none;
   background: linear-gradient(170.04deg, #f0aa22 -8.91%, #f09b7c 99.52%);
 }
 
+/* // */
 .btn_kick_start {
+  display: none;
   margin-top: 15px;
   background: linear-gradient(170.04deg, #f0aa22 -8.91%, #f05822 99.52%);
   padding: 5px 10px;
@@ -158,6 +160,10 @@
   background: linear-gradient(170.04deg, #ebb54b -8.91%, #e97247 99.52%);
 }
 
+.btn_kick_start_inactive {
+  background: linear-gradient(170.04deg, #ebb54b -8.91%, #e97247 99.52%);
+}
+
 @media screen and (max-width: 900px) {
   .header {
     font-size: 26px;
@@ -165,8 +171,6 @@
 
   .event_container > h3 {
     font-size: 26px;
-    margin-bottom: 20px;
-    margin-top: 20px;
   }
 
   .event_wrapper {
@@ -181,6 +185,7 @@
   /* @ EVENT SUMMARY  */
   .kickStart_container {
     margin-top: 20px;
+    height: auto;
   }
 
   .event_computations > p {
@@ -201,7 +206,14 @@
   }
 
   /* utilities  */
+
   .btn_create_event {
+    display: none;
     height: 50px;
+  }
+
+  .btn_kick_start {
+    display: inline-flex;
+    justify-content: center;
   }
 }
