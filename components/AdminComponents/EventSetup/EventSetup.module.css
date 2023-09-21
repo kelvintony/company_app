@@ -9,7 +9,6 @@
 }
 .login_wrapper {
   width: 458px;
-  border-radius: 8px;
   padding: 0px 0px;
 }
 .event_wrapper {
@@ -174,12 +173,16 @@
     grid-template-columns: 1fr;
   }
   .login_wrapper {
+    border-bottom: 1px solid rgb(214, 214, 214);
     width: 100%;
     height: auto;
-    border-radius: 8px;
   }
 
   /* @ EVENT SUMMARY  */
+  .kickStart_container {
+    margin-top: 20px;
+  }
+
   .event_computations > p {
     display: block !important;
   }

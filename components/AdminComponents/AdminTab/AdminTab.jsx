@@ -34,13 +34,14 @@ export default function AdminTab() {
             // aria-label="scrollable auto tabs example"
           >
             <Tab className={styles.userTab} label='Event Setup' value='1' />
-            <Tab className={styles.userTab} label='Users' value='2' />
+            <Tab className={styles.userTab} label='Live Event' value='2' />
+            <Tab className={styles.userTab} label='Users' value='3' />
             <Tab
               className={styles.userTab}
               label='Financial Analytics'
-              value='3'
+              value='4'
             />
-            <Tab className={styles.userTab} label='Transactions' value='4' />
+            <Tab className={styles.userTab} label='Transactions' value='5' />
           </TabList>
         </Box>
         <TabPanel value='1'>
@@ -50,15 +51,20 @@ export default function AdminTab() {
         </TabPanel>
         <TabPanel value='2'>
           <div className={styles.tab_container}>
-            <h3>Users</h3>
+            <h3>Live Event</h3>
           </div>
         </TabPanel>
         <TabPanel value='3'>
           <div className={styles.tab_container}>
-            <h3>Financial Analytics</h3>
+            <h3>Users</h3>
           </div>
         </TabPanel>
         <TabPanel value='4'>
+          <div className={styles.tab_container}>
+            <h3>Financial Analytics</h3>
+          </div>
+        </TabPanel>
+        <TabPanel value='5'>
           <div className={styles.tab_container}>
             <h3>Transactions</h3>
           </div>

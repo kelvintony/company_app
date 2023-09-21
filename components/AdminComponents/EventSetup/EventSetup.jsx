@@ -19,7 +19,7 @@ const EventSetup = () => {
 
   const submitFormData = () => {
     console.log(formData);
-    console.log(eventDateConverter(formData.eventDate));
+    // console.log(eventDateConverter(formData.eventDate));
   };
   return (
     <div className={styles.event_container}>
@@ -217,6 +217,9 @@ const EventSetup = () => {
         <div className={styles.kickStart_container}>
           <h3>Event Summary</h3>
           <div className={styles.right_panel}>
+            {/* @ DUMMY DATA  */}
+            <>
+              {/* 
             <div className={styles.match_event}>
               <p>Football</p>
               <p>BURNLEY VS MANCHESTER CITY</p>
@@ -272,20 +275,116 @@ const EventSetup = () => {
                   <div className={styles.computation_wrapper}>
                     <div className={styles.wrapper_innera}>
                       <p className={styles.event_right}>
-                        Total equity: <br /> &#36;512.2
+                        Odd 1: <br />
+                        2.10
                       </p>
                     </div>
                     <div className={styles.wrapper_innerb}>
                       <p className={styles.event_left}>
                         {' '}
-                        Total equity: <br /> &#36;487.8
+                        Odd 2: <br />
+                        1.92
                       </p>
                     </div>
                   </div>
                 </div>
-
                 <button className={styles.btn_kick_start}>
-                  Kick start event
+                  Kick Start Event
+                </button>
+              </div>
+            </div>
+            */}
+            </>
+
+            <div className={styles.match_event}>
+              <p>
+                {formData?.eventType.length > 0 ? formData?.eventType : '*****'}
+              </p>
+              <p>
+                {formData?.eventSelection.length > 0
+                  ? formData?.eventSelection
+                  : '************'}
+              </p>
+              <p>
+                {formData?.eventTime.length > 0 ? formData?.eventTime : '****'}{' '}
+                GMT+1 <br />{' '}
+                <span style={{ fontSize: '14px' }}>
+                  {formData?.eventDate.length > 0
+                    ? eventDateConverter(formData.eventDate)
+                    : '*******'}
+                </span>
+              </p>
+
+              <div className={styles.event_computations}>
+                <div
+                  className={`${styles.computation_container} ${styles.show_container}`}
+                >
+                  <div className={styles.computation_wrapper}>
+                    <div className={styles.wrapper_innera}>
+                      <p
+                        style={{
+                          fontWeight: '700',
+                        }}
+                        className={styles.event_right}
+                      >
+                        Event 1:
+                      </p>
+                      <p
+                        style={{
+                          fontWeight: '700',
+                          borderBottom: '1px solid gray',
+                        }}
+                        className={styles.event_right}
+                      >
+                        {formData?.eventOption1.length > 0
+                          ? formData?.eventOption1
+                          : '*******'}
+                      </p>
+                    </div>
+                    <div className={styles.wrapper_innerb}>
+                      <p
+                        style={{
+                          fontWeight: '700',
+                        }}
+                        className={styles.event_left}
+                      >
+                        Event 2:
+                      </p>
+                      <p
+                        style={{
+                          fontWeight: '700',
+                          borderBottom: '1px solid gray',
+                        }}
+                        className={styles.event_left}
+                      >
+                        {formData?.eventOption2.length > 0
+                          ? formData?.eventOption2
+                          : '*******'}
+                      </p>
+                    </div>
+                  </div>
+                  <div className={styles.computation_wrapper}>
+                    <div className={styles.wrapper_innera}>
+                      <p className={styles.event_right}>
+                        Odd 1: <br />
+                        {formData?.eventOption1Odd.length > 0
+                          ? formData?.eventOption1Odd
+                          : '****'}
+                      </p>
+                    </div>
+                    <div className={styles.wrapper_innerb}>
+                      <p className={styles.event_left}>
+                        {' '}
+                        Odd 2: <br />
+                        {formData?.eventOption2Odd.length > 0
+                          ? formData?.eventOption2Odd
+                          : '****'}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <button className={styles.btn_kick_start}>
+                  Kick Start Event
                 </button>
               </div>
             </div>
