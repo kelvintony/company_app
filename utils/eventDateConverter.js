@@ -9,7 +9,7 @@ const eventDateConverter = (dateTimeString) => {
     const year = date.getFullYear();
     const dayWithSuffix = getDayWithSuffix(day);
 
-    return `${dayWithSuffix} ${month} ${year}`;
+    return `${dayWithSuffix} ${month}, ${year}`;
   }
 
   function getMonthName(monthIndex) {
