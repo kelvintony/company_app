@@ -383,8 +383,16 @@ const EventSetup = () => {
                     </div>
                   </div>
                 </div>
-                <button className={styles.btn_kick_start}>
-                  Kick Start Event
+                <button
+                  onClick={submitFormData}
+                  className={
+                    loading
+                      ? `${styles.btn_kick_start} ${styles.btn_kick_start_inactive}`
+                      : styles.btn_kick_start
+                  }
+                  disabled={loading}
+                >
+                  {loading ? <SiginLoader /> : 'Create Event'}
                 </button>
               </div>
             </div>

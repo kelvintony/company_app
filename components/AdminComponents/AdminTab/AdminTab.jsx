@@ -10,6 +10,7 @@ import { useSession } from 'next-auth/react';
 
 import Image from 'next/image';
 import EventSetup from '../EventSetup/EventSetup';
+import LiveEvent from '../LiveEvent/LiveEvent';
 
 export default function AdminTab() {
   const { status, data: session } = useSession();
@@ -51,7 +52,7 @@ export default function AdminTab() {
         </TabPanel>
         <TabPanel value='2'>
           <div className={styles.tab_container}>
-            <h3>Live Event</h3>
+            <LiveEvent />
           </div>
         </TabPanel>
         <TabPanel value='3'>
