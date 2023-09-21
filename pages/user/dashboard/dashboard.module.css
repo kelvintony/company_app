@@ -148,21 +148,7 @@
     font-family: 'Rubik', sans-serif;
   }
 
-  /* .left_panel {
-    order: 2;
-  }
-
-  .right_panel {
-    order: -1;
-  } */
-  .right_panel p {
-    font-size: 15px !important;
-  }
-  .right_panel p:nth-of-type(1) {
-    font-size: 26px !important;
-    font-weight: 300;
-  }
-
+  /* @LEFT PANEL  */
   .event_computations > p {
     display: block !important;
   }
@@ -181,5 +167,14 @@
   .event_left {
     text-align: left;
     font-size: 13px;
+  }
+
+  /* @RIGHT PANEL  */
+  .right_panel p {
+    font-size: 15px !important;
+  }
+  .right_panel p:nth-of-type(1) {
+    font-size: 26px !important;
+    font-weight: 300;
   }
 }

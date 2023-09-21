@@ -1,6 +1,7 @@
 import SiginLoader from '../../SigninLoader/SiginLoader';
 import React, { useState } from 'react';
 import styles from './EventSetup.module.css';
+import eventDateConverter from '../../../utils/eventDateConverter';
 
 const EventSetup = () => {
   const [loading, setLoading] = useState(false);
@@ -18,70 +19,162 @@ const EventSetup = () => {
 
   const submitFormData = () => {
     console.log(formData);
+    console.log(eventDateConverter(formData.eventDate));
   };
   return (
     <div className={styles.event_container}>
       <h3>Event Setup</h3>
-      <div className={styles.login_wrapper}>
-        <div className={styles.input_wrapper}>
-          <label htmlFor='eventType'>
-            Event Type: <br />
-            <input
-              type='text'
-              name='eventType'
-              className={styles.form_control}
-              value={formData?.eventType}
-              placeholder='e.g football / table tennis / basketball'
-              onChange={(e) =>
-                setFormData({ ...formData, eventType: e.target.value })
-              }
-            />
-            <br />
-            {formDataError && formData.eventType.length <= 0 ? (
-              <span style={{ color: 'red' }}>* required</span>
-            ) : (
-              ''
-            )}
-          </label>
-        </div>
-        <div className={styles.input_wrapper}>
-          <label htmlFor='eventSelection'>
-            Event Selection : <br />
-            <input
-              type='text'
-              name='eventSelection'
-              className={styles.form_control}
-              value={formData?.eventSelection}
-              placeholder='e.g BURNLEY VS MANCHESTER CITY'
-              onChange={(e) =>
-                setFormData({ ...formData, eventSelection: e.target.value })
-              }
-            />
-            <br />
-            {formDataError && formData.eventSelection.length <= 0 ? (
-              <span style={{ color: 'red' }}>* required</span>
-            ) : (
-              ''
-            )}
-          </label>
-        </div>
+      <div className={styles.event_wrapper}>
+        <div className={styles.login_wrapper}>
+          <div className={styles.input_wrapper}>
+            <label htmlFor='eventType'>
+              Event Type: <br />
+              <input
+                type='text'
+                name='eventType'
+                className={styles.form_control}
+                value={formData?.eventType}
+                placeholder='e.g football / table tennis / basketball'
+                onChange={(e) =>
+                  setFormData({ ...formData, eventType: e.target.value })
+                }
+              />
+              <br />
+              {formDataError && formData.eventType.length <= 0 ? (
+                <span style={{ color: 'red' }}>* required</span>
+              ) : (
+                ''
+              )}
+            </label>
+          </div>
+          <div className={styles.input_wrapper}>
+            <label htmlFor='eventSelection'>
+              Event Selection : <br />
+              <input
+                type='text'
+                name='eventSelection'
+                className={styles.form_control}
+                value={formData?.eventSelection}
+                placeholder='e.g BURNLEY VS MANCHESTER CITY'
+                onChange={(e) =>
+                  setFormData({ ...formData, eventSelection: e.target.value })
+                }
+              />
+              <br />
+              {formDataError && formData.eventSelection.length <= 0 ? (
+                <span style={{ color: 'red' }}>* required</span>
+              ) : (
+                ''
+              )}
+            </label>
+          </div>
 
-        <div className={styles.event_option}>
+          <div className={styles.event_option}>
+            <div className={styles.input_wrapper}>
+              <label htmlFor='eventOption1'>
+                Event Option 1 : <br />
+                <input
+                  type='text'
+                  name='eventOption1'
+                  className={styles.form_control}
+                  value={formData?.eventOption1}
+                  placeholder='e.g over 2.5'
+                  onChange={(e) =>
+                    setFormData({ ...formData, eventOption1: e.target.value })
+                  }
+                />
+                <br />
+                {formDataError && formData.eventOption1.length <= 0 ? (
+                  <span style={{ color: 'red' }}>* required</span>
+                ) : (
+                  ''
+                )}
+              </label>
+            </div>
+            <div className={styles.input_wrapper}>
+              <label htmlFor='eventOption1Odd'>
+                Odd 1 : <br />
+                <input
+                  type='text'
+                  name='eventOption1Odd'
+                  className={styles.form_control}
+                  value={formData?.eventOption1Odd}
+                  placeholder='e.g 1.90'
+                  onChange={(e) =>
+                    setFormData({
+                      ...formData,
+                      eventOption1Odd: e.target.value,
+                    })
+                  }
+                />
+                <br />
+                {formDataError && formData.eventOption1Odd.length <= 0 ? (
+                  <span style={{ color: 'red' }}>* required</span>
+                ) : (
+                  ''
+                )}
+              </label>
+            </div>
+            <div className={styles.input_wrapper}>
+              <label htmlFor='eventOption2'>
+                Event Option 2 : <br />
+                <input
+                  type='text'
+                  name='eventOption2'
+                  className={styles.form_control}
+                  value={formData?.eventOption2}
+                  placeholder='e.g under 2.5'
+                  onChange={(e) =>
+                    setFormData({ ...formData, eventOption2: e.target.value })
+                  }
+                />
+                <br />
+                {formDataError && formData.eventOption2.length <= 0 ? (
+                  <span style={{ color: 'red' }}>* required</span>
+                ) : (
+                  ''
+                )}
+              </label>
+            </div>
+            <div className={styles.input_wrapper}>
+              <label htmlFor='eventOption2Odd'>
+                Odd 2 : <br />
+                <input
+                  type='text'
+                  name='eventOption2Odd'
+                  className={styles.form_control}
+                  value={formData?.eventOption2Odd}
+                  placeholder='e.g 2.01'
+                  onChange={(e) =>
+                    setFormData({
+                      ...formData,
+                      eventOption2Odd: e.target.value,
+                    })
+                  }
+                />
+                <br />
+                {formDataError && formData.eventOption2Odd.length <= 0 ? (
+                  <span style={{ color: 'red' }}>* required</span>
+                ) : (
+                  ''
+                )}
+              </label>
+            </div>
+          </div>
           <div className={styles.input_wrapper}>
-            <label htmlFor='eventOption1'>
-              Event Option 1 : <br />
+            <label htmlFor='eventDate'>
+              Date : <br />
               <input
-                type='text'
-                name='eventOption1'
+                type='date'
+                name='eventDate'
                 className={styles.form_control}
-                value={formData?.eventOption1}
-                placeholder='e.g over 2.5'
+                value={formData?.eventDate}
                 onChange={(e) =>
-                  setFormData({ ...formData, eventOption1: e.target.value })
+                  setFormData({ ...formData, eventDate: e.target.value })
                 }
               />
               <br />
-              {formDataError && formData.eventOption1.length <= 0 ? (
+              {formDataError && formData.eventDate.length <= 0 ? (
                 <span style={{ color: 'red' }}>* required</span>
               ) : (
                 ''
@@ -89,125 +182,115 @@ const EventSetup = () => {
             </label>
           </div>
           <div className={styles.input_wrapper}>
-            <label htmlFor='eventOption1Odd'>
-              Odd 1 : <br />
+            <label htmlFor='eventTime'>
+              Time : <br />
               <input
-                type='text'
-                name='eventOption1Odd'
+                type='time'
+                name='eventTime'
                 className={styles.form_control}
-                value={formData?.eventOption1Odd}
-                placeholder='e.g 1.90'
+                value={formData?.eventTime}
                 onChange={(e) =>
-                  setFormData({ ...formData, eventOption1Odd: e.target.value })
+                  setFormData({ ...formData, eventTime: e.target.value })
                 }
               />
               <br />
-              {formDataError && formData.eventOption1Odd.length <= 0 ? (
+              {formDataError && formData.eventTime.length <= 0 ? (
                 <span style={{ color: 'red' }}>* required</span>
               ) : (
                 ''
               )}
             </label>
           </div>
-          <div className={styles.input_wrapper}>
-            <label htmlFor='eventOption2'>
-              Event Option 2 : <br />
-              <input
-                type='text'
-                name='eventOption2'
-                className={styles.form_control}
-                value={formData?.eventOption2}
-                placeholder='e.g under 2.5'
-                onChange={(e) =>
-                  setFormData({ ...formData, eventOption2: e.target.value })
-                }
-              />
-              <br />
-              {formDataError && formData.eventOption2.length <= 0 ? (
-                <span style={{ color: 'red' }}>* required</span>
-              ) : (
-                ''
-              )}
-            </label>
-          </div>
-          <div className={styles.input_wrapper}>
-            <label htmlFor='eventOption2Odd'>
-              Odd 2 : <br />
-              <input
-                type='text'
-                name='eventOption2Odd'
-                className={styles.form_control}
-                value={formData?.eventOption2Odd}
-                placeholder='e.g 2.01'
-                onChange={(e) =>
-                  setFormData({ ...formData, eventOption2Odd: e.target.value })
-                }
-              />
-              <br />
-              {formDataError && formData.eventOption2Odd.length <= 0 ? (
-                <span style={{ color: 'red' }}>* required</span>
-              ) : (
-                ''
-              )}
-            </label>
-          </div>
-        </div>
-        <div className={styles.input_wrapper}>
-          <label htmlFor='eventDate'>
-            Date : <br />
-            <input
-              type='date'
-              name='eventDate'
-              className={styles.form_control}
-              value={formData?.eventDate}
-              onChange={(e) =>
-                setFormData({ ...formData, eventDate: e.target.value })
-              }
-            />
-            <br />
-            {formDataError && formData.eventDate.length <= 0 ? (
-              <span style={{ color: 'red' }}>* required</span>
-            ) : (
-              ''
-            )}
-          </label>
-        </div>
-        <div className={styles.input_wrapper}>
-          <label htmlFor='eventTime'>
-            Time : <br />
-            <input
-              type='time'
-              name='eventTime'
-              className={styles.form_control}
-              value={formData?.eventTime}
-              onChange={(e) =>
-                setFormData({ ...formData, eventTime: e.target.value })
-              }
-            />
-            <br />
-            {formDataError && formData.eventTime.length <= 0 ? (
-              <span style={{ color: 'red' }}>* required</span>
-            ) : (
-              ''
-            )}
-          </label>
-        </div>
 
-        <button
-          onClick={submitFormData}
-          className={
-            loading
-              ? `${styles.btn_hero} ${styles.btn_hero_inactive}`
-              : styles.btn_hero
-          }
-          disabled={loading}
-        >
-          {loading ? <SiginLoader /> : 'Create Event'}
-        </button>
+          <button
+            onClick={submitFormData}
+            className={
+              loading
+                ? `${styles.btn_create_event} ${styles.btn_create_event_inactive}`
+                : styles.btn_create_event
+            }
+            disabled={loading}
+          >
+            {loading ? <SiginLoader /> : 'Create Event'}
+          </button>
+        </div>
+        <div className={styles.kickStart_container}>
+          <h3>Event Summary</h3>
+          <div className={styles.right_panel}>
+            <div className={styles.match_event}>
+              <p>Football</p>
+              <p>BURNLEY VS MANCHESTER CITY</p>
+              <p>
+                20:00 GMT+1 <br />{' '}
+                <span style={{ fontSize: '14px' }}>11th Jun, 2023</span>
+              </p>
 
-        {/* <p className={styles.withdraw_text}>
-          withdrawals takes 5mins - 24hrs to be processed.
-        </p> */}
+              <div className={styles.event_computations}>
+                <div
+                  className={`${styles.computation_container} ${styles.show_container}`}
+                >
+                  <div className={styles.computation_wrapper}>
+                    <div className={styles.wrapper_innera}>
+                      <p
+                        style={{
+                          fontWeight: '700',
+                        }}
+                        className={styles.event_right}
+                      >
+                        Event 1:
+                      </p>
+                      <p
+                        style={{
+                          fontWeight: '700',
+                          borderBottom: '1px solid gray',
+                        }}
+                        className={styles.event_right}
+                      >
+                        over 7.5 conners
+                      </p>
+                    </div>
+                    <div className={styles.wrapper_innerb}>
+                      <p
+                        style={{
+                          fontWeight: '700',
+                        }}
+                        className={styles.event_left}
+                      >
+                        Event 2:
+                      </p>
+                      <p
+                        style={{
+                          fontWeight: '700',
+                          borderBottom: '1px solid gray',
+                        }}
+                        className={styles.event_left}
+                      >
+                        under 7.5 conners
+                      </p>
+                    </div>
+                  </div>
+                  <div className={styles.computation_wrapper}>
+                    <div className={styles.wrapper_innera}>
+                      <p className={styles.event_right}>
+                        Total equity: <br /> &#36;512.2
+                      </p>
+                    </div>
+                    <div className={styles.wrapper_innerb}>
+                      <p className={styles.event_left}>
+                        {' '}
+                        Total equity: <br /> &#36;487.8
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                <button className={styles.btn_kick_start}>
+                  Kick start event
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );
