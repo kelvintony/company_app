@@ -12,9 +12,10 @@ const eventOptions = [
     eventOption: 'event 2',
   },
 ];
+
 const LiveEvent = () => {
   const [selectedEvent, setSelectedEvent] = useState('');
-  const [networkData, setNetworkData] = useState(eventOptions);
+  const [eventOptionType, setEventOptionType] = useState(eventOptions);
 
   return (
     <div className={styles.liveEvent_container}>
@@ -23,7 +24,10 @@ const LiveEvent = () => {
         <div className={styles.left_panel}>
           <div className={styles.match_event}>
             <p>Football</p>
-            <p>BURNLEY VS MANCHESTER CITY</p>
+            <p style={{ lineHeight: '2.3rem', margin: '20px 0px' }}>
+              BURNLEY <br /> VS <br />
+              MANCHESTER CITY
+            </p>
             <p>
               20:00 GMT+1 <br />{' '}
               <span style={{ fontSize: '14px' }}>11th Jun, 2023</span>
@@ -111,13 +115,10 @@ const LiveEvent = () => {
                       onChange={(e) => setSelectedEvent(e.target.value)}
                     >
                       <option>select event</option>
-                      {networkData.map((networkValue) => {
+                      {eventOptionType.map((events) => {
                         return (
-                          <option
-                            key={networkValue.id}
-                            value={networkValue.eventOption}
-                          >
-                            {networkValue.eventOption}
+                          <option key={events.id} value={events.eventOption}>
+                            {events.eventOption}
                           </option>
                         );
                       })}
