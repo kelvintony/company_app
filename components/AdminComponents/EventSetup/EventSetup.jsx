@@ -2,6 +2,8 @@ import SiginLoader from '../../SigninLoader/SiginLoader';
 import React, { useState } from 'react';
 import styles from './EventSetup.module.css';
 import eventDateConverter from '../../../utils/eventDateConverter';
+import axios from 'axios';
+import splitText from '../../../utils/splitText';
 
 const EventSetup = () => {
   const [loading, setLoading] = useState(false);
@@ -17,9 +19,19 @@ const EventSetup = () => {
   });
   const [formDataError, setFormDataError] = useState(false);
 
-  const submitFormData = () => {
-    console.log(formData);
+  const submitFormData = async () => {
+    // console.log(formData);
+    // try {
+    //   const res = await axios.post('/api/admin/game', {
+    //     ...formData,
+    //     eventDate: eventDateConverter(formData.eventDate),
+    //   });
+    //   console.log(res);
+    // } catch (error) {
+    //   console.log(error);
+    // }
     // console.log(eventDateConverter(formData.eventDate));
+    console.log(splitText(formData.eventSelection));
   };
   return (
     <div className={styles.event_container}>
@@ -300,10 +312,18 @@ const EventSetup = () => {
               <p>
                 {formData?.eventType.length > 0 ? formData?.eventType : '*****'}
               </p>
-              <p>
+              <p style={{ lineHeight: '2.3rem', margin: '20px 0px' }}>
                 {formData?.eventSelection.length > 0
-                  ? formData?.eventSelection
-                  : '************'}
+                  ? splitText(formData.eventSelection)?.textBeforeVS
+                  : '********'}
+                <br /> {formData?.eventSelection.length > 0 ? 'VS' : '***'}
+                <br />
+                {formData?.eventSelection.length > 0
+                  ? splitText(formData.eventSelection)?.textAfterVS
+                  : '********'}
+                {/* {splitText(formData.eventSelection)?.textBeforeVS} <br /> VS{' '}
+                <br />
+                {splitText(formData.eventSelection)?.textAfterVS} */}
               </p>
               <p>
                 {formData?.eventTime.length > 0 ? formData?.eventTime : '****'}{' '}
