@@ -1,9 +1,10 @@
 import SiginLoader from '../../SigninLoader/SiginLoader';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './EventSetup.module.css';
 import eventDateConverter from '../../../utils/eventDateConverter';
 import axios from 'axios';
 import splitText from '../../../utils/splitText';
+import { BiEdit } from 'react-icons/bi';
 
 const EventSetup = () => {
   const [loading, setLoading] = useState(false);
@@ -19,19 +20,77 @@ const EventSetup = () => {
   });
   const [formDataError, setFormDataError] = useState(false);
 
+  const [gameInfo, setGameInfo] = useState(null);
+
+  const [loadGameData, setLoadGameData] = useState(false);
+
+  useEffect(() => {
+    fetchDame();
+  }, []);
+
+  const fetchDame = async () => {
+    setLoadGameData(true);
+    const res = await axios.get('/api/admin/game');
+    try {
+      if (res) {
+        setLoadGameData(false);
+        setGameInfo(res.data.message);
+      }
+    } catch (error) {
+      setLoadGameData(false);
+      console.log(error);
+    }
+  };
   const submitFormData = async () => {
     // console.log(formData);
-    // try {
-    //   const res = await axios.post('/api/admin/game', {
-    //     ...formData,
-    //     eventDate: eventDateConverter(formData.eventDate),
-    //   });
-    //   console.log(res);
-    // } catch (error) {
-    //   console.log(error);
-    // }
-    // console.log(eventDateConverter(formData.eventDate));
-    console.log(splitText(formData.eventSelection));
+    setLoading(true);
+    try {
+      const res = await axios.post('/api/admin/game', {
+        ...formData,
+        eventDate: eventDateConverter(formData.eventDate),
+      });
+
+      if (res) {
+        setLoading(false);
+      }
+    } catch (error) {
+      setLoading(false);
+      console.log(error);
+    }
+  };
+
+  const editGameFunction = async () => {
+    setLoading(true);
+
+    let gameId = gameInfo._id;
+    try {
+      const res = await axios.post(`/api/admin/game/${gameId}`, {
+        ...formData,
+        eventDate: eventDateConverter(formData.eventDate),
+      });
+
+      if (res) {
+        fetchDame();
+        setLoading(false);
+      }
+    } catch (error) {
+      setLoading(false);
+      console.log(error);
+    }
+  };
+
+  const editGame = () => {
+    setFormData({
+      ...formData,
+      eventType: gameInfo?.eventType,
+      eventSelection: gameInfo?.eventSelection,
+      eventOption1: gameInfo?.eventOption1,
+      eventOption1Odd: gameInfo?.eventOption1Odd,
+      eventOption2: gameInfo?.eventOption2,
+      eventOption2Odd: gameInfo?.eventOption2Odd,
+      eventDate: gameInfo?.eventDate,
+      eventTime: gameInfo?.eventTime,
+    });
   };
   return (
     <div className={styles.event_container}>
@@ -214,20 +273,38 @@ const EventSetup = () => {
             </label>
           </div>
 
-          <button
-            onClick={submitFormData}
-            className={
-              loading
-                ? `${styles.btn_create_event} ${styles.btn_create_event_inactive}`
-                : styles.btn_create_event
-            }
-            disabled={loading}
-          >
-            {loading ? <SiginLoader /> : 'Create Event'}
-          </button>
+          {!gameInfo && (
+            <button
+              onClick={submitFormData}
+              className={
+                loading
+                  ? `${styles.btn_create_event} ${styles.btn_create_event_inactive}`
+                  : styles.btn_create_event
+              }
+              disabled={loading}
+            >
+              {loading ? <SiginLoader /> : 'Create Event'}
+            </button>
+          )}
+          {gameInfo && (
+            <button
+              onClick={editGameFunction}
+              className={
+                loading
+                  ? `${styles.btn_create_event} ${styles.btn_create_event_inactive}`
+                  : styles.btn_create_event
+              }
+              disabled={loading}
+            >
+              {loading ? <SiginLoader /> : 'Edit Event'}
+            </button>
+          )}
         </div>
         <div className={styles.kickStart_container}>
           <h3>Event Summary</h3>
+          {/* <div className={styles.edit_container}> */}
+          <BiEdit onClick={editGame} className={styles.edit_icon} />
+          {/* </div> */}
           <div className={styles.right_panel}>
             {/* @ DUMMY DATA  */}
             <>
@@ -310,27 +387,24 @@ const EventSetup = () => {
 
             <div className={styles.match_event}>
               <p>
-                {formData?.eventType.length > 0 ? formData?.eventType : '*****'}
+                {gameInfo?.eventType.length > 0 ? gameInfo?.eventType : '*****'}
               </p>
               <p style={{ lineHeight: '2.3rem', margin: '20px 0px' }}>
-                {formData?.eventSelection.length > 0
-                  ? splitText(formData.eventSelection)?.textBeforeVS
+                {gameInfo?.eventSelection.length > 0
+                  ? splitText(gameInfo.eventSelection)?.textBeforeVS
                   : '********'}
-                <br /> {formData?.eventSelection.length > 0 ? 'VS' : '***'}
+                <br /> {gameInfo?.eventSelection.length > 0 ? 'VS' : '***'}
                 <br />
-                {formData?.eventSelection.length > 0
-                  ? splitText(formData.eventSelection)?.textAfterVS
+                {gameInfo?.eventSelection.length > 0
+                  ? splitText(gameInfo.eventSelection)?.textAfterVS
                   : '********'}
-                {/* {splitText(formData.eventSelection)?.textBeforeVS} <br /> VS{' '}
-                <br />
-                {splitText(formData.eventSelection)?.textAfterVS} */}
               </p>
               <p>
-                {formData?.eventTime.length > 0 ? formData?.eventTime : '****'}{' '}
+                {gameInfo?.eventTime.length > 0 ? gameInfo?.eventTime : '****'}{' '}
                 GMT+1 <br />{' '}
                 <span style={{ fontSize: '14px' }}>
-                  {formData?.eventDate.length > 0
-                    ? eventDateConverter(formData.eventDate)
+                  {gameInfo?.eventDate.length > 0
+                    ? gameInfo?.eventDate
                     : '*******'}
                 </span>
               </p>
@@ -356,8 +430,8 @@ const EventSetup = () => {
                         }}
                         className={styles.event_right}
                       >
-                        {formData?.eventOption1.length > 0
-                          ? formData?.eventOption1
+                        {gameInfo?.eventOption1.length > 0
+                          ? gameInfo?.eventOption1
                           : '*******'}
                       </p>
                     </div>
@@ -377,8 +451,8 @@ const EventSetup = () => {
                         }}
                         className={styles.event_left}
                       >
-                        {formData?.eventOption2.length > 0
-                          ? formData?.eventOption2
+                        {gameInfo?.eventOption2.length > 0
+                          ? gameInfo?.eventOption2
                           : '*******'}
                       </p>
                     </div>
@@ -387,8 +461,8 @@ const EventSetup = () => {
                     <div className={styles.wrapper_innera}>
                       <p className={styles.event_right}>
                         Odd 1: <br />
-                        {formData?.eventOption1Odd.length > 0
-                          ? formData?.eventOption1Odd
+                        {gameInfo?.eventOption1Odd
+                          ? gameInfo?.eventOption1Odd
                           : '****'}
                       </p>
                     </div>
@@ -396,14 +470,14 @@ const EventSetup = () => {
                       <p className={styles.event_left}>
                         {' '}
                         Odd 2: <br />
-                        {formData?.eventOption2Odd.length > 0
-                          ? formData?.eventOption2Odd
+                        {gameInfo?.eventOption2Odd
+                          ? gameInfo?.eventOption2Odd
                           : '****'}
                       </p>
                     </div>
                   </div>
                 </div>
-                <button
+                {/* <button
                   onClick={submitFormData}
                   className={
                     loading
@@ -413,7 +487,7 @@ const EventSetup = () => {
                   disabled={loading}
                 >
                   {loading ? <SiginLoader /> : 'Create Event'}
-                </button>
+                </button> */}
               </div>
             </div>
           </div>

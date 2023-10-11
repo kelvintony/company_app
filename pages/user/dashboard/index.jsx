@@ -12,6 +12,7 @@ import { useStore } from '../../../context';
 
 import { FiArrowDown } from 'react-icons/fi';
 import { FiArrowUp } from 'react-icons/fi';
+import splitText from '../../../utils/splitText';
 
 const UserDashboard = () => {
   const router = useRouter();
@@ -27,6 +28,28 @@ const UserDashboard = () => {
   const reference = searchParams.get('reference');
 
   const [showStats, setShowStats] = useState(false);
+
+  const [gameInfo, setGameInfo] = useState(null);
+
+  const [loadGameData, setLoadGameData] = useState(false);
+
+  useEffect(() => {
+    fetchDame();
+  }, []);
+
+  const fetchDame = async () => {
+    setLoadGameData(true);
+    const res = await axios.get('/api/admin/game');
+    try {
+      if (res) {
+        setLoadGameData(false);
+        setGameInfo(res.data.message);
+      }
+    } catch (error) {
+      setLoadGameData(false);
+      console.log(error);
+    }
+  };
 
   const toggleStats = () => {
     setShowStats(!showStats);
@@ -45,11 +68,32 @@ const UserDashboard = () => {
               </div>
 
               <div className={styles.match_event}>
-                <p>Football</p>
-                <p>BURNLEY VS MANCHESTER CITY</p>
                 <p>
-                  20:00 GMT+1 <br />{' '}
-                  <span style={{ fontSize: '14px' }}>11th Jun, 2023</span>
+                  {gameInfo?.eventType.length > 0
+                    ? gameInfo?.eventType
+                    : '*****'}
+                </p>
+                <p style={{ lineHeight: '2.3rem', margin: '20px 0px' }}>
+                  {' '}
+                  {gameInfo?.eventSelection.length > 0
+                    ? splitText(gameInfo.eventSelection)?.textBeforeVS
+                    : '********'}
+                  <br /> {gameInfo?.eventSelection.length > 0 ? 'VS' : '***'}
+                  <br />
+                  {gameInfo?.eventSelection.length > 0
+                    ? splitText(gameInfo.eventSelection)?.textAfterVS
+                    : '********'}
+                </p>
+                <p>
+                  {gameInfo?.eventTime.length > 0
+                    ? gameInfo?.eventTime
+                    : '****'}{' '}
+                  GMT+1 <br />{' '}
+                  <span style={{ fontSize: '14px' }}>
+                    {gameInfo?.eventDate.length > 0
+                      ? gameInfo?.eventDate
+                      : '*******'}
+                  </span>
                 </p>
 
                 <div className={styles.event_computations}>
@@ -102,7 +146,9 @@ const UserDashboard = () => {
                           }}
                           className={styles.event_right}
                         >
-                          over 7.5 conners
+                          {gameInfo?.eventOption1.length > 0
+                            ? gameInfo?.eventOption1
+                            : '*******'}
                         </p>
                       </div>
                       <div className={styles.wrapper_innerb}>
@@ -121,7 +167,9 @@ const UserDashboard = () => {
                           }}
                           className={styles.event_left}
                         >
-                          under 7.5 conners
+                          {gameInfo?.eventOption2.length > 0
+                            ? gameInfo?.eventOption2
+                            : '*******'}
                         </p>
                       </div>
                     </div>

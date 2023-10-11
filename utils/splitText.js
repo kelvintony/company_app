@@ -2,11 +2,11 @@ const splitText = (text) => {
   //   const inputText = 'BURNLEY VS MANCHESTER CITY';
   const inputText = text;
   const delimiter = 'VS';
-  const inputTextLower = inputText.toUpperCase();
-  const delimiterUpper = delimiter.toUpperCase();
-  const parts = inputTextLower.split(delimiterUpper);
+  const inputTextLower = inputText?.toUpperCase();
+  const delimiterUpper = delimiter?.toUpperCase();
+  const parts = inputTextLower?.split(delimiterUpper);
 
-  if (parts.length === 2) {
+  if (parts?.length === 2) {
     const textBeforeVS = parts[0]?.trim();
     const textAfterVS = parts[1]?.trim();
 

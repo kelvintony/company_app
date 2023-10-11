@@ -65,11 +65,20 @@
   border: 1px solid rgb(218, 218, 218);
   padding: 5px;
   height: 500px;
+  position: relative;
 }
 
 .kickStart_container > h3 {
   text-align: center;
   margin-top: 10px;
+}
+
+.edit_icon {
+  font-size: 30px;
+  color: #f05822;
+  position: absolute;
+  top: 12px;
+  cursor: pointer;
 }
 
 .match_event {
@@ -208,7 +217,6 @@
   /* utilities  */
 
   .btn_create_event {
-    display: none;
     height: 50px;
   }
 
