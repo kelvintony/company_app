@@ -73,7 +73,8 @@
   margin-top: 10px;
 }
 
-.edit_icon {
+.edit_icon,
+.lock_icon {
   font-size: 30px;
   color: #f05822;
   position: absolute;

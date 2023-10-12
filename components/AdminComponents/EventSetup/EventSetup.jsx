@@ -5,6 +5,7 @@ import eventDateConverter from '../../../utils/eventDateConverter';
 import axios from 'axios';
 import splitText from '../../../utils/splitText';
 import { BiEdit } from 'react-icons/bi';
+import { AiFillLock } from 'react-icons/ai';
 
 const EventSetup = () => {
   const [loading, setLoading] = useState(false);
@@ -51,6 +52,7 @@ const EventSetup = () => {
       });
 
       if (res) {
+        fetchDame();
         setLoading(false);
       }
     } catch (error) {
@@ -273,7 +275,7 @@ const EventSetup = () => {
             </label>
           </div>
 
-          {!gameInfo && (
+          {gameInfo?.gameDescription === 'latest game' && (
             <button
               onClick={submitFormData}
               className={
@@ -286,7 +288,7 @@ const EventSetup = () => {
               {loading ? <SiginLoader /> : 'Create Event'}
             </button>
           )}
-          {gameInfo && (
+          {gameInfo?.eventMode === 'pending' && (
             <button
               onClick={editGameFunction}
               className={
@@ -303,7 +305,11 @@ const EventSetup = () => {
         <div className={styles.kickStart_container}>
           <h3>Event Summary</h3>
           {/* <div className={styles.edit_container}> */}
-          <BiEdit onClick={editGame} className={styles.edit_icon} />
+          {gameInfo?.eventMode === 'pending' ? (
+            <BiEdit onClick={editGame} className={styles.edit_icon} />
+          ) : (
+            <AiFillLock className={styles.lock_icon} />
+          )}
           {/* </div> */}
           <div className={styles.right_panel}>
             {/* @ DUMMY DATA  */}
