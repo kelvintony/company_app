@@ -4,6 +4,9 @@ const walletProfileSchema = new mongoose.Schema(
   {
     userId: { type: mongoose.Schema.Types.ObjectId, ref: 'user' },
     accountBalance: { type: mongoose.Schema.Types.Decimal128, default: 0 },
+    equity: { type: mongoose.Schema.Types.Decimal128, default: 0 },
+    roi: { type: mongoose.Schema.Types.Decimal128, default: 0 },
+    withdrawableBalance: { type: mongoose.Schema.Types.Decimal128, default: 0 },
     // accountType: { type: String, default: 'customer' },
   },
   {

@@ -49,14 +49,13 @@ export const editGame = async (req, res) => {
 };
 
 export const getGame = async (req, res) => {
-  try {
-    const findGame = await gameModel.findOne({
-      eventMode: 'pending' || 'running',
-    });
-
-    return res.status(200).json({ message: findGame });
-  } catch (error) {
-    console.log(error.message);
-    return res.status(400).json({ message: error.message });
-  }
+  //   try {
+  //     const findGame = await gameModel.findOne({
+  //       eventMode: 'pending' || 'running',
+  //     });
+  //     return res.status(200).json({ message: findGame });
+  //   } catch (error) {
+  //     console.log(error.message);
+  //     return res.status(400).json({ message: error.message });
+  //   }
 };

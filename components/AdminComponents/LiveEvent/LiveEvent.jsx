@@ -6,6 +6,7 @@ import { useEffect } from 'react';
 import UserLoader from '../../UserLoader/UserLoader';
 import splitText from '../../../utils/splitText';
 import SiginLoader from '../../SigninLoader/SiginLoader';
+import { AiFillCheckCircle, AiFillLock } from 'react-icons/ai';
 
 const eventOptions = [
   {
@@ -24,6 +25,7 @@ const LiveEvent = () => {
   const [gameInfo, setGameInfo] = useState(null);
   const [loadGameData, setLoadGameData] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [loadingForCancel, setLoadingForCancel] = useState(false);
 
   useEffect(() => {
     fetchDame();
@@ -58,6 +60,44 @@ const LiveEvent = () => {
       }
     } catch (error) {
       setLoading(false);
+      console.log(error);
+    }
+  };
+
+  const concludeEvent = async (id) => {
+    setLoading(true);
+
+    let gameId = id;
+    try {
+      const res = await axios.post(`/api/admin/game/concludegame/${gameId}`, {
+        selectedEvent,
+      });
+
+      if (res) {
+        fetchDame();
+        setLoading(false);
+      }
+    } catch (error) {
+      setLoading(false);
+      console.log(error);
+    }
+  };
+
+  const cancelEvent = async (id) => {
+    setLoadingForCancel(true);
+
+    let gameId = id;
+    try {
+      const res = await axios.put(`/api/admin/game/concludegame/${gameId}`, {
+        gameCount: 'started',
+      });
+
+      if (res) {
+        fetchDame();
+        setLoadingForCancel(false);
+      }
+    } catch (error) {
+      setLoadingForCancel(false);
       console.log(error);
     }
   };
@@ -150,14 +190,24 @@ const LiveEvent = () => {
                     </div>
                   </div>
                 </div>
-                <button
-                  onClick={() => kickStartGame(gameInfo?._id)}
-                  className={styles.btn_kick_start}
-                  disabled={loading}
-                >
-                  {loading ? <SiginLoader /> : 'Kick Start Event'}
-                </button>
-
+                {gameInfo?.eventMode === 'pending' ? (
+                  <button
+                    onClick={() => {
+                      if (
+                        window.confirm(
+                          'Are you sure you you want to kick start game?'
+                        )
+                      )
+                        kickStartGame(gameInfo?._id);
+                    }}
+                    className={styles.btn_kick_start}
+                    disabled={loading}
+                  >
+                    {loading ? <SiginLoader /> : 'Kick Start Event'}
+                  </button>
+                ) : (
+                  <AiFillLock className={styles.lock_icon} />
+                )}
                 <div className={styles.eventMode_container}>
                   <p>
                     Event mode:{' '}
@@ -167,6 +217,8 @@ const LiveEvent = () => {
                           ? styles.eventMode_pending
                           : gameInfo?.eventMode === 'running'
                           ? styles.eventMode_running
+                          : gameInfo?.eventMode === 'cancelled'
+                          ? styles.eventMode_cancel
                           : styles.eventMode_completed
                       }
                     >
@@ -174,38 +226,95 @@ const LiveEvent = () => {
                     </span>
                   </p>
                 </div>
-
                 <div className={styles.concludeEvent_container}>
-                  <p>Conclude Event</p>
-                  <div className={styles.input_wrapper}>
-                    <label htmlFor='selectedEvent'>
-                      Event: <br />
-                      <select
-                        name='selectedEvent'
-                        id=''
-                        value={selectedEvent}
-                        onChange={(e) => setSelectedEvent(e.target.value)}
-                      >
-                        <option>select event</option>
-                        {eventOptionType.map((events) => {
-                          return (
-                            <option key={events.id} value={events.eventOption}>
-                              {events.eventOption}
-                            </option>
-                          );
-                        })}
-                      </select>
-                      <br />
-                      {/* {formDataError && selectedEvent.length <= 0 ? (
+                  {gameInfo?.eventMode === 'running' && <p>Conclude Event</p>}
+
+                  {gameInfo?.eventMode === 'running' && (
+                    <div className={styles.input_wrapper}>
+                      <label htmlFor='selectedEvent'>
+                        Event: <br />
+                        <select
+                          name='selectedEvent'
+                          id=''
+                          value={selectedEvent}
+                          onChange={(e) => setSelectedEvent(e.target.value)}
+                        >
+                          <option>select event</option>
+                          {eventOptionType.map((events) => {
+                            return (
+                              <option
+                                key={events.id}
+                                value={events.eventOption}
+                              >
+                                {events.eventOption}
+                              </option>
+                            );
+                          })}
+                        </select>
+                        <br />
+                        {/* {formDataError && selectedEvent.length <= 0 ? (
                       <span style={{ color: 'red' }}>* required</span>
                     ) : (
                       ''
                     )} */}
-                    </label>
-                  </div>
-                  <button className={styles.btn_kick_start}>
-                    Conclude Event
-                  </button>
+                      </label>
+                    </div>
+                  )}
+                  {gameInfo?.eventMode === 'completed' && (
+                    <p
+                      style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '10px',
+                      }}
+                    >
+                      Concluded Event:{' '}
+                      <span style={{ color: '#3BA54B' }}>
+                        {gameInfo?.concludedEvent}
+                      </span>
+                      <AiFillCheckCircle
+                        style={{ color: '#3BA54B' }}
+                        size={20}
+                      />
+                      {/* 3BA54B */}
+                    </p>
+                  )}
+
+                  {gameInfo?.eventMode === 'running' && (
+                    <button
+                      onClick={() => {
+                        if (
+                          window.confirm(
+                            'Are you sure you want to conclude event?'
+                          )
+                        )
+                          concludeEvent(gameInfo?._id);
+                      }}
+                      className={styles.btn_kick_start}
+                      disabled={loading}
+                    >
+                      {loading ? <SiginLoader /> : 'Conclude Event'}
+                    </button>
+                  )}
+                  <div></div>
+
+                  {gameInfo?.eventMode === 'running' && (
+                    <button
+                      style={{}}
+                      disabled={loadingForCancel}
+                      onClick={() => {
+                        if (
+                          window.confirm(
+                            'Are you sure you want to cancel event?'
+                          )
+                        )
+                          cancelEvent(gameInfo?._id);
+                      }}
+                      className={styles.btn_cancel_game}
+                    >
+                      {loadingForCancel ? <SiginLoader /> : 'Cancel Event'}
+                    </button>
+                  )}
                 </div>
               </div>
             </div>

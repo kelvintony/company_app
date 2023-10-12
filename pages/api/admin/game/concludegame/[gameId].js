@@ -9,6 +9,8 @@ export default async (req, res) => {
     return editGame(req, res);
   } else if (req.method === 'GET') {
     return getGame(req, res);
+  } else if (req.method === 'PUT') {
+    return cancelGame(req, res);
   } else {
     return res.status(400).send({ message: 'Method not allowed' });
   }
@@ -26,16 +28,6 @@ export const editGame = async (req, res) => {
     // if (!user || (user && !user.superUser)) {
     //   return res.status(401).send('signin required');
     // }
-    const {
-      eventType,
-      eventSelection,
-      eventOption1,
-      eventOption1Odd,
-      eventOption2,
-      eventOption2Odd,
-      eventDate,
-      eventTime,
-    } = req.body;
 
     const session = await getSession({ req });
 
@@ -47,15 +39,44 @@ export const editGame = async (req, res) => {
     await gameModel.findByIdAndUpdate(
       gameId,
       {
-        createdBy: session.user._id,
-        eventType,
-        eventSelection,
-        eventOption1,
-        eventOption1Odd,
-        eventOption2,
-        eventOption2Odd,
-        eventDate,
-        eventTime,
+        eventMode: 'completed',
+        concludedEvent: req?.body?.selectedEvent,
+        gameDescription: 'latest game',
+      },
+      { new: true }
+    );
+
+    return res.status(200).json({ message: 'game updated successfully' });
+  } catch (error) {
+    return res.status(400).json({ message: error.message });
+  }
+};
+
+export const cancelGame = async (req, res) => {
+  try {
+    await db.connect();
+
+    // const user = await getToken({
+    //   req,
+    //   secret: process.env.NEXTAUTH_SECRET,
+    // });
+
+    // if (!user || (user && !user.superUser)) {
+    //   return res.status(401).send('signin required');
+    // }
+
+    const session = await getSession({ req });
+
+    if (!session || (session && !session.user.superUser)) {
+      return res.status(401).send('you are not authenticated');
+    }
+    const gameId = req.query.gameId;
+
+    await gameModel.findByIdAndUpdate(
+      gameId,
+      {
+        eventMode: 'cancelled',
+        gameDescription: 'latest game',
       },
       { new: true }
     );

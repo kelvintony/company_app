@@ -3,8 +3,6 @@ import { getSession } from 'next-auth/react';
 import db from '../../../../utils/db';
 
 export default async (req, res) => {
-  await db.connect();
-
   if (req.method === 'GET') {
     return fetchUser(req, res);
   } else {
@@ -22,6 +20,8 @@ export const fetchUser = async (req, res) => {
   }
 
   try {
+    await db.connect();
+
     let foundUser = await userModel
       .findById(userProfile._id)
       .select('-password -_id -verified -superUser -__v -createdAt -updatedAt');

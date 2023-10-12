@@ -21,6 +21,7 @@ const gameSchema = new mongoose.Schema(
     },
     eventMode: { type: String, default: 'pending' },
     concludedEvent: { type: String },
+    gameDescription: { type: String, default: 'not latest' },
   },
   {
     timestamps: true,

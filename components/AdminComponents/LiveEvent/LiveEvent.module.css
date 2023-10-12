@@ -88,7 +88,19 @@
   border-radius: 5px;
   font-size: 14px;
 }
-
+.eventMode_cancel {
+  /* for completed */
+  background: #6b6b6b;
+  color: #fff;
+  padding: 2px 5px;
+  border-radius: 5px;
+  font-size: 14px;
+}
+.lock_icon {
+  font-size: 30px;
+  color: #f06a22;
+  margin-top: 20px;
+}
 .concludeEvent_container {
   margin-top: 20px;
   text-align: start;
@@ -150,6 +162,24 @@
 
 .btn_kick_start:hover {
   background: linear-gradient(170.04deg, #ebb54b -8.91%, #e97247 99.52%);
+}
+.btn_cancel_game {
+  margin-top: 15px;
+  background: linear-gradient(170.04deg, #acacac -8.91%, #424242 99.52%);
+  padding: 5px 10px;
+  border-radius: 5px;
+  color: #fff !important;
+  outline: none;
+  width: 200px;
+  height: 40px;
+  font-size: 16px;
+  font-family: 'Poppins', sans-serif;
+  text-align: center;
+  transition: all 0.2s ease-in-out;
+}
+
+.btn_cancel_game:hover {
+  background: linear-gradient(170.04deg, #7e7e7e -8.91%, #313131 99.52%);
 }
 
 @media screen and (max-width: 900px) {
