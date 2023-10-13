@@ -3,6 +3,7 @@ import DashboardLayout from '../../../components/DashBoardLayout/DashboardLayout
 import styles from './dashboard.module.css';
 import Image from 'next/image';
 import { authConstants } from '../../../context/constants';
+import convertWalletBalance from '../../../utils/convertWalletBalance';
 
 import { useSearchParams } from 'next/navigation';
 import { useRouter } from 'next/router';
@@ -218,10 +219,31 @@ const UserDashboard = () => {
             </div>
             <div className={styles.right_panel}>
               <p>Financial Analytics</p>
-              <p>Total Balance: &#36;1,300 </p>
-              <p>Equity: &#36;1,000 </p>
-              <p>ROI: &#36;300 </p>
-              <p>Withdrawable Balance: &#36;300 </p>
+              <p>
+                Total Balance: &#36;
+                {convertWalletBalance(
+                  state?.userTransactionProfile?.accountBalance?.$numberDecimal
+                )}{' '}
+              </p>
+              <p>
+                Equity: &#36;
+                {convertWalletBalance(
+                  state?.userTransactionProfile?.equity?.$numberDecimal
+                )}{' '}
+              </p>
+              <p>
+                ROI: &#36;
+                {convertWalletBalance(
+                  state?.userTransactionProfile?.roi?.$numberDecimal
+                )}{' '}
+              </p>
+              <p>
+                Withdrawable Balance: &#36;
+                {convertWalletBalance(
+                  state?.userTransactionProfile?.withdrawableBalance
+                    ?.$numberDecimal
+                )}{' '}
+              </p>
             </div>
           </div>
         </div>
