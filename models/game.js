@@ -10,9 +10,9 @@ const gameSchema = new mongoose.Schema(
     eventType: { type: String },
     eventSelection: { type: String },
     eventOption1: { type: String },
-    eventOption1Odd: { type: Number },
+    eventOption1Odd: { type: mongoose.Schema.Types.Decimal128 },
     eventOption2: { type: String },
-    eventOption2Odd: { type: Number },
+    eventOption2Odd: { type: mongoose.Schema.Types.Decimal128 },
     eventDate: { type: String },
     eventTime: { type: String },
     status: {
