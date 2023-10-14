@@ -24,7 +24,6 @@
 
 /* left sidebar  */
 .left_sideBar {
-  background-color: #0d333f;
   background-color: #d7f3e5;
 
   /* background-color: #dbe9dc; */
@@ -59,14 +58,12 @@
 
 .user_balance > p:nth-of-type(1) {
   font-size: 14px;
-  color: #fff;
   color: black;
 }
 .user_balance > p:nth-of-type(2) {
   font-size: 13px;
   font-weight: 500;
   font-family: 'Rubik', sans-serif;
-  color: #fff;
   color: black;
 }
 
@@ -107,7 +104,6 @@
   margin-right: -10px;
 }
 .item_icon {
-  color: #fff;
   color: black;
   font-size: 20px;
   display: flex;
@@ -132,9 +128,7 @@
   align-items: center;
   font-size: 19px;
   font-family: 'Roboto', sans-serif;
-  /* color: #fff; */
   color: black;
-  /* border-top: 1px solid rgb(158, 158, 158); */
   border-top: 1px solid rgb(158, 158, 158);
 }
 .logout_icon {
@@ -408,22 +402,3 @@
     padding: 2px;
   }
 }
-
-/* .user_balance > p:nth-of-type(1) {
-  color: black;
-}
-.user_balance > p:nth-of-type(2) {
-  color: black;
-}
-.menu_items {
-  color: black;
-}
-.menu_items_active {
-  color: black;
-}
-.item_icon {
-  color: black;
-}
-.user_admin {
-  color: black;
-} */
