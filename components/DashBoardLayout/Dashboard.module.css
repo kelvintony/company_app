@@ -1,7 +1,6 @@
 /* top bar  */
 .dashboard_topBar {
-  position: sticky;
-
+  position: static;
   background-color: #fff;
   top: 0;
   left: 0;
@@ -26,6 +25,7 @@
 /* left sidebar  */
 .left_sideBar {
   background-color: #0d333f;
+  /* background-color: #dbe9dc; */
   position: fixed;
   top: 0;
   left: 0;
@@ -249,6 +249,11 @@
     text-align: start;
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 
+    /* background-color: burlywood;s */
+    margin: 15px 20px;
+    border-radius: 60px;
+    padding: 10px 20px;
+
     /* width: 100% !important; */
     /* position: fixed; */
   }
@@ -285,6 +290,8 @@
     position: relative;
     align-items: center;
     margin-left: 80px;
+
+    display: none;
   }
 
   .red_dot {

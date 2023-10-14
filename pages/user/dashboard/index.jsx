@@ -13,9 +13,17 @@ import { useStore } from '../../../context';
 
 import { FiArrowDown } from 'react-icons/fi';
 import { FiArrowUp } from 'react-icons/fi';
+import { CiWarning } from 'react-icons/ci';
 import splitText from '../../../utils/splitText';
 import SiginLoader from '../../../components/SigninLoader/SiginLoader';
-import { AiFillLock } from 'react-icons/ai';
+import {
+  AiFillLock,
+  AiFillWarning,
+  AiOutlineCheckCircle,
+  AiOutlineClockCircle,
+  AiOutlineWarning,
+} from 'react-icons/ai';
+import UserLoader from '../../../components/UserLoader/UserLoader';
 
 const UserDashboard = () => {
   const router = useRouter();
@@ -38,6 +46,7 @@ const UserDashboard = () => {
 
   const [loadGameData, setLoadGameData] = useState(false);
   const [tradeGameLoading, setTradeGameLoading] = useState(false);
+  const [fetchTradeGameLoading, seFetchTradeGameLoading] = useState(false);
 
   useEffect(() => {
     fetchGame();
@@ -66,17 +75,17 @@ const UserDashboard = () => {
   };
 
   const fetchTradedGame = async () => {
-    setTradeGameLoading(true);
+    seFetchTradeGameLoading(true);
     const gameId = gameInfo?._id;
     const res = await axios.get(`/api/customers/game/?gameId=${gameId}`);
 
     try {
       if (res) {
-        setTradeGameLoading(false);
+        seFetchTradeGameLoading(false);
         setTradedGame(res?.data?.message[0]);
       }
     } catch (error) {
-      setTradeGameLoading(false);
+      seFetchTradeGameLoading(false);
       console.log(error);
     }
   };
@@ -88,226 +97,271 @@ const UserDashboard = () => {
       if (res) {
         setTradeGameLoading(false);
         fetchTradedGame();
-        console.log(res);
       }
     } catch (error) {
       setTradeGameLoading(false);
       console.log(error);
     }
   };
-  console.log('traded Game', tradedGame);
+  // console.log('traded Game', tradedGame);
   return (
     <DashboardLayout>
       <>
         <div className={styles.section_a}>
           {state?.user?.fullName && <h3>Hello {state?.user?.fullName}!</h3>}
           <div className={styles.dashboard_container}>
-            <div className={styles.left_panel}>
-              <div className={styles.profit_target}>
-                <p>29.98%</p>
-                <p>Profit target for this month</p>
+            {!gameInfo && (
+              <div
+                style={{
+                  display: 'flex',
+                  justifyContent: 'center',
+                  marginTop: '20px',
+                }}
+              >
+                <UserLoader />
               </div>
+            )}
+            {gameInfo && (
+              <div className={styles.left_panel}>
+                <div className={styles.profit_target}>
+                  <p>29.98%</p>
+                  <p>Profit target for this month</p>
+                </div>
 
-              <div className={styles.match_event}>
-                <p>
-                  {gameInfo?.eventType.length > 0
-                    ? gameInfo?.eventType
-                    : '*****'}
-                </p>
-                <p style={{ lineHeight: '2.3rem', margin: '20px 0px' }}>
-                  {' '}
-                  {gameInfo?.eventSelection.length > 0
-                    ? splitText(gameInfo.eventSelection)?.textBeforeVS
-                    : '********'}
-                  <br /> {gameInfo?.eventSelection.length > 0 ? 'VS' : '***'}
-                  <br />
-                  {gameInfo?.eventSelection.length > 0
-                    ? splitText(gameInfo.eventSelection)?.textAfterVS
-                    : '********'}
-                </p>
-                <p>
-                  {gameInfo?.eventTime.length > 0
-                    ? gameInfo?.eventTime
-                    : '****'}{' '}
-                  GMT+1 <br />{' '}
-                  <span style={{ fontSize: '14px' }}>
-                    {gameInfo?.eventDate.length > 0
-                      ? gameInfo?.eventDate
-                      : '*******'}
-                  </span>
-                </p>
-
-                <div className={styles.event_computations}>
-                  <p onClick={toggleStats}>
-                    {showStats ? (
-                      <span
-                        style={{
-                          display: 'inline-flex',
-                          alignItems: 'center',
-                          fontSize: '14px',
-                          gap: '5px',
-                          color: '#0fd46c',
-                        }}
-                      >
-                        Hide stats <FiArrowUp />
-                      </span>
-                    ) : (
-                      <span
-                        style={{
-                          display: 'inline-flex',
-                          alignItems: 'center',
-                          fontSize: '14px',
-                          gap: '5px',
-                          color: '#0fd46c',
-                        }}
-                      >
-                        Show stats <FiArrowDown />
-                      </span>
-                    )}
+                <div className={styles.match_event}>
+                  <p>
+                    {gameInfo?.eventType.length > 0
+                      ? gameInfo?.eventType
+                      : '*****'}
                   </p>
-                  <div
-                    className={`${styles.computation_container} ${
-                      showStats ? styles.show_container : styles.hide_container
-                    }`}
-                  >
-                    <div className={styles.computation_wrapper}>
-                      <div className={styles.wrapper_innera}>
-                        <p
+                  <p style={{ lineHeight: '2.3rem', margin: '20px 0px' }}>
+                    {' '}
+                    {gameInfo?.eventSelection.length > 0
+                      ? splitText(gameInfo.eventSelection)?.textBeforeVS
+                      : '********'}
+                    <br /> {gameInfo?.eventSelection.length > 0 ? 'VS' : '***'}
+                    <br />
+                    {gameInfo?.eventSelection.length > 0
+                      ? splitText(gameInfo.eventSelection)?.textAfterVS
+                      : '********'}
+                  </p>
+                  <p>
+                    {gameInfo?.eventTime.length > 0
+                      ? gameInfo?.eventTime
+                      : '****'}{' '}
+                    GMT+1 <br />{' '}
+                    <span style={{ fontSize: '14px' }}>
+                      {gameInfo?.eventDate.length > 0
+                        ? gameInfo?.eventDate
+                        : '*******'}
+                    </span>
+                  </p>
+
+                  <div className={styles.event_computations}>
+                    <p onClick={toggleStats}>
+                      {showStats ? (
+                        <span
                           style={{
-                            fontWeight: '700',
-                          }}
-                          className={styles.event_right}
-                        >
-                          Event 1:
-                        </p>
-                        <p
-                          style={{
-                            fontWeight: '600',
-                            borderBottom: '1px solid gray',
+                            display: 'inline-flex',
+                            alignItems: 'center',
+                            fontSize: '14px',
+                            gap: '5px',
                             color: '#0fd46c',
                           }}
-                          className={styles.event_right}
                         >
-                          {gameInfo?.eventOption1.length > 0
-                            ? `${gameInfo?.eventOption1} - ${gameInfo?.eventOption1Odd?.$numberDecimal}`
-                            : '*******'}
-                        </p>
-                      </div>
-                      <div className={styles.wrapper_innerb}>
-                        <p
+                          Hide stats <FiArrowUp />
+                        </span>
+                      ) : (
+                        <span
                           style={{
-                            fontWeight: '700',
-                          }}
-                          className={styles.event_left}
-                        >
-                          Event 2:
-                        </p>
-                        <p
-                          style={{
-                            fontWeight: '600',
-                            borderBottom: '1px solid gray',
+                            display: 'inline-flex',
+                            alignItems: 'center',
+                            fontSize: '14px',
+                            gap: '5px',
                             color: '#0fd46c',
                           }}
-                          className={styles.event_left}
                         >
-                          {gameInfo?.eventOption2.length > 0
-                            ? `${gameInfo?.eventOption2} - ${gameInfo?.eventOption2Odd?.$numberDecimal}`
-                            : '*******'}
-                        </p>
+                          Show stats <FiArrowDown />
+                        </span>
+                      )}
+                    </p>
+                    <div
+                      className={`${styles.computation_container} ${
+                        showStats
+                          ? styles.show_container
+                          : styles.hide_container
+                      }`}
+                    >
+                      <div className={styles.computation_wrapper}>
+                        <div className={styles.wrapper_innera}>
+                          <p
+                            style={{
+                              fontWeight: '700',
+                            }}
+                            className={styles.event_right}
+                          >
+                            Event 1:
+                          </p>
+                          <p
+                            style={{
+                              fontWeight: '600',
+                              borderBottom: '1px solid gray',
+                              color: '#0fd46c',
+                            }}
+                            className={styles.event_right}
+                          >
+                            {gameInfo?.eventOption1.length > 0
+                              ? `${gameInfo?.eventOption1} - ${gameInfo?.eventOption1Odd?.$numberDecimal}`
+                              : '*******'}
+                          </p>
+                        </div>
+                        <div className={styles.wrapper_innerb}>
+                          <p
+                            style={{
+                              fontWeight: '700',
+                            }}
+                            className={styles.event_left}
+                          >
+                            Event 2:
+                          </p>
+                          <p
+                            style={{
+                              fontWeight: '600',
+                              borderBottom: '1px solid gray',
+                              color: '#0fd46c',
+                            }}
+                            className={styles.event_left}
+                          >
+                            {gameInfo?.eventOption2.length > 0
+                              ? `${gameInfo?.eventOption2} - ${gameInfo?.eventOption2Odd?.$numberDecimal}`
+                              : '*******'}
+                          </p>
+                        </div>
                       </div>
+
+                      {tradedGame && (
+                        <div className={styles.computation_wrapper}>
+                          <div className={styles.wrapper_innera}>
+                            <p className={styles.event_right}>
+                              Total equity: <br /> &#36;
+                              {
+                                tradedGame?.eventOneStats?.totalEquity
+                                  ?.$numberDecimal
+                              }
+                            </p>
+                          </div>
+                          <div className={styles.wrapper_innerb}>
+                            <p className={styles.event_left}>
+                              {' '}
+                              Total equity: <br /> &#36;
+                              {
+                                tradedGame?.eventTwoStats?.totalEquity
+                                  ?.$numberDecimal
+                              }
+                            </p>
+                          </div>
+                        </div>
+                      )}
+                      {tradedGame && (
+                        <div className={styles.computation_wrapper}>
+                          <div className={styles.wrapper_innera}>
+                            <p className={styles.event_right}>
+                              Expected returns: <br /> &#36;
+                              {
+                                tradedGame?.eventOneStats?.expectedReturns
+                                  ?.$numberDecimal
+                              }
+                            </p>
+                          </div>
+                          <div className={styles.wrapper_innerb}>
+                            <p className={styles.event_left}>
+                              Expected returns: <br /> &#36;
+                              {
+                                tradedGame?.eventTwoStats?.expectedReturns
+                                  ?.$numberDecimal
+                              }
+                            </p>
+                          </div>
+                        </div>
+                      )}
+                      {tradedGame && (
+                        <div className={styles.computation_wrapper}>
+                          <div className={styles.wrapper_innera}>
+                            <p className={styles.event_right}>
+                              Event RO1: <br /> &#36;
+                              {
+                                tradedGame?.eventOneStats?.eventRoi
+                                  ?.$numberDecimal
+                              }
+                            </p>
+                          </div>
+                          <div className={styles.wrapper_innerb}>
+                            <p className={styles.event_left}>
+                              Event RO1: <br /> &#36;
+                              {
+                                tradedGame?.eventTwoStats?.eventRoi
+                                  ?.$numberDecimal
+                              }
+                            </p>
+                          </div>
+                        </div>
+                      )}
                     </div>
 
-                    {tradedGame === undefined || null ? null : (
-                      <div className={styles.computation_wrapper}>
-                        <div className={styles.wrapper_innera}>
-                          <p className={styles.event_right}>
-                            Total equity: <br /> &#36;
-                            {
-                              tradedGame?.eventOneStats?.totalEquity
-                                ?.$numberDecimal
-                            }
-                          </p>
-                        </div>
-                        <div className={styles.wrapper_innerb}>
-                          <p className={styles.event_left}>
-                            {' '}
-                            Total equity: <br /> &#36;
-                            {
-                              tradedGame?.eventTwoStats?.totalEquity
-                                ?.$numberDecimal
-                            }
-                          </p>
-                        </div>
-                      </div>
-                    )}
-                    {tradedGame === undefined || null ? null : (
-                      <div className={styles.computation_wrapper}>
-                        <div className={styles.wrapper_innera}>
-                          <p className={styles.event_right}>
-                            Expected returns: <br /> &#36;
-                            {
-                              tradedGame?.eventOneStats?.expectedReturns
-                                ?.$numberDecimal
-                            }
-                          </p>
-                        </div>
-                        <div className={styles.wrapper_innerb}>
-                          <p className={styles.event_left}>
-                            Expected returns: <br /> &#36;
-                            {
-                              tradedGame?.eventTwoStats?.expectedReturns
-                                ?.$numberDecimal
-                            }
-                          </p>
-                        </div>
-                      </div>
-                    )}
-                    {tradedGame === undefined || null ? null : (
-                      <div className={styles.computation_wrapper}>
-                        <div className={styles.wrapper_innera}>
-                          <p className={styles.event_right}>
-                            Event RO1: <br /> &#36;
-                            {
-                              tradedGame?.eventOneStats?.eventRoi
-                                ?.$numberDecimal
-                            }
-                          </p>
-                        </div>
-                        <div className={styles.wrapper_innerb}>
-                          <p className={styles.event_left}>
-                            Event RO1: <br /> &#36;
-                            {
-                              tradedGame?.eventTwoStats?.eventRoi
-                                ?.$numberDecimal
-                            }
-                          </p>
-                        </div>
-                      </div>
-                    )}
-                  </div>
+                    {gameInfo?.status?.locked ? (
+                      <h3 className={styles.staked_trade}>
+                        Trade not yet active
+                        <AiFillLock size={16} />
+                      </h3>
+                    ) : tradedGame?.isGameTraded ? (
+                      <h3 className={styles.staked_trade}>
+                        Trade already placed
+                        <AiFillLock size={16} />
+                      </h3>
+                    ) : null}
 
-                  {gameInfo?.status ? (
-                    <h3 className={styles.staked_trade}>
-                      Trade not yet active
-                      <AiFillLock size={19} />
-                    </h3>
-                  ) : tradedGame?.isGameTraded ? (
-                    <h3 className={styles.staked_trade}>
-                      Trade already placed
-                      <AiFillLock size={19} />
-                    </h3>
-                  ) : (
-                    <button
-                      onClick={tradeNow}
-                      disabled={tradeGameLoading}
-                      className={styles.btn_stake}
-                    >
-                      {tradeGameLoading ? <SiginLoader /> : 'Trade Now'}
-                    </button>
-                  )}
+                    {!(
+                      gameInfo?.eventMode === 'running' ||
+                      gameInfo?.eventMode === 'cancelled' ||
+                      gameInfo?.eventMode === 'completed' ||
+                      gameInfo?.status?.locked ||
+                      tradedGame?.isGameTraded
+                    ) && (
+                      <button
+                        onClick={tradeNow}
+                        disabled={tradeGameLoading}
+                        className={styles.btn_stake}
+                      >
+                        {tradeGameLoading ? <SiginLoader /> : 'Trade Now'}
+                      </button>
+                    )}
+
+                    <div></div>
+
+                    {gameInfo?.eventMode === 'running' ? (
+                      <h3 className={styles.staked_trade}>
+                        Trade is running!
+                        <AiOutlineClockCircle size={16} />
+                      </h3>
+                    ) : gameInfo?.eventMode === 'cancelled' ? (
+                      <h3
+                        className={`${styles.staked_trade} ${styles.staked_trade_cancelled}`}
+                      >
+                        Trade has been cancelled!
+                        <AiFillWarning size={16} />
+                      </h3>
+                    ) : gameInfo?.eventMode === 'completed' ? (
+                      <h3
+                        className={`${styles.staked_trade} ${styles.staked_trade_completed}`}
+                      >
+                        Trade is completed!
+                        <AiOutlineCheckCircle size={16} />
+                      </h3>
+                    ) : null}
+                  </div>
                 </div>
               </div>
-            </div>
+            )}
             <div className={styles.right_panel}>
               <p>Financial Analytics</p>
               <p>

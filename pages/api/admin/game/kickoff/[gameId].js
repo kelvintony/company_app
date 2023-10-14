@@ -8,15 +8,15 @@ export default async (req, res) => {
   await db.connect();
 
   if (req.method === 'POST') {
-    return editGame(req, res);
+    return kickStartGame(req, res);
   } else if (req.method === 'GET') {
-    return getGame(req, res);
+    return unlockGame(req, res);
   } else {
     return res.status(400).send({ message: 'Method not allowed' });
   }
 };
 
-export const editGame = async (req, res) => {
+export const kickStartGame = async (req, res) => {
   try {
     // const user = await getToken({
     //   req,
@@ -42,20 +42,33 @@ export const editGame = async (req, res) => {
       { new: true }
     );
 
-    return res.status(200).json({ message: 'game updated successfully' });
+    return res.status(200).json({ message: 'game kickstarted successfully' });
   } catch (error) {
     return res.status(400).json({ message: error.message });
   }
 };
 
-export const getGame = async (req, res) => {
-  //   try {
-  //     const findGame = await gameModel.findOne({
-  //       eventMode: 'pending' || 'running',
-  //     });
-  //     return res.status(200).json({ message: findGame });
-  //   } catch (error) {
-  //     console.log(error.message);
-  //     return res.status(400).json({ message: error.message });
-  //   }
+export const unlockGame = async (req, res) => {
+  try {
+    const session = await getSession({ req });
+
+    if (!session || (session && !session.user.superUser)) {
+      return res.status(401).send('you are not authenticated');
+    }
+
+    const gameId = req.query.gameId;
+
+    await gameModel.findByIdAndUpdate(
+      gameId,
+      {
+        status: { locked: false },
+      },
+      { new: true }
+    );
+
+    return res.status(200).json({ message: 'game unlocked successfully' });
+  } catch (error) {
+    console.log(error.message);
+    return res.status(400).json({ message: error.message });
+  }
 };
