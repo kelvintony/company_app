@@ -1,5 +1,6 @@
 .section_a {
   padding-bottom: 100px;
+  padding: 0px 50px;
 }
 
 .dashboard_container {
@@ -67,8 +68,26 @@
 .event_left {
   text-align: left;
 }
-
+.staked_trade {
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  color: #f5b96a !important;
+  font-weight: 500;
+}
+/* .lock_icon {
+  font-size: 30px;
+  color: #f05822;
+  position: absolute;
+  top: 12px;
+  cursor: pointer;
+} */
 /* @right panel  */
+.right_panel {
+  height: fit-content;
+}
 .right_panel p:nth-of-type(1) {
   font-size: 30px;
   margin-bottom: 5px;
@@ -139,6 +158,11 @@
 }
 
 @media screen and (max-width: 900px) {
+  .section_a {
+    /* padding-bottom: 100px; */
+    padding: 0px 20px;
+    margin-bottom: 100px;
+  }
   .dashboard_container {
     grid-template-columns: 1fr;
   }
