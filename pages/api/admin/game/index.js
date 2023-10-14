@@ -66,7 +66,7 @@ export const getGame = async (req, res) => {
 
   const session = await getSession({ req });
 
-  if (!session || (session && !session.user.superUser)) {
+  if (!session) {
     return res.status(401).send('you are not authenticated');
   }
 

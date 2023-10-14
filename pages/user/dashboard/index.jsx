@@ -14,6 +14,7 @@ import { useStore } from '../../../context';
 import { FiArrowDown } from 'react-icons/fi';
 import { FiArrowUp } from 'react-icons/fi';
 import splitText from '../../../utils/splitText';
+import SiginLoader from '../../../components/SigninLoader/SiginLoader';
 
 const UserDashboard = () => {
   const router = useRouter();
@@ -32,13 +33,24 @@ const UserDashboard = () => {
 
   const [gameInfo, setGameInfo] = useState(null);
 
+  const [tradedGame, setTradedGame] = useState(null);
+
   const [loadGameData, setLoadGameData] = useState(false);
+  const [tradeGameLoading, setTradeGameLoading] = useState(false);
 
   useEffect(() => {
-    fetchDame();
+    fetchGame();
   }, []);
 
-  const fetchDame = async () => {
+  useEffect(() => {
+    gameInfo && fetchTradedGame();
+  }, [gameInfo]);
+
+  const toggleStats = () => {
+    setShowStats(!showStats);
+  };
+
+  const fetchGame = async () => {
     setLoadGameData(true);
     const res = await axios.get('/api/admin/game');
     try {
@@ -52,10 +64,37 @@ const UserDashboard = () => {
     }
   };
 
-  const toggleStats = () => {
-    setShowStats(!showStats);
+  const fetchTradedGame = async () => {
+    setTradeGameLoading(true);
+    const gameId = gameInfo?._id;
+    const res = await axios.get(`/api/customers/game/?gameId=${gameId}`);
+
+    try {
+      if (res) {
+        setTradeGameLoading(false);
+        setTradedGame(res?.data?.message[0]);
+      }
+    } catch (error) {
+      setTradeGameLoading(false);
+      console.log(error);
+    }
   };
 
+  const tradeNow = async () => {
+    setTradeGameLoading(true);
+    const res = await axios.post('/api/customers/game', { gameInfo });
+    try {
+      if (res) {
+        setTradeGameLoading(false);
+        fetchTradedGame();
+        console.log(res);
+      }
+    } catch (error) {
+      setTradeGameLoading(false);
+      console.log(error);
+    }
+  };
+  console.log('traded Game', tradedGame);
   return (
     <DashboardLayout>
       <>
@@ -142,13 +181,14 @@ const UserDashboard = () => {
                         </p>
                         <p
                           style={{
-                            fontWeight: '700',
+                            fontWeight: '600',
                             borderBottom: '1px solid gray',
+                            color: '#0fd46c',
                           }}
                           className={styles.event_right}
                         >
                           {gameInfo?.eventOption1.length > 0
-                            ? gameInfo?.eventOption1
+                            ? `${gameInfo?.eventOption1} - ${gameInfo?.eventOption1Odd?.$numberDecimal}`
                             : '*******'}
                         </p>
                       </div>
@@ -163,57 +203,95 @@ const UserDashboard = () => {
                         </p>
                         <p
                           style={{
-                            fontWeight: '700',
+                            fontWeight: '600',
                             borderBottom: '1px solid gray',
+                            color: '#0fd46c',
                           }}
                           className={styles.event_left}
                         >
                           {gameInfo?.eventOption2.length > 0
-                            ? gameInfo?.eventOption2
+                            ? `${gameInfo?.eventOption2} - ${gameInfo?.eventOption2Odd?.$numberDecimal}`
                             : '*******'}
                         </p>
                       </div>
                     </div>
-                    <div className={styles.computation_wrapper}>
-                      <div className={styles.wrapper_innera}>
-                        <p className={styles.event_right}>
-                          Total equity: <br /> &#36;512.2
-                        </p>
+
+                    {tradedGame === undefined || null ? null : (
+                      <div className={styles.computation_wrapper}>
+                        <div className={styles.wrapper_innera}>
+                          <p className={styles.event_right}>
+                            Total equity: <br /> &#36;
+                            {
+                              tradedGame?.eventOneStats?.totalEquity
+                                ?.$numberDecimal
+                            }
+                          </p>
+                        </div>
+                        <div className={styles.wrapper_innerb}>
+                          <p className={styles.event_left}>
+                            {' '}
+                            Total equity: <br /> &#36;
+                            {
+                              tradedGame?.eventTwoStats?.totalEquity
+                                ?.$numberDecimal
+                            }
+                          </p>
+                        </div>
                       </div>
-                      <div className={styles.wrapper_innerb}>
-                        <p className={styles.event_left}>
-                          {' '}
-                          Total equity: <br /> &#36;487.8
-                        </p>
+                    )}
+                    {tradedGame === undefined || null ? null : (
+                      <div className={styles.computation_wrapper}>
+                        <div className={styles.wrapper_innera}>
+                          <p className={styles.event_right}>
+                            Expected returns: <br /> &#36;
+                            {
+                              tradedGame?.eventOneStats?.expectedReturns
+                                ?.$numberDecimal
+                            }
+                          </p>
+                        </div>
+                        <div className={styles.wrapper_innerb}>
+                          <p className={styles.event_left}>
+                            Expected returns: <br /> &#36;
+                            {
+                              tradedGame?.eventTwoStats?.expectedReturns
+                                ?.$numberDecimal
+                            }
+                          </p>
+                        </div>
                       </div>
-                    </div>
-                    <div className={styles.computation_wrapper}>
-                      <div className={styles.wrapper_innera}>
-                        <p className={styles.event_right}>
-                          Expected returns: <br /> &#36;1,010
-                        </p>
+                    )}
+                    {tradedGame === undefined || null ? null : (
+                      <div className={styles.computation_wrapper}>
+                        <div className={styles.wrapper_innera}>
+                          <p className={styles.event_right}>
+                            Event RO1: <br /> &#36;
+                            {
+                              tradedGame?.eventOneStats?.eventRoi
+                                ?.$numberDecimal
+                            }
+                          </p>
+                        </div>
+                        <div className={styles.wrapper_innerb}>
+                          <p className={styles.event_left}>
+                            Event RO1: <br /> &#36;
+                            {
+                              tradedGame?.eventTwoStats?.eventRoi
+                                ?.$numberDecimal
+                            }
+                          </p>
+                        </div>
                       </div>
-                      <div className={styles.wrapper_innerb}>
-                        <p className={styles.event_left}>
-                          Expected returns: <br /> &#36;1,010
-                        </p>
-                      </div>
-                    </div>
-                    <div className={styles.computation_wrapper}>
-                      <div className={styles.wrapper_innera}>
-                        <p className={styles.event_right}>
-                          Event RO1: <br /> &#36;910
-                        </p>
-                      </div>
-                      <div className={styles.wrapper_innerb}>
-                        <p className={styles.event_left}>
-                          Event RO1: <br /> &#36;910
-                        </p>
-                      </div>
-                    </div>
+                    )}
                   </div>
 
-                  <button className={styles.btn_stake}>Trade Now</button>
+                  <button
+                    onClick={tradeNow}
+                    disabled={tradeGameLoading}
+                    className={styles.btn_stake}
+                  >
+                    {tradeGameLoading ? <SiginLoader /> : 'Trade Now'}
+                  </button>
                 </div>
               </div>
             </div>

@@ -171,7 +171,7 @@ const EventSetup = () => {
                   type='text'
                   name='eventOption1Odd'
                   className={styles.form_control}
-                  value={formData?.eventOption1Odd}
+                  value={formData?.eventOption1Odd?.$numberDecimal}
                   placeholder='e.g 1.90'
                   onChange={(e) =>
                     setFormData({
@@ -216,7 +216,7 @@ const EventSetup = () => {
                   type='text'
                   name='eventOption2Odd'
                   className={styles.form_control}
-                  value={formData?.eventOption2Odd}
+                  value={formData?.eventOption2Odd?.$numberDecimal}
                   placeholder='e.g 2.01'
                   onChange={(e) =>
                     setFormData({
@@ -275,19 +275,20 @@ const EventSetup = () => {
             </label>
           </div>
 
-          {gameInfo?.gameDescription === 'latest game' && (
-            <button
-              onClick={submitFormData}
-              className={
-                loading
-                  ? `${styles.btn_create_event} ${styles.btn_create_event_inactive}`
-                  : styles.btn_create_event
-              }
-              disabled={loading}
-            >
-              {loading ? <SiginLoader /> : 'Create Event'}
-            </button>
-          )}
+          {gameInfo?.gameDescription === 'latest game' ||
+            (!gameInfo && (
+              <button
+                onClick={submitFormData}
+                className={
+                  loading
+                    ? `${styles.btn_create_event} ${styles.btn_create_event_inactive}`
+                    : styles.btn_create_event
+                }
+                disabled={loading}
+              >
+                {loading ? <SiginLoader /> : 'Create Event'}
+              </button>
+            ))}
           {gameInfo?.eventMode === 'pending' && (
             <button
               onClick={editGameFunction}
@@ -468,7 +469,7 @@ const EventSetup = () => {
                       <p className={styles.event_right}>
                         Odd 1: <br />
                         {gameInfo?.eventOption1Odd
-                          ? gameInfo?.eventOption1Odd
+                          ? gameInfo?.eventOption1Odd?.$numberDecimal
                           : '****'}
                       </p>
                     </div>
@@ -477,7 +478,7 @@ const EventSetup = () => {
                         {' '}
                         Odd 2: <br />
                         {gameInfo?.eventOption2Odd
-                          ? gameInfo?.eventOption2Odd
+                          ? gameInfo?.eventOption2Odd?.$numberDecimal
                           : '****'}
                       </p>
                     </div>

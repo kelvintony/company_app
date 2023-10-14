@@ -178,14 +178,14 @@ const LiveEvent = () => {
                     <div className={styles.wrapper_innera}>
                       <p className={styles.event_right}>
                         Odd 1: <br />
-                        {gameInfo?.eventOption1Odd}
+                        {gameInfo?.eventOption1Odd?.$numberDecimal}
                       </p>
                     </div>
                     <div className={styles.wrapper_innerb}>
                       <p className={styles.event_left}>
                         {' '}
                         Odd 2: <br />
-                        {gameInfo?.eventOption2Odd}
+                        {gameInfo?.eventOption2Odd?.$numberDecimal}
                       </p>
                     </div>
                   </div>
