@@ -44,8 +44,21 @@ export const editGame = async (req, res) => {
       userId: session.user._id,
     });
 
+    const foundGamePlayedByUser = await tradedGameModel.find({
+      userId: session.user._id,
+      gameId: gameId,
+    });
+
+    if (foundGamePlayedByUser.length > 0) {
+      return res.status(400).json({ message: 'Game already traded' });
+    }
+
     if (!foundGame) {
       return res.status(400).json({ message: 'Game does not exist' });
+    }
+
+    if (foundGame.status.locked === true) {
+      return res.status(400).json({ message: 'Game is locked' });
     }
 
     if (foundGame.eventMode === 'running') {
@@ -100,40 +113,7 @@ export const editGame = async (req, res) => {
   }
 };
 
-export const cancelGame = async (req, res) => {
-  try {
-    await db.connect();
-
-    // const user = await getToken({
-    //   req,
-    //   secret: process.env.NEXTAUTH_SECRET,
-    // });
-
-    // if (!user || (user && !user.superUser)) {
-    //   return res.status(401).send('signin required');
-    // }
-
-    const session = await getSession({ req });
-
-    if (!session) {
-      return res.status(401).send('you are not authenticated');
-    }
-    const gameId = req.query.gameId;
-
-    await gameModel.findByIdAndUpdate(
-      gameId,
-      {
-        eventMode: 'cancelled',
-        gameDescription: 'latest game',
-      },
-      { new: true }
-    );
-
-    return res.status(200).json({ message: 'game updated successfully' });
-  } catch (error) {
-    return res.status(400).json({ message: error.message });
-  }
-};
+export const cancelGame = async (req, res) => {};
 
 export const getGame = async (req, res) => {
   try {
@@ -153,7 +133,12 @@ export const getGame = async (req, res) => {
       })
       .select('-gameId -userId -__v -_id -createdAt -updatedAt');
 
-    return res.status(200).json({ message: findGame });
+    if (findGame.length === 0) {
+      return res.status(200).json({ message: [] });
+    } else {
+      return res.status(200).json({ message: findGame });
+    }
+    console.log('find game', findGame);
   } catch (error) {
     console.log(error.message);
     return res.status(400).json({ message: error.message });

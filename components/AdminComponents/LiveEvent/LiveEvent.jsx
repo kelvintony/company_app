@@ -26,6 +26,7 @@ const LiveEvent = () => {
   const [loadGameData, setLoadGameData] = useState(false);
   const [loading, setLoading] = useState(false);
   const [loadingForCancel, setLoadingForCancel] = useState(false);
+  const [unlockGameLoading, setUnlockGameLoading] = useState(false);
 
   useEffect(() => {
     fetchDame();
@@ -60,6 +61,23 @@ const LiveEvent = () => {
       }
     } catch (error) {
       setLoading(false);
+      console.log(error);
+    }
+  };
+
+  const unlockGame = async (id) => {
+    setUnlockGameLoading(true);
+
+    let gameId = id;
+    try {
+      const res = await axios.get(`/api/admin/game/kickoff/${gameId}`);
+
+      if (res) {
+        fetchDame();
+        setUnlockGameLoading(false);
+      }
+    } catch (error) {
+      setUnlockGameLoading(false);
       console.log(error);
     }
   };
@@ -208,6 +226,24 @@ const LiveEvent = () => {
                 ) : (
                   <AiFillLock className={styles.lock_icon} />
                 )}
+
+                {gameInfo?.status?.locked && (
+                  <button
+                    disabled={unlockGameLoading}
+                    onClick={() => {
+                      if (
+                        window.confirm(
+                          'Are you sure you you want to unlock game?'
+                        )
+                      )
+                        unlockGame(gameInfo?._id);
+                    }}
+                    className={styles.btn_unlock}
+                  >
+                    {unlockGameLoading ? <SiginLoader /> : 'Unclock Event'}
+                  </button>
+                )}
+
                 <div className={styles.eventMode_container}>
                   <p>
                     Event mode:{' '}

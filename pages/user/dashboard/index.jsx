@@ -38,6 +38,7 @@ const UserDashboard = () => {
 
   const [loadGameData, setLoadGameData] = useState(false);
   const [tradeGameLoading, setTradeGameLoading] = useState(false);
+  const [fetchTradeGameLoading, seFetchTradeGameLoading] = useState(false);
 
   useEffect(() => {
     fetchGame();
@@ -66,17 +67,17 @@ const UserDashboard = () => {
   };
 
   const fetchTradedGame = async () => {
-    setTradeGameLoading(true);
+    seFetchTradeGameLoading(true);
     const gameId = gameInfo?._id;
     const res = await axios.get(`/api/customers/game/?gameId=${gameId}`);
 
     try {
       if (res) {
-        setTradeGameLoading(false);
+        seFetchTradeGameLoading(false);
         setTradedGame(res?.data?.message[0]);
       }
     } catch (error) {
-      setTradeGameLoading(false);
+      seFetchTradeGameLoading(false);
       console.log(error);
     }
   };
@@ -88,14 +89,13 @@ const UserDashboard = () => {
       if (res) {
         setTradeGameLoading(false);
         fetchTradedGame();
-        console.log(res);
       }
     } catch (error) {
       setTradeGameLoading(false);
       console.log(error);
     }
   };
-  console.log('traded Game', tradedGame);
+  // console.log('traded Game', tradedGame);
   return (
     <DashboardLayout>
       <>
@@ -217,7 +217,7 @@ const UserDashboard = () => {
                       </div>
                     </div>
 
-                    {tradedGame === undefined || null ? null : (
+                    {tradedGame && (
                       <div className={styles.computation_wrapper}>
                         <div className={styles.wrapper_innera}>
                           <p className={styles.event_right}>
@@ -240,7 +240,7 @@ const UserDashboard = () => {
                         </div>
                       </div>
                     )}
-                    {tradedGame === undefined || null ? null : (
+                    {tradedGame && (
                       <div className={styles.computation_wrapper}>
                         <div className={styles.wrapper_innera}>
                           <p className={styles.event_right}>
@@ -262,7 +262,7 @@ const UserDashboard = () => {
                         </div>
                       </div>
                     )}
-                    {tradedGame === undefined || null ? null : (
+                    {tradedGame && (
                       <div className={styles.computation_wrapper}>
                         <div className={styles.wrapper_innera}>
                           <p className={styles.event_right}>
@@ -286,7 +286,7 @@ const UserDashboard = () => {
                     )}
                   </div>
 
-                  {gameInfo?.status ? (
+                  {gameInfo?.status?.locked ? (
                     <h3 className={styles.staked_trade}>
                       Trade not yet active
                       <AiFillLock size={19} />
@@ -305,6 +305,23 @@ const UserDashboard = () => {
                       {tradeGameLoading ? <SiginLoader /> : 'Trade Now'}
                     </button>
                   )}
+
+                  {gameInfo?.eventMode === 'running' ? (
+                    <h3 className={styles.staked_trade}>
+                      Trade is running!
+                      <AiFillLock size={19} />
+                    </h3>
+                  ) : gameInfo?.eventMode === 'cancelled' ? (
+                    <h3 className={styles.staked_trade}>
+                      Trade has been cancelled!
+                      <AiFillLock size={19} />
+                    </h3>
+                  ) : gameInfo?.eventMode === 'completed' ? (
+                    <h3 className={styles.staked_trade}>
+                      Trade is completed!
+                      <AiFillLock size={19} />
+                    </h3>
+                  ) : null}
                 </div>
               </div>
             </div>

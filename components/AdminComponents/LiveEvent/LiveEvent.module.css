@@ -163,6 +163,28 @@
 .btn_kick_start:hover {
   background: linear-gradient(170.04deg, #ebb54b -8.91%, #e97247 99.52%);
 }
+
+.btn_unlock {
+  margin-top: 15px;
+  padding: 5px 10px;
+  border-radius: 5px;
+  border: 1px solid #eba10f;
+  color: #eba10f !important;
+  outline: none;
+  width: 200px;
+  height: 40px;
+  font-size: 16px;
+  font-family: 'Poppins', sans-serif;
+  margin-left: 15px;
+  text-align: center;
+  transition: all 0.2s ease-in-out;
+}
+
+.btn_unlock:hover {
+  background-color: #ebb54b;
+  color: #fff !important;
+}
+
 .btn_cancel_game {
   margin-top: 15px;
   background: linear-gradient(170.04deg, #acacac -8.91%, #424242 99.52%);
@@ -207,5 +229,9 @@
   /* utilities  */
   .btn_create_event {
     height: 50px;
+  }
+
+  .btn_unlock {
+    margin-left: 0px;
   }
 }
