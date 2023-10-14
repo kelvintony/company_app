@@ -43,14 +43,15 @@
 }
 
 .user_info > h4 {
-  background-color: #c48528;
+  /* background-color: #c48528; */
+  background-color: #a1cda8;
   height: 40px;
   width: 40px;
   border-radius: 50%;
   display: flex;
   justify-content: center;
   align-items: center;
-  color: #fff;
+  color: rgb(44, 44, 44);
   cursor: pointer;
 }
 
@@ -272,7 +273,8 @@
     width: 50px;
     display: flex;
     justify-content: center;
-    background-color: #cecff3;
+    /* background-color: #cecff3; */
+    background-color: #c5e7e2;
     border-radius: 7px;
   }
   .mobile_men_close {
