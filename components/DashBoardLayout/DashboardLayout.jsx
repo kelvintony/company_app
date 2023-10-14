@@ -183,7 +183,12 @@ const Dashboard = ({ children }) => {
           <div className={styles.red_dot}>2</div>
           <BsBell size={25} className={styles.bell_icon} />
         </div>
-        <RiMenu3Line onClick={toggleMenu} className={styles.mobile_men_close} />
+        <div className={styles.open_menu_container}>
+          <RiMenu3Line
+            onClick={toggleMenu}
+            className={styles.mobile_men_close}
+          />
+        </div>
       </div>
 
       {/* second content  */}
