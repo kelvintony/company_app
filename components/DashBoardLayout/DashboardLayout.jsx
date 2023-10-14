@@ -197,78 +197,81 @@ const Dashboard = ({ children }) => {
           showMenu ? styles.active : styles.inactive
         }`}
       >
-        <IoIosCloseCircleOutline
-          onClick={toggleMenu}
-          className={styles.mobile_men}
-        />
-        <div className={styles.user_info}>
-          {state?.user?.fullName && (
-            <h4 onClick={() => router.push('/user/profile')}>
-              {state?.user?.fullName.slice(0, 2)}
-            </h4>
-          )}
-          {/* state?.userTransactionProfile?.loading */}
-          <div className={styles.user_balance}>
-            <p>{state?.user?.fullName}</p>
-            <p style={{ display: 'flex', gap: '5px', alignItems: 'center' }}>
-              {state?.userTransactionProfile?.loading && <BalanceLoader />}
-              <>
-                &#36;
-                {/* {state?.userTransactionProfile?.accountBalance?.$numberDecimal?.toLocaleString()} */}
-                {convertWalletBalance(
-                  state?.userTransactionProfile?.accountBalance?.$numberDecimal
-                )}{' '}
-              </>
-              {''}
-              {loadBalance ? (
-                <BalanceLoader />
-              ) : (
-                <MdRefresh
-                  onClick={fetchUserTransaction}
-                  size={20}
-                  style={{ cursor: 'pointer' }}
-                />
-              )}
-            </p>
+        <div className={styles.leftbar__inner}>
+          <IoIosCloseCircleOutline
+            onClick={toggleMenu}
+            className={styles.mobile_men}
+          />
+          <div className={styles.user_info}>
+            {state?.user?.fullName && (
+              <h4 onClick={() => router.push('/user/profile')}>
+                {state?.user?.fullName.slice(0, 2)}
+              </h4>
+            )}
+            {/* state?.userTransactionProfile?.loading */}
+            <div className={styles.user_balance}>
+              <p>{state?.user?.fullName}</p>
+              <p style={{ display: 'flex', gap: '5px', alignItems: 'center' }}>
+                {state?.userTransactionProfile?.loading && <BalanceLoader />}
+                <>
+                  &#36;
+                  {/* {state?.userTransactionProfile?.accountBalance?.$numberDecimal?.toLocaleString()} */}
+                  {convertWalletBalance(
+                    state?.userTransactionProfile?.accountBalance
+                      ?.$numberDecimal
+                  )}{' '}
+                </>
+                {''}
+                {loadBalance ? (
+                  <BalanceLoader />
+                ) : (
+                  <MdRefresh
+                    onClick={fetchUserTransaction}
+                    size={20}
+                    style={{ cursor: 'pointer' }}
+                  />
+                )}
+              </p>
+            </div>
           </div>
-        </div>
-        <div className={styles.divider}></div>
+          <div className={styles.divider}></div>
 
-        <div className={styles.dashboard_menus}>
-          {menuItems.map((item) => {
-            return (
-              <Link
-                onClick={closeMenu}
-                key={item.id}
+          <div className={styles.dashboard_menus}>
+            {menuItems.map((item) => {
+              return (
+                <Link
+                  onClick={closeMenu}
+                  key={item.id}
+                  className={
+                    router.pathname === item.url
+                      ? styles.menu_items_active
+                      : styles.menu_items
+                  }
+                  href={item.url}
+                >
+                  <span className={styles.item_icon}>{item.iconsType}</span>
+                  {item.menuName}
+                </Link>
+              );
+            })}
+            {session?.user?.superUser === true && (
+              <button
+                onClick={() => router.push('/user/admin')}
                 className={
-                  router.pathname === item.url
+                  router.pathname === '/user/admin'
                     ? styles.menu_items_active
-                    : styles.menu_items
+                    : styles.user_admin
                 }
-                href={item.url}
               >
-                <span className={styles.item_icon}>{item.iconsType}</span>
-                {item.menuName}
-              </Link>
-            );
-          })}
-          {session?.user?.superUser === true && (
-            <button
-              onClick={() => router.push('/user/admin')}
-              className={
-                router.pathname === '/user/admin'
-                  ? styles.menu_items_active
-                  : styles.user_admin
-              }
-            >
-              <RiAdminLine className={styles.item_icon} />
-              Admin
+                <RiAdminLine className={styles.item_icon} />
+                Admin
+              </button>
+            )}
+            <button onClick={logoutClickHandler} className={styles.user_logout}>
+              <FiLogOut className={styles.logout_icon} />
+              Logout
             </button>
-          )}
-          <button onClick={logoutClickHandler} className={styles.user_logout}>
-            <FiLogOut className={styles.logout_icon} />
-            Logout
-          </button>
+          </div>
         </div>
       </div>
 

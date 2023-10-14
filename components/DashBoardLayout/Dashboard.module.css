@@ -25,6 +25,8 @@
 /* left sidebar  */
 .left_sideBar {
   background-color: #0d333f;
+  background-color: #d7f3e5;
+
   /* background-color: #dbe9dc; */
   position: fixed;
   top: 0;
@@ -58,12 +60,14 @@
 .user_balance > p:nth-of-type(1) {
   font-size: 14px;
   color: #fff;
+  color: black;
 }
 .user_balance > p:nth-of-type(2) {
   font-size: 13px;
   font-weight: 500;
   font-family: 'Rubik', sans-serif;
   color: #fff;
+  color: black;
 }
 
 .divider {
@@ -84,13 +88,7 @@
   align-items: center;
   gap: 10px;
   transition: all 0.2s ease-in-out;
-  color: #fff;
-}
-.menu_items:hover {
-  border: 1px solid #0fd46c;
-
-  padding: 10px 7px;
-  border-left: 5px solid #0fd46c;
+  color: black;
 }
 
 .menu_items_active {
@@ -99,16 +97,18 @@
   align-items: center;
   gap: 10px;
   transition: all 0.2s ease-in-out;
-  color: #fff;
-
-  border: 1px solid #0fd46c;
+  color: black;
 
   padding: 10px 7px;
-  border-left: 5px solid #0fd46c;
   font-size: 16px;
+  background-color: #80ac87;
+  border-radius: 5px;
+  margin-left: -10px;
+  margin-right: -10px;
 }
 .item_icon {
   color: #fff;
+  color: black;
   font-size: 20px;
   display: flex;
 }
@@ -121,7 +121,8 @@
   align-items: center;
   font-size: 18px;
   font-family: 'Roboto', sans-serif;
-  color: #fff;
+  /* color: #fff; */
+  color: black;
 }
 .user_logout {
   display: inline-flex;
@@ -131,7 +132,9 @@
   align-items: center;
   font-size: 19px;
   font-family: 'Roboto', sans-serif;
-  color: #fff;
+  /* color: #fff; */
+  color: black;
+  /* border-top: 1px solid rgb(158, 158, 158); */
   border-top: 1px solid rgb(158, 158, 158);
 }
 .logout_icon {
@@ -292,9 +295,9 @@
     top: 0;
     right: 0;
     font-size: 30px;
-    margin-right: 5px;
-    margin-top: 35px;
-    color: #fff;
+    margin-right: 40px;
+    margin-top: 65px;
+    color: black;
   }
   .notify_container {
     display: flex;
@@ -320,9 +323,22 @@
     top: -6px;
     right: -5px;
   }
+
+  /* !start here  */
   .left_sideBar {
     width: 100%;
+    padding: 20px;
+    background-color: #cdcca1;
   }
+  .leftbar__inner {
+    height: 100%;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: #b5dfca;
+    color: black !important;
+  }
+
+  /*! end here  */
   .left_sideBar.active {
     opacity: 1;
     visibility: visible;
@@ -392,3 +408,22 @@
     padding: 2px;
   }
 }
+
+/* .user_balance > p:nth-of-type(1) {
+  color: black;
+}
+.user_balance > p:nth-of-type(2) {
+  color: black;
+}
+.menu_items {
+  color: black;
+}
+.menu_items_active {
+  color: black;
+}
+.item_icon {
+  color: black;
+}
+.user_admin {
+  color: black;
+} */
