@@ -15,6 +15,7 @@ import { FiArrowDown } from 'react-icons/fi';
 import { FiArrowUp } from 'react-icons/fi';
 import splitText from '../../../utils/splitText';
 import SiginLoader from '../../../components/SigninLoader/SiginLoader';
+import { AiFillLock } from 'react-icons/ai';
 
 const UserDashboard = () => {
   const router = useRouter();
@@ -285,13 +286,25 @@ const UserDashboard = () => {
                     )}
                   </div>
 
-                  <button
-                    onClick={tradeNow}
-                    disabled={tradeGameLoading}
-                    className={styles.btn_stake}
-                  >
-                    {tradeGameLoading ? <SiginLoader /> : 'Trade Now'}
-                  </button>
+                  {gameInfo?.status ? (
+                    <h3 className={styles.staked_trade}>
+                      Trade not yet active
+                      <AiFillLock size={19} />
+                    </h3>
+                  ) : tradedGame?.isGameTraded ? (
+                    <h3 className={styles.staked_trade}>
+                      Trade already placed
+                      <AiFillLock size={19} />
+                    </h3>
+                  ) : (
+                    <button
+                      onClick={tradeNow}
+                      disabled={tradeGameLoading}
+                      className={styles.btn_stake}
+                    >
+                      {tradeGameLoading ? <SiginLoader /> : 'Trade Now'}
+                    </button>
+                  )}
                 </div>
               </div>
             </div>
