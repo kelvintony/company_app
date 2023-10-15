@@ -34,6 +34,14 @@ export const kickStartGame = async (req, res) => {
     }
     const gameId = req.query.gameId;
 
+    const foundGame = await gameModel.findById(gameId);
+
+    if (foundGame.status.locked) {
+      return res
+        .status(400)
+        .json({ message: 'Event is locked please unlock first' });
+    }
+
     await gameModel.findByIdAndUpdate(
       gameId,
       {

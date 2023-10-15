@@ -30,6 +30,7 @@ import { BalanceLoader } from '../BalanceLoader/BalanceLoader';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import convertWalletBalance from '../../utils/convertWalletBalance';
+import { AiOutlineLogout } from 'react-icons/ai';
 
 const menuItems = [
   {
@@ -268,8 +269,8 @@ const Dashboard = ({ children }) => {
               </button>
             )}
             <button onClick={logoutClickHandler} className={styles.user_logout}>
-              <FiLogOut className={styles.logout_icon} />
-              Logout
+              <AiOutlineLogout className={styles.logout_icon} />
+              Log out
             </button>
           </div>
         </div>

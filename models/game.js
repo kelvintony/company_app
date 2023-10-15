@@ -14,6 +14,7 @@ const gameSchema = new mongoose.Schema(
     eventOption2: { type: String },
     eventOption2Odd: { type: mongoose.Schema.Types.Decimal128 },
     eventDate: { type: String },
+    eventDateWithoutFormat: { type: String },
     eventTime: { type: String },
     status: {
       type: Object,
