@@ -19,6 +19,7 @@ const EventSetup = () => {
     eventOption2Odd: '',
     eventDate: '',
     eventTime: '',
+    eventDateWithoutFormat: '',
   });
   const [formDataError, setFormDataError] = useState(false);
 
@@ -44,7 +45,6 @@ const EventSetup = () => {
     }
   };
   const submitFormData = async () => {
-    // console.log(formData);
     setLoading(true);
     try {
       const res = await axios.post('/api/admin/game', {
@@ -91,7 +91,7 @@ const EventSetup = () => {
       eventOption1Odd: gameInfo?.eventOption1Odd,
       eventOption2: gameInfo?.eventOption2,
       eventOption2Odd: gameInfo?.eventOption2Odd,
-      eventDate: gameInfo?.eventDate,
+      eventDate: gameInfo?.eventDateWithoutFormat,
       eventTime: gameInfo?.eventTime,
     });
   };
@@ -244,7 +244,11 @@ const EventSetup = () => {
                 className={styles.form_control}
                 value={formData?.eventDate}
                 onChange={(e) =>
-                  setFormData({ ...formData, eventDate: e.target.value })
+                  setFormData({
+                    ...formData,
+                    eventDate: e.target.value,
+                    eventDateWithoutFormate: e.target.value,
+                  })
                 }
               />
               <br />
