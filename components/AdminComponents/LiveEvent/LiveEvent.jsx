@@ -7,6 +7,7 @@ import UserLoader from '../../UserLoader/UserLoader';
 import splitText from '../../../utils/splitText';
 import SiginLoader from '../../SigninLoader/SiginLoader';
 import { AiFillCheckCircle, AiFillLock } from 'react-icons/ai';
+import { AlertHandler } from '../../../utils/AlertHandler';
 
 const eventOptions = [
   {
@@ -28,6 +29,11 @@ const LiveEvent = () => {
   const [loadingForCancel, setLoadingForCancel] = useState(false);
   const [unlockGameLoading, setUnlockGameLoading] = useState(false);
 
+  //! ALERT SECTION
+  const [errorMessage, setErrorMessage] = useState(null);
+  const [open, setOpen] = useState(false);
+  //! THE END OF ALERT SECTION
+
   useEffect(() => {
     fetchDame();
   }, []);
@@ -48,6 +54,9 @@ const LiveEvent = () => {
 
   const kickStartGame = async (id) => {
     setLoading(true);
+    setErrorMessage(null);
+
+    setOpen(true); //! make sure you set this guy open for the MUI alert
 
     let gameId = id;
     try {
@@ -61,6 +70,7 @@ const LiveEvent = () => {
       }
     } catch (error) {
       setLoading(false);
+      setErrorMessage(error?.response?.data?.message);
       console.log(error);
     }
   };
@@ -121,6 +131,12 @@ const LiveEvent = () => {
   };
   return (
     <div className={styles.liveEvent_container}>
+      <AlertHandler
+        errorMessage={errorMessage}
+        open={open}
+        setOpen={setOpen}
+        responseMessage={null}
+      />
       <h3>Live Event</h3>
       <div className={styles.liveEvent_wrapper}>
         <div className={styles.left_panel}>
@@ -241,7 +257,7 @@ const LiveEvent = () => {
                     }}
                     className={styles.btn_unlock}
                   >
-                    {unlockGameLoading ? <SiginLoader /> : 'Unclock Event'}
+                    {unlockGameLoading ? 'unlocking...' : 'Unclock Event'}
                   </button>
                 )}
 

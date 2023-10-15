@@ -6,6 +6,7 @@ import axios from 'axios';
 import splitText from '../../../utils/splitText';
 import { BiEdit } from 'react-icons/bi';
 import { AiFillLock } from 'react-icons/ai';
+import UserLoader from '../../UserLoader/UserLoader';
 
 const EventSetup = () => {
   const [loading, setLoading] = useState(false);
@@ -305,120 +306,125 @@ const EventSetup = () => {
         </div>
         <div className={styles.kickStart_container}>
           <h3>Event Summary</h3>
-          {/* <div className={styles.edit_container}> */}
+
           {gameInfo?.eventMode === 'pending' ? (
             <BiEdit onClick={editGame} className={styles.edit_icon} />
           ) : (
             <AiFillLock className={styles.lock_icon} />
           )}
-          {/* </div> */}
-          <div className={styles.right_panel}>
-            <div className={styles.match_event}>
-              <p>
-                {gameInfo?.eventType.length > 0 ? gameInfo?.eventType : '*****'}
-              </p>
-              <p style={{ lineHeight: '2.3rem', margin: '20px 0px' }}>
-                {gameInfo?.eventSelection.length > 0
-                  ? splitText(gameInfo.eventSelection)?.textBeforeVS
-                  : '********'}
-                <br /> {gameInfo?.eventSelection.length > 0 ? 'VS' : '***'}
-                <br />
-                {gameInfo?.eventSelection.length > 0
-                  ? splitText(gameInfo.eventSelection)?.textAfterVS
-                  : '********'}
-              </p>
-              <p>
-                {gameInfo?.eventTime.length > 0 ? gameInfo?.eventTime : '****'}{' '}
-                GMT+1 <br />{' '}
-                <span style={{ fontSize: '14px' }}>
-                  {gameInfo?.eventDate.length > 0
-                    ? gameInfo?.eventDate
-                    : '*******'}
-                </span>
-              </p>
+          {!gameInfo && (
+            <div
+              style={{
+                display: 'flex',
+                justifyContent: 'center',
+                marginTop: '20px',
+              }}
+            >
+              <UserLoader />
+            </div>
+          )}
+          {gameInfo && (
+            <div className={styles.right_panel}>
+              <div className={styles.match_event}>
+                <p>
+                  {gameInfo?.eventType.length > 0
+                    ? gameInfo?.eventType
+                    : '*****'}
+                </p>
+                <p style={{ lineHeight: '2.3rem', margin: '20px 0px' }}>
+                  {gameInfo?.eventSelection.length > 0
+                    ? splitText(gameInfo.eventSelection)?.textBeforeVS
+                    : '********'}
+                  <br /> {gameInfo?.eventSelection.length > 0 ? 'VS' : '***'}
+                  <br />
+                  {gameInfo?.eventSelection.length > 0
+                    ? splitText(gameInfo.eventSelection)?.textAfterVS
+                    : '********'}
+                </p>
+                <p>
+                  {gameInfo?.eventTime.length > 0
+                    ? gameInfo?.eventTime
+                    : '****'}{' '}
+                  GMT+1 <br />{' '}
+                  <span style={{ fontSize: '14px' }}>
+                    {gameInfo?.eventDate.length > 0
+                      ? gameInfo?.eventDate
+                      : '*******'}
+                  </span>
+                </p>
 
-              <div className={styles.event_computations}>
-                <div
-                  className={`${styles.computation_container} ${styles.show_container}`}
-                >
-                  <div className={styles.computation_wrapper}>
-                    <div className={styles.wrapper_innera}>
-                      <p
-                        style={{
-                          fontWeight: '700',
-                        }}
-                        className={styles.event_right}
-                      >
-                        Event 1:
-                      </p>
-                      <p
-                        style={{
-                          fontWeight: '700',
-                          borderBottom: '1px solid gray',
-                        }}
-                        className={styles.event_right}
-                      >
-                        {gameInfo?.eventOption1.length > 0
-                          ? gameInfo?.eventOption1
-                          : '*******'}
-                      </p>
+                <div className={styles.event_computations}>
+                  <div
+                    className={`${styles.computation_container} ${styles.show_container}`}
+                  >
+                    <div className={styles.computation_wrapper}>
+                      <div className={styles.wrapper_innera}>
+                        <p
+                          style={{
+                            fontWeight: '700',
+                          }}
+                          className={styles.event_right}
+                        >
+                          Event 1:
+                        </p>
+                        <p
+                          style={{
+                            fontWeight: '700',
+                            borderBottom: '1px solid gray',
+                          }}
+                          className={styles.event_right}
+                        >
+                          {gameInfo?.eventOption1.length > 0
+                            ? gameInfo?.eventOption1
+                            : '*******'}
+                        </p>
+                      </div>
+                      <div className={styles.wrapper_innerb}>
+                        <p
+                          style={{
+                            fontWeight: '700',
+                          }}
+                          className={styles.event_left}
+                        >
+                          Event 2:
+                        </p>
+                        <p
+                          style={{
+                            fontWeight: '700',
+                            borderBottom: '1px solid gray',
+                          }}
+                          className={styles.event_left}
+                        >
+                          {gameInfo?.eventOption2.length > 0
+                            ? gameInfo?.eventOption2
+                            : '*******'}
+                        </p>
+                      </div>
                     </div>
-                    <div className={styles.wrapper_innerb}>
-                      <p
-                        style={{
-                          fontWeight: '700',
-                        }}
-                        className={styles.event_left}
-                      >
-                        Event 2:
-                      </p>
-                      <p
-                        style={{
-                          fontWeight: '700',
-                          borderBottom: '1px solid gray',
-                        }}
-                        className={styles.event_left}
-                      >
-                        {gameInfo?.eventOption2.length > 0
-                          ? gameInfo?.eventOption2
-                          : '*******'}
-                      </p>
-                    </div>
-                  </div>
-                  <div className={styles.computation_wrapper}>
-                    <div className={styles.wrapper_innera}>
-                      <p className={styles.event_right}>
-                        Odd 1: <br />
-                        {gameInfo?.eventOption1Odd
-                          ? gameInfo?.eventOption1Odd?.$numberDecimal
-                          : '****'}
-                      </p>
-                    </div>
-                    <div className={styles.wrapper_innerb}>
-                      <p className={styles.event_left}>
-                        {' '}
-                        Odd 2: <br />
-                        {gameInfo?.eventOption2Odd
-                          ? gameInfo?.eventOption2Odd?.$numberDecimal
-                          : '****'}
-                      </p>
+                    <div className={styles.computation_wrapper}>
+                      <div className={styles.wrapper_innera}>
+                        <p className={styles.event_right}>
+                          Odd 1: <br />
+                          {gameInfo?.eventOption1Odd
+                            ? gameInfo?.eventOption1Odd?.$numberDecimal
+                            : '****'}
+                        </p>
+                      </div>
+                      <div className={styles.wrapper_innerb}>
+                        <p className={styles.event_left}>
+                          {' '}
+                          Odd 2: <br />
+                          {gameInfo?.eventOption2Odd
+                            ? gameInfo?.eventOption2Odd?.$numberDecimal
+                            : '****'}
+                        </p>
+                      </div>
                     </div>
                   </div>
                 </div>
-                {/* <button
-                  onClick={submitFormData}
-                  className={
-                    loading
-                      ? `${styles.btn_kick_start} ${styles.btn_kick_start_inactive}`
-                      : styles.btn_kick_start
-                  }
-                  disabled={loading}
-                >
-                  {loading ? <SiginLoader /> : 'Create Event'}
-                </button> */}
               </div>
             </div>
-          </div>
+          )}
         </div>
       </div>
     </div>
