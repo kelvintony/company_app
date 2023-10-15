@@ -13,7 +13,7 @@ import { authConstants } from '../../context/constants';
 import axios from 'axios';
 
 const Login = () => {
-  // ALERT SECTION
+  //! ALERT SECTION
   const Alert = forwardRef(function Alert(props, ref) {
     return <MuiAlert elevation={6} ref={ref} variant='filled' {...props} />;
   });
@@ -27,7 +27,7 @@ const Login = () => {
 
     setOpen(false);
   };
-  // THE END OF ALERT SECTION
+  //! THE END OF ALERT SECTION
 
   const router = useRouter();
 
@@ -55,7 +55,7 @@ const Login = () => {
 
     if (formData.email && formData.password) {
       setLoading(true);
-      setOpen(true); // make sure you set this guy open
+      setOpen(true); //! make sure you set this guy open for the MUI alert
 
       dispatch({
         type: authConstants.LOGIN_REQUEST,

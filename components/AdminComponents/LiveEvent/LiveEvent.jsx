@@ -208,7 +208,8 @@ const LiveEvent = () => {
                     </div>
                   </div>
                 </div>
-                {gameInfo?.eventMode === 'pending' ? (
+                {gameInfo?.eventMode === 'pending' &&
+                !gameInfo?.status?.locked ? (
                   <button
                     onClick={() => {
                       if (

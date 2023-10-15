@@ -50,19 +50,19 @@ export const editGame = async (req, res) => {
     });
 
     if (foundGamePlayedByUser.length > 0) {
-      return res.status(400).json({ message: 'Game already traded' });
+      return res.status(400).json({ message: 'Event already traded' });
     }
 
     if (!foundGame) {
-      return res.status(400).json({ message: 'Game does not exist' });
+      return res.status(400).json({ message: 'Trade does not exist' });
     }
 
     if (foundGame.status.locked === true) {
-      return res.status(400).json({ message: 'Game is locked' });
+      return res.status(400).json({ message: 'Trade is locked' });
     }
 
     if (foundGame.eventMode === 'running') {
-      return res.status(400).json({ message: 'Game already running' });
+      return res.status(400).json({ message: 'Trade already running' });
     }
 
     let odd1 = foundGame.eventOption1Odd;
@@ -138,7 +138,6 @@ export const getGame = async (req, res) => {
     } else {
       return res.status(200).json({ message: findGame });
     }
-    console.log('find game', findGame);
   } catch (error) {
     console.log(error.message);
     return res.status(400).json({ message: error.message });

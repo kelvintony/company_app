@@ -25,6 +25,8 @@ import {
 } from 'react-icons/ai';
 import UserLoader from '../../../components/UserLoader/UserLoader';
 
+import { AlertHandler } from '../../../utils/AlertHandler';
+
 const UserDashboard = () => {
   const router = useRouter();
 
@@ -48,6 +50,11 @@ const UserDashboard = () => {
   const [tradeGameLoading, setTradeGameLoading] = useState(false);
   const [fetchTradeGameLoading, seFetchTradeGameLoading] = useState(false);
 
+  //! ALERT SECTION
+  const [errorMessage, setErrorMessage] = useState(null);
+  const [open, setOpen] = useState(false);
+  //! THE END OF ALERT SECTION
+
   useEffect(() => {
     fetchGame();
   }, []);
@@ -62,8 +69,8 @@ const UserDashboard = () => {
 
   const fetchGame = async () => {
     setLoadGameData(true);
-    const res = await axios.get('/api/admin/game');
     try {
+      const res = await axios.get('/api/admin/game');
       if (res) {
         setLoadGameData(false);
         setGameInfo(res.data.message);
@@ -77,9 +84,9 @@ const UserDashboard = () => {
   const fetchTradedGame = async () => {
     seFetchTradeGameLoading(true);
     const gameId = gameInfo?._id;
-    const res = await axios.get(`/api/customers/game/?gameId=${gameId}`);
 
     try {
+      const res = await axios.get(`/api/customers/game/?gameId=${gameId}`);
       if (res) {
         seFetchTradeGameLoading(false);
         setTradedGame(res?.data?.message[0]);
@@ -91,22 +98,32 @@ const UserDashboard = () => {
   };
 
   const tradeNow = async () => {
+    setErrorMessage(null);
     setTradeGameLoading(true);
-    const res = await axios.post('/api/customers/game', { gameInfo });
+    setOpen(true); //! make sure you set this guy open for the MUI alert
+
     try {
+      const res = await axios.post('/api/customers/game', { gameInfo });
       if (res) {
         setTradeGameLoading(false);
         fetchTradedGame();
       }
     } catch (error) {
       setTradeGameLoading(false);
+      setErrorMessage(error?.response?.data?.message);
       console.log(error);
     }
   };
-  // console.log('traded Game', tradedGame);
   return (
     <DashboardLayout>
       <>
+        <AlertHandler
+          errorMessage={errorMessage}
+          open={open}
+          setOpen={setOpen}
+          responseMessage={null}
+        />
+
         <div className={styles.section_a}>
           {state?.user?.fullName && <h3>Hello {state?.user?.fullName}!</h3>}
           <div className={styles.dashboard_container}>
