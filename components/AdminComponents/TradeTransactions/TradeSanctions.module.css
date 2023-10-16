@@ -1,0 +1,24 @@
+.transaction_container {
+  margin-bottom: 100px !important;
+}
+
+.transaction_container > h3 {
+  margin-bottom: 10px;
+}
+
+.wallet_icon {
+  font-size: 24px;
+}
+/* utilitiesc */
+.btn_wallet {
+  border: 1px solid #f5a937;
+  font-family: 'Poppins', sans-serif;
+  padding: 5px 10px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  transition: all 0.3s ease-in-out;
+}
+
+.btn_wallet:hover {
+  background-color: #ebae52;
+}

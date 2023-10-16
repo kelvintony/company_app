@@ -104,9 +104,15 @@ const UserDashboard = () => {
 
     try {
       const res = await axios.post('/api/customers/game', { gameInfo });
+      const res2 = await axios.get('/api/customers/user-wallet-profile');
+
       if (res) {
         setTradeGameLoading(false);
         fetchTradedGame();
+        dispatch({
+          type: authConstants.FETCH_USER_TRANSACTION_DETAILS,
+          payload: res2.data,
+        });
       }
     } catch (error) {
       setTradeGameLoading(false);
@@ -223,7 +229,7 @@ const UserDashboard = () => {
                             style={{
                               fontWeight: '600',
                               borderBottom: '1px solid gray',
-                              color: '#0fd46c',
+                              // color: '#0fd46c',
                             }}
                             className={styles.event_right}
                           >
@@ -245,7 +251,7 @@ const UserDashboard = () => {
                             style={{
                               fontWeight: '600',
                               borderBottom: '1px solid gray',
-                              color: '#0fd46c',
+                              // color: '#0fd46c',
                             }}
                             className={styles.event_left}
                           >

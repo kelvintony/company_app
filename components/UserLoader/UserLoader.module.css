@@ -2,7 +2,7 @@
   width: 40px;
   height: 40px;
   display: grid;
-  animation: spinner-plncf9 4s infinite;
+  animation: spinner-plncf9 0.5s infinite;
 }
 
 .spinner::before,
@@ -13,7 +13,7 @@
   border-radius: 50%;
   border-color: #f06a22 #f06a22 #0000 #0000;
   mix-blend-mode: darken;
-  animation: spinner-plncf9 1s infinite linear;
+  animation: spinner-plncf9 0.5s infinite linear;
 }
 
 .spinner::after {

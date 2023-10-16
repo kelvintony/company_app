@@ -55,6 +55,18 @@ const EventSetup = () => {
       if (res) {
         fetchDame();
         setLoading(false);
+
+        setFormData({
+          eventType: '',
+          eventSelection: '',
+          eventOption1: '',
+          eventOption1Odd: '',
+          eventOption2: '',
+          eventOption2Odd: '',
+          eventDate: '',
+          eventTime: '',
+          eventDateWithoutFormat: '',
+        });
       }
     } catch (error) {
       setLoading(false);
@@ -247,7 +259,7 @@ const EventSetup = () => {
                   setFormData({
                     ...formData,
                     eventDate: e.target.value,
-                    eventDateWithoutFormate: e.target.value,
+                    eventDateWithoutFormat: e.target.value,
                   })
                 }
               />
