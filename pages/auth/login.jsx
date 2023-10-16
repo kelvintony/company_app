@@ -74,6 +74,10 @@ const Login = () => {
             payload: session,
           });
           setLoading(false);
+          setFormData({
+            email: '',
+            password: '',
+          });
           setResponseMessage('log in succesful');
           router.push('/user/dashboard');
         } else {

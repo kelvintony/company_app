@@ -8,7 +8,7 @@ import walletProfileModel from '../../../../models/walletProfile';
 
 export default async (req, res) => {
   if (req.method === 'POST') {
-    return editGame(req, res);
+    return tradeGame(req, res);
   } else if (req.method === 'GET') {
     return getGame(req, res);
   } else if (req.method === 'PUT') {
@@ -18,7 +18,7 @@ export default async (req, res) => {
   }
 };
 
-export const editGame = async (req, res) => {
+export const tradeGame = async (req, res) => {
   try {
     await db.connect();
 
@@ -48,6 +48,12 @@ export const editGame = async (req, res) => {
       userId: session.user._id,
       gameId: gameId,
     });
+
+    if (foundUserWallet.accountBalance < 5) {
+      return res.status(500).json({
+        message: 'your account balance is low, should not be less than $5',
+      });
+    }
 
     if (foundGamePlayedByUser.length > 0) {
       return res.status(400).json({ message: 'Event already traded' });
@@ -106,6 +112,9 @@ export const editGame = async (req, res) => {
         eventRoi: eventTwoRoi.toFixed(2),
       },
     });
+
+    foundUserWallet.accountBalance -= foundUserWallet.equity;
+    await foundUserWallet.save();
 
     return res.status(200).json({ message: 'Trade made successfully' });
   } catch (error) {

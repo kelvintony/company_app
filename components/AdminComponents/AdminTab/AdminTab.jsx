@@ -11,6 +11,7 @@ import { useSession } from 'next-auth/react';
 import Image from 'next/image';
 import EventSetup from '../EventSetup/EventSetup';
 import LiveEvent from '../LiveEvent/LiveEvent';
+import TradeTransactions from '../TradeTransactions/TradeTransactions';
 
 export default function AdminTab() {
   const { status, data: session } = useSession();
@@ -36,13 +37,17 @@ export default function AdminTab() {
           >
             <Tab className={styles.userTab} label='Event Setup' value='1' />
             <Tab className={styles.userTab} label='Live Event' value='2' />
-            <Tab className={styles.userTab} label='Users' value='3' />
+            <Tab
+              className={styles.userTab}
+              label='Trade Transactions'
+              value='3'
+            />
             <Tab
               className={styles.userTab}
               label='Financial Analytics'
               value='4'
             />
-            <Tab className={styles.userTab} label='Transactions' value='5' />
+            <Tab className={styles.userTab} label='Users' value='5' />
           </TabList>
         </Box>
         <TabPanel value='1'>
@@ -57,7 +62,7 @@ export default function AdminTab() {
         </TabPanel>
         <TabPanel value='3'>
           <div className={styles.tab_container}>
-            <h3>Users</h3>
+            <TradeTransactions />
           </div>
         </TabPanel>
         <TabPanel value='4'>
@@ -67,7 +72,7 @@ export default function AdminTab() {
         </TabPanel>
         <TabPanel value='5'>
           <div className={styles.tab_container}>
-            <h3>Transactions</h3>
+            <h3>Users</h3>
           </div>
         </TabPanel>
       </TabContext>

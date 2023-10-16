@@ -35,6 +35,7 @@ export const createGame = async (req, res) => {
       eventOption2Odd,
       eventDate,
       eventTime,
+      eventDateWithoutFormat,
     } = req.body;
 
     const session = await getSession({ req });
@@ -53,6 +54,7 @@ export const createGame = async (req, res) => {
       eventOption2Odd,
       eventDate,
       eventTime,
+      eventDateWithoutFormat,
     });
 
     return res.status(200).json({ message: 'game created' });
