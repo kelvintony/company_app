@@ -9,12 +9,12 @@ import formatDateTimeToGMT1 from '../../../utils/dateTimeConverter';
 
 import { DataGrid } from '@mui/x-data-grid';
 import Link from 'next/link';
+import TradeModal from './TradeModal';
 // import Loader from '../../Loader/Loader';
-// import UserModal from './UserModal';
 
 import UserLoader from '../../UserLoader/UserLoader';
 
-const UserTable = () => {
+const TradeTransactions = () => {
   const columns = [
     {
       field: '_id',
@@ -80,10 +80,11 @@ const UserTable = () => {
       });
   };
 
-  //   const editUser = (id) => {
-  //     setShowPopup(!showPopup);
-  //     setUserId(id);
-  //   };
+  const editUser = (id) => {
+    setShowPopup(!showPopup);
+    setUserId(id);
+  };
+
   return (
     <div className={styles.transaction_container}>
       <h3 onClick={fetchTransactions}>Trades</h3>
@@ -117,13 +118,13 @@ const UserTable = () => {
           />
         )}
       </div>
-      {/* <UserModal
+      <TradeModal
         setShowPopup={setShowPopup}
         showPopup={showPopup}
         userId={userId}
-      /> */}
+      />
     </div>
   );
 };
 
-export default UserTable;
+export default TradeTransactions;
