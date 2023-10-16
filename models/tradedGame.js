@@ -5,6 +5,7 @@ const tradedGameSchema = new mongoose.Schema(
     userId: { type: mongoose.Schema.Types.ObjectId, ref: 'user' },
     gameId: { type: mongoose.Schema.Types.ObjectId, ref: 'game' },
     isGameTraded: { type: Boolean, default: false },
+    isUserTradeProcessed: { type: Boolean, default: false },
     eventOneStats: {
       totalEquity: {
         type: mongoose.Schema.Types.Decimal128,
