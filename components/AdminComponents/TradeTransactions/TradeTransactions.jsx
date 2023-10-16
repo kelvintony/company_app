@@ -33,7 +33,7 @@ const UserTable = () => {
 
     { field: 'eventSelection', headerName: 'Game / Event', width: 250 },
     { field: 'eventDate', headerName: 'Game Kick Off Time', width: 230 },
-    { field: 'isGameTraded', headerName: 'Is Game Traded', width: 160 },
+    { field: 'isGameTraded', headerName: 'Is Game Traded', width: 150 },
     { field: 'createdAt', headerName: 'Date Traded', width: 250 },
   ];
 
