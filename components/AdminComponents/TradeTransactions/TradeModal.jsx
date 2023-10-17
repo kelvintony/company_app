@@ -6,6 +6,7 @@ import SiginLoader from '../../SigninLoader/SiginLoader';
 import { Snackbar } from '@mui/material';
 import MuiAlert from '@mui/material/Alert';
 import { useRouter } from 'next/router';
+import ScrollToTopOnLoad from '../../ScrollToTopButton/ScrollToTopOnLoad';
 
 const TradeModal = ({ userId, setShowPopup, showPopup }) => {
   // ALERT SECTION
@@ -30,8 +31,11 @@ const TradeModal = ({ userId, setShowPopup, showPopup }) => {
 
   const [UserDetails, setUserDetails] = useState({
     email: '',
-    balance: '',
     password: '',
+    eventOneExpectedReturns: '',
+    eventOneRoi: '',
+    eventTwoExpectedReturns: '',
+    eventTwoRoi: '',
   });
 
   const [loading, setLoading] = useState(false);
@@ -52,6 +56,16 @@ const TradeModal = ({ userId, setShowPopup, showPopup }) => {
           setUserDetails({
             ...UserDetails,
             email: res?.data?.message?.userId,
+            eventOneExpectedReturns:
+              res?.data?.message?.eventOneStats?.expectedReturns
+                ?.$numberDecimal,
+            eventOneRoi:
+              res?.data?.message?.eventOneStats?.eventRoi?.$numberDecimal,
+            eventTwoExpectedReturns:
+              res?.data?.message?.eventTwoStats?.expectedReturns
+                ?.$numberDecimal,
+            eventTwoRoi:
+              res?.data?.message?.eventTwoStats?.eventRoi?.$numberDecimal,
             // balance: res?.data?.message?.accountBalance,
           });
         })
@@ -154,50 +168,33 @@ const TradeModal = ({ userId, setShowPopup, showPopup }) => {
             ) : (
               <div className={styles.data_wrapper}>
                 <div className={styles.input_wrapper}>
+                  <p>User Id:</p>
                   <label htmlFor='email'>
-                    Email: <br />
-                    <input
-                      type='email'
-                      name='email'
-                      className={styles.form_control}
-                      disabled={true}
-                      value={UserDetails?.email}
-                      onChange={(e) =>
-                        setUserDetails({
-                          ...UserDetails,
-                          email: e.target.value,
-                        })
-                      }
-                    />
+                    <span>{UserDetails?.email}</span>
+
                     <br />
-                    {/* {formDataError && formData.email.length <= 0 ? (
-                <span style={{ color: 'red' }}>* required</span>
-              ) : (
-                ''
-              )} */}
                   </label>
                 </div>
                 <div className={styles.input_wrapper}>
+                  <p>Event One:</p>
                   <label htmlFor='email'>
-                    Account Balance: <br />
-                    <input
-                      type='accountBalance'
-                      name='accountBalance'
-                      className={styles.form_control}
-                      value={UserDetails?.balance}
-                      onChange={(e) =>
-                        setUserDetails({
-                          ...UserDetails,
-                          balance: e.target.value,
-                        })
-                      }
-                    />
+                    <span>
+                      Expected Returns: {UserDetails?.eventOneExpectedReturns}
+                    </span>{' '}
                     <br />
-                    {/* {formDataError && formData.email.length <= 0 ? (
-                <span style={{ color: 'red' }}>* required</span>
-              ) : (
-                ''
-              )} */}
+                    <span>Even ROI: {UserDetails?.eventOneRoi}</span>
+                    <br />
+                  </label>
+                </div>
+                <div className={styles.input_wrapper}>
+                  <p>Event Two:</p>
+                  <label htmlFor='email'>
+                    <span>
+                      Expected Returns: {UserDetails?.eventTwoExpectedReturns}
+                    </span>{' '}
+                    <br />
+                    <span>Even ROI: {UserDetails?.eventTwoRoi}</span>
+                    <br />
                   </label>
                 </div>
                 <div className={styles.input_wrapper}>

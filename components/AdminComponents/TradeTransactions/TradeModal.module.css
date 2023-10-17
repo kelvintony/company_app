@@ -39,7 +39,7 @@
   width: 600px;
   padding: 20px;
   background-color: #ffffff;
-  height: 450px;
+  height: fit-content;
   display: flex;
   flex-direction: column;
   box-shadow: 2px 1px 5px rgba(0, 0, 0, 0.15);
@@ -78,6 +78,11 @@
   padding-left: 8px;
   padding-bottom: 8px;
   border-radius: 5px;
+}
+
+.input_wrapper > p {
+  font-size: 15px !important;
+  font-weight: 600;
 }
 .input_wrapper label {
   color: rgb(95, 95, 95);
