@@ -110,6 +110,7 @@ const TradeTransactions = ({ rows, loading }) => {
             pageSize={5}
             rowsPerPageOptions={[5]}
             checkboxSelection
+            autoHeight
             getRowId={(row) => row?._id}
             components={{
               NoRowsOverlay: () => (
