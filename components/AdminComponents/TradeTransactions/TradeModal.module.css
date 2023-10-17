@@ -19,6 +19,20 @@
   margin-top: 0px;
 }
 
+.continue_container.active {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+  transition: 500ms ease;
+}
+
+.continue_container.inactive {
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-20px);
+  transition: 500ms ease;
+}
+
 .continue_wrapper {
   border-top: 5px solid #65c9bb;
   display: block;
