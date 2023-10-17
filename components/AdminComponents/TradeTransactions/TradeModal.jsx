@@ -106,13 +106,13 @@ const TradeModal = ({ userId, setShowPopup, showPopup }) => {
         }}
       >
         <div
-          className={
-            showPopup ? styles.continue_container : styles.hide_container
-          }
+          className={`${styles.continue_container} ${
+            showPopup ? styles.active : styles.inactive
+          }`}
         >
           <div ref={ref} id='paynow' className={styles.continue_wrapper}>
             <div className={styles.continue_wrapper_header}>
-              <p>Edit User</p>
+              <p>Edit User Trade</p>
               <MdOutlineCancel
                 onClick={handleModalPopUp}
                 className={styles.continue_cancel_icon}

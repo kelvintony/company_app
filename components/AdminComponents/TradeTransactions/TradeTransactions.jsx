@@ -29,11 +29,40 @@ const TradeTransactions = () => {
         </button>
       ),
     },
+    {
+      field: 'isUserTradeProcessed',
+      headerName: 'is Trade Processed',
+      width: 200,
+      renderCell: (params) => (
+        <p
+          className={
+            params.value === true ? styles.trade_is_true : styles.trade_is_false
+          }
+        >
+          {/* {params.value} */}
+          {params?.value === true ? 'yes' : 'no'}
+        </p>
+      ),
+    },
     { field: 'fullName', headerName: 'Full Name', width: 200 },
 
     { field: 'eventSelection', headerName: 'Game / Event', width: 250 },
     { field: 'eventDate', headerName: 'Game Kick Off Time', width: 230 },
-    { field: 'isGameTraded', headerName: 'Is Game Traded', width: 160 },
+    {
+      field: 'isGameTraded',
+      headerName: 'Is Game Traded',
+      width: 160,
+      renderCell: (params) => (
+        <p
+          className={
+            params.value === true ? styles.trade_is_true : styles.trade_is_false
+          }
+        >
+          {/* {params.value} */}
+          {params?.value === true ? 'true' : 'false'}
+        </p>
+      ),
+    },
     { field: 'createdAt', headerName: 'Date Traded', width: 250 },
   ];
 
@@ -71,7 +100,6 @@ const TradeTransactions = () => {
       .get(`/api/admin/game/allgames`)
       .then((res) => {
         setRows(res?.data?.message);
-        // console.log(res?.data?.message);
         setLoading(false);
       })
       .catch((err) => {

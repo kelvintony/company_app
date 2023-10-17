@@ -9,6 +9,23 @@
 .wallet_icon {
   font-size: 24px;
 }
+
+.trade_is_true {
+  /* for completed */
+  background: rgb(49, 148, 49);
+  color: #fff;
+  padding: 2px 5px;
+  border-radius: 5px;
+  font-size: 14px;
+}
+.trade_is_false {
+  /* background: #6b6b6b; */
+  background: rgb(63, 63, 180);
+  color: #fff;
+  padding: 2px 5px;
+  border-radius: 5px;
+  font-size: 14px;
+}
 /* utilitiesc */
 .btn_wallet {
   border: 1px solid #f5a937;
