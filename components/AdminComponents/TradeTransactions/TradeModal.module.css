@@ -45,7 +45,8 @@
 }
 .continue_cancel_icon {
   font-size: 20px;
-  color: #65c9bb;
+  /* color: #65c9bb; */
+  color: rgb(80, 80, 80);
   cursor: pointer;
 }
 /* New stuff  */
