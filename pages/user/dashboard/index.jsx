@@ -221,7 +221,11 @@ const UserDashboard = () => {
                             style={{
                               fontWeight: '700',
                             }}
-                            className={styles.event_right}
+                            className={`${styles.event_right} ${
+                              gameInfo?.concludedEvent === 'event 1'
+                                ? styles.success_trade_color
+                                : ''
+                            }`}
                           >
                             Event 1:
                           </p>
@@ -229,9 +233,12 @@ const UserDashboard = () => {
                             style={{
                               fontWeight: '600',
                               borderBottom: '1px solid gray',
-                              // color: '#0fd46c',
                             }}
-                            className={styles.event_right}
+                            className={`${styles.event_right} ${
+                              gameInfo?.concludedEvent === 'event 1'
+                                ? styles.success_trade_color
+                                : ''
+                            }`}
                           >
                             {gameInfo?.eventOption1.length > 0
                               ? `${gameInfo?.eventOption1} - ${gameInfo?.eventOption1Odd?.$numberDecimal}`
@@ -243,7 +250,11 @@ const UserDashboard = () => {
                             style={{
                               fontWeight: '700',
                             }}
-                            className={styles.event_left}
+                            className={`${styles.event_left} ${
+                              gameInfo?.concludedEvent === 'event 2'
+                                ? styles.success_trade_color
+                                : ''
+                            }`}
                           >
                             Event 2:
                           </p>
@@ -253,7 +264,11 @@ const UserDashboard = () => {
                               borderBottom: '1px solid gray',
                               // color: '#0fd46c',
                             }}
-                            className={styles.event_left}
+                            className={`${styles.event_left} ${
+                              gameInfo?.concludedEvent === 'event 2'
+                                ? styles.success_trade_color
+                                : ''
+                            }`}
                           >
                             {gameInfo?.eventOption2.length > 0
                               ? `${gameInfo?.eventOption2} - ${gameInfo?.eventOption2Odd?.$numberDecimal}`
@@ -265,7 +280,13 @@ const UserDashboard = () => {
                       {tradedGame && (
                         <div className={styles.computation_wrapper}>
                           <div className={styles.wrapper_innera}>
-                            <p className={styles.event_right}>
+                            <p
+                              className={`${styles.event_right} ${
+                                gameInfo?.concludedEvent === 'event 1'
+                                  ? styles.success_trade_color
+                                  : ''
+                              }`}
+                            >
                               Total equity: <br /> &#36;
                               {
                                 tradedGame?.eventOneStats?.totalEquity
@@ -274,7 +295,13 @@ const UserDashboard = () => {
                             </p>
                           </div>
                           <div className={styles.wrapper_innerb}>
-                            <p className={styles.event_left}>
+                            <p
+                              className={`${styles.event_left} ${
+                                gameInfo?.concludedEvent === 'event 2'
+                                  ? styles.success_trade_color
+                                  : ''
+                              }`}
+                            >
                               {' '}
                               Total equity: <br /> &#36;
                               {
@@ -288,7 +315,13 @@ const UserDashboard = () => {
                       {tradedGame && (
                         <div className={styles.computation_wrapper}>
                           <div className={styles.wrapper_innera}>
-                            <p className={styles.event_right}>
+                            <p
+                              className={`${styles.event_right} ${
+                                gameInfo?.concludedEvent === 'event 1'
+                                  ? styles.success_trade_color
+                                  : ''
+                              }`}
+                            >
                               Expected returns: <br /> &#36;
                               {
                                 tradedGame?.eventOneStats?.expectedReturns
@@ -297,7 +330,13 @@ const UserDashboard = () => {
                             </p>
                           </div>
                           <div className={styles.wrapper_innerb}>
-                            <p className={styles.event_left}>
+                            <p
+                              className={`${styles.event_left} ${
+                                gameInfo?.concludedEvent === 'event 2'
+                                  ? styles.success_trade_color
+                                  : ''
+                              }`}
+                            >
                               Expected returns: <br /> &#36;
                               {
                                 tradedGame?.eventTwoStats?.expectedReturns
@@ -310,7 +349,13 @@ const UserDashboard = () => {
                       {tradedGame && (
                         <div className={styles.computation_wrapper}>
                           <div className={styles.wrapper_innera}>
-                            <p className={styles.event_right}>
+                            <p
+                              className={`${styles.event_right} ${
+                                gameInfo?.concludedEvent === 'event 1'
+                                  ? styles.success_trade_color
+                                  : ''
+                              }`}
+                            >
                               Event RO1: <br /> &#36;
                               {
                                 tradedGame?.eventOneStats?.eventRoi
@@ -319,7 +364,13 @@ const UserDashboard = () => {
                             </p>
                           </div>
                           <div className={styles.wrapper_innerb}>
-                            <p className={styles.event_left}>
+                            <p
+                              className={`${styles.event_left} ${
+                                gameInfo?.concludedEvent === 'event 2'
+                                  ? styles.success_trade_color
+                                  : ''
+                              }`}
+                            >
                               Event RO1: <br /> &#36;
                               {
                                 tradedGame?.eventTwoStats?.eventRoi
@@ -353,7 +404,11 @@ const UserDashboard = () => {
                       <button
                         onClick={tradeNow}
                         disabled={tradeGameLoading}
-                        className={styles.btn_stake}
+                        className={
+                          loadGameData
+                            ? styles.hide_stake_button
+                            : styles.btn_stake
+                        }
                       >
                         {tradeGameLoading ? <SiginLoader /> : 'Trade Now'}
                       </button>

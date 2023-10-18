@@ -109,7 +109,27 @@
 .input_wrapper input:-webkit-autofill:active {
   transition: background-color 1000000s ease-in-out 0s;
 }
+.checkbox_container {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 15px;
+  margin-bottom: 20px;
+}
 
+.input_wrapper select {
+  width: 100%;
+  padding: 7px;
+  padding-left: 0px;
+  font-size: 15px;
+  font-family: 'Roboto', sans-serif;
+  color: rgb(56, 56, 56);
+
+  background: rgba(240, 240, 240, 0.6);
+  border: none;
+  outline: none;
+  fill: none;
+}
 /* UTILITIES  */
 .community_buttons {
   margin-top: auto;

@@ -19,11 +19,11 @@ export const createGame = async (req, res) => {};
 export const getAllGames = async (req, res) => {
   await db.connect();
 
-  //   const session = await getSession({ req });
+  const session = await getSession({ req });
 
-  //   if (!session || (session && !session.user.superUser)) {
-  //     return res.status(401).send('you are not authenticated');
-  //   }
+  if (!session || (session && !session.user.superUser)) {
+    return res.status(401).send('you are not authenticated');
+  }
 
   try {
     const latestDocument = await tradedGameModel
