@@ -1,55 +1,46 @@
 import Link from 'next/link';
 import styles from './Dashboard.module.css';
-import { RxDashboard } from 'react-icons/rx';
-import {
-  BsBell,
-  BsClipboardData,
-  BsJournalBookmarkFill,
-  BsJournalRichtext,
-  BsPersonCircle,
-} from 'react-icons/bs';
-import { FiLogOut, FiPhoneCall } from 'react-icons/fi';
-import { FaHornbill, FaMoneyBillAlt } from 'react-icons/fa';
-import { SlScreenDesktop } from 'react-icons/sl';
-import {
-  RiLuggageDepositLine,
-  RiMenu3Line,
-  RiPriceTag2Line,
-} from 'react-icons/ri';
+import { BsBell, BsJournalRichtext } from 'react-icons/bs';
+import { RiLuggageDepositLine, RiMenu3Line } from 'react-icons/ri';
 import { IoIosCloseCircleOutline } from 'react-icons/io';
 import { RiAdminLine } from 'react-icons/ri';
-
 import React, { useEffect, useState } from 'react';
 import { signOut } from 'next-auth/react';
 import Cookies from 'js-cookie';
 import { useStore } from '../../context';
 import { authConstants } from '../../context/constants';
 import axios from 'axios';
-import { MdRefresh } from 'react-icons/md';
+import { MdOutlineWorkHistory, MdRefresh } from 'react-icons/md';
 import { BalanceLoader } from '../BalanceLoader/BalanceLoader';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import convertWalletBalance from '../../utils/convertWalletBalance';
 import { AiOutlineLogout } from 'react-icons/ai';
+import { LuLayoutDashboard } from 'react-icons/lu';
+import { VscAccount } from 'react-icons/vsc';
+import { FaHandHoldingDollar } from 'react-icons/fa6';
+import { GiMoneyStack, GiReceiveMoney } from 'react-icons/gi';
 
 const menuItems = [
   {
     id: 'dasboard',
     url: '/user/dashboard',
-    menuName: 'Dashboard',
-    iconsType: <RxDashboard />,
+    menuName: 'Trade',
+    // iconsType: <LuLayoutDashboard />,
+    iconsType: <FaHandHoldingDollar />,
   },
   {
     id: 'profile',
     url: '/user/profile',
     menuName: 'Profile',
-    iconsType: <BsPersonCircle />,
+    // iconsType: <MdOutlineAccountCircle />,
+    iconsType: <VscAccount />,
   },
   {
     id: 'withdraw',
     url: '/user/withdraw',
     menuName: 'Withdraw',
-    iconsType: <FaMoneyBillAlt />,
+    iconsType: <GiMoneyStack />,
   },
   {
     id: 'deposit',
@@ -62,6 +53,12 @@ const menuItems = [
     url: '/user/transactions',
     menuName: 'Transactions',
     iconsType: <BsJournalRichtext />,
+  },
+  {
+    id: 'accounthistory',
+    url: '/user/account-history',
+    menuName: 'Account History',
+    iconsType: <MdOutlineWorkHistory />,
   },
 ];
 const Dashboard = ({ children }) => {
@@ -322,7 +319,7 @@ const Dashboard = ({ children }) => {
             router.pathname === '/user/dashboard' ? styles.active_link : ''
           }
         >
-          <RxDashboard className={styles.bottom_bar_icon} /> Dashboard
+          <FaHandHoldingDollar className={styles.bottom_bar_icon} /> Trade
         </button>
         <button
           onClick={() => router.push('/user/profile')}
@@ -330,7 +327,7 @@ const Dashboard = ({ children }) => {
             router.pathname === '/user/profile' ? styles.active_link : ''
           }
         >
-          <BsPersonCircle className={styles.bottom_bar_icon} /> Profile
+          <VscAccount className={styles.bottom_bar_icon} /> Profile
         </button>
         <button
           onClick={() => router.push('/user/withdraw')}
@@ -338,7 +335,7 @@ const Dashboard = ({ children }) => {
             router.pathname === '/user/withdraw' ? styles.active_link : ''
           }
         >
-          <FaMoneyBillAlt className={styles.bottom_bar_icon} /> Withdraw
+          <GiMoneyStack className={styles.bottom_bar_icon} /> Withdraw
         </button>
         <button
           onClick={() => router.push('/user/deposit')}
@@ -354,7 +351,8 @@ const Dashboard = ({ children }) => {
             router.pathname === '/user/transactions' ? styles.active_link : ''
           }
         >
-          <BsJournalRichtext className={styles.bottom_bar_icon} /> Transactions
+          <BsJournalRichtext className={styles.bottom_bar_icon} />
+          Transactions
         </button>
       </div>
     </div>
