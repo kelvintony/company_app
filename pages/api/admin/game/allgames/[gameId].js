@@ -1,5 +1,6 @@
 import { getSession } from 'next-auth/react';
 import { getToken } from 'next-auth/jwt';
+import { Decimal128 } from 'mongodb';
 
 import db from '../../../../../utils/db';
 import tradedGameModel from '../../../../../models/tradedGame';
@@ -47,6 +48,12 @@ export const processUserTrade = async (req, res) => {
       return res.status(401).json({ message: 'Password is incorrect' });
     }
 
+    if (!concludeTrade) {
+      return res
+        .status(401)
+        .json({ message: 'kindly check the complete trade' });
+    }
+
     const foundUserWallet = await walletProfileModel.findOne({
       userId: userId,
     });
@@ -60,17 +67,25 @@ export const processUserTrade = async (req, res) => {
     foundTradedGame.isUserTradeProcessed = true;
 
     if (selectedEvent === 'event 1') {
-      foundUserWallet.accountBalance += eventOneExpectedReturns;
-      foundUserWallet.roi += eventOneRoi;
-      foundUserWallet.withdrawableBalance += eventOneRoi;
+      const updateOne = {
+        $inc: {
+          accountBalance: eventOneExpectedReturns,
+          roi: eventOneRoi,
+          withdrawableBalance: eventOneRoi,
+        },
+      };
 
-      await foundUserWallet.save();
+      await walletProfileModel.findOneAndUpdate({ userId: userId }, updateOne);
     } else {
-      foundUserWallet.accountBalance += eventTwoExpectedReturns;
-      foundUserWallet.roi += eventTwoRoi;
-      foundUserWallet.withdrawableBalance += eventTwoRoi;
+      const updateTwo = {
+        $inc: {
+          accountBalance: eventTwoExpectedReturns,
+          roi: eventTwoRoi,
+          withdrawableBalance: eventTwoRoi,
+        },
+      };
 
-      await foundUserWallet.save();
+      await walletProfileModel.findOneAndUpdate({ userId: userId }, updateTwo);
     }
 
     await foundTradedGame.save();
