@@ -14,7 +14,7 @@ import TradeModal from './TradeModal';
 
 import UserLoader from '../../UserLoader/UserLoader';
 
-const TradeTransactions = ({ rows, loading }) => {
+const TradeTransactions = () => {
   const columns = [
     {
       field: '_id',
@@ -66,6 +66,7 @@ const TradeTransactions = ({ rows, loading }) => {
     { field: 'createdAt', headerName: 'Date Traded', width: 250 },
   ];
 
+  const [rows, setRows] = useState([]);
   const router = useRouter();
 
   const { status, data: session } = useSession();
@@ -75,9 +76,15 @@ const TradeTransactions = ({ rows, loading }) => {
 
   // const effectRan = useRef(false);
 
+  const [loading, setLoading] = useState(false);
+
   const [showPopup, setShowPopup] = useState(false);
 
   const [userId, setUserId] = useState(false);
+
+  useEffect(() => {
+    fetchTransactions();
+  }, []);
 
   const formattedRows = rows.map((row) => ({
     ...row,
@@ -87,6 +94,20 @@ const TradeTransactions = ({ rows, loading }) => {
     eventDate: `${row?.gameId?.eventDate} - ${row?.gameId?.eventTime} `,
   }));
 
+  const fetchTransactions = async () => {
+    setLoading(true);
+    await axios
+      .get(`/api/admin/game/allgames`)
+      .then((res) => {
+        setRows(res?.data?.message);
+        setLoading(false);
+      })
+      .catch((err) => {
+        setLoading(false);
+        console.log(err);
+      });
+  };
+
   const editUser = (id) => {
     setShowPopup(!showPopup);
     setUserId(id);
@@ -94,11 +115,7 @@ const TradeTransactions = ({ rows, loading }) => {
 
   return (
     <div className={styles.transaction_container}>
-      <h3
-      // onClick={fetchTransactions}
-      >
-        Trades
-      </h3>
+      <h3 onClick={fetchTransactions}>Trades</h3>
 
       <div style={{ height: 400, width: '100%' }}>
         {loading ? (
