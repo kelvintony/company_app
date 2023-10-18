@@ -22,28 +22,6 @@ export default function AdminTab() {
     setValue(newValue);
   };
 
-  const [rows, setRows] = useState([]);
-
-  const [loading, setLoading] = useState(false);
-
-  useEffect(() => {
-    fetchTransactions();
-  }, []);
-
-  const fetchTransactions = async () => {
-    setLoading(true);
-    await axios
-      .get(`/api/admin/game/allgames`)
-      .then((res) => {
-        setRows(res?.data?.message);
-        setLoading(false);
-      })
-      .catch((err) => {
-        setLoading(false);
-        console.log(err);
-      });
-  };
-
   return (
     <Box sx={{ width: '100%', typography: 'body1' }}>
       <TabContext value={value}>
@@ -84,7 +62,7 @@ export default function AdminTab() {
         </TabPanel>
         <TabPanel value='3'>
           <div className={styles.tab_container}>
-            <TradeTransactions rows={rows} loading={loading} />
+            <TradeTransactions />
           </div>
         </TabPanel>
         <TabPanel value='4'>
