@@ -107,7 +107,7 @@ const Register = () => {
         </div>
         <div className={styles.login_wrapper}>
           <h3>Create account</h3>
-          <p>Let&apos;s get you started with your DaxomPay account.</p>
+          <p>Let&apos;s get you started with your dexomPay account.</p>
           {errorMessage && (
             <Snackbar
               open={open}
@@ -276,7 +276,7 @@ const Register = () => {
               <p>
                 By clicking the &#34;Create My Account&#34; button, you agree to{' '}
                 <br />
-                DaxomPay&apos;s{' '}
+                dexomPay&apos;s{' '}
                 <span
                   style={{ cursor: 'pointer' }}
                   className={styles.create_account_inner}

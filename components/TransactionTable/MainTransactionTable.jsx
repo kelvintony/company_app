@@ -4,44 +4,48 @@ import styles from './MainTransaction.module.css';
 import { useRouter } from 'next/router';
 import axios from 'axios';
 
-import { getSession, useSession } from 'next-auth/react';
+import { useSession } from 'next-auth/react';
 import formatDateTimeToGMT1 from '../../utils/dateTimeConverter';
 
 import { DataGrid } from '@mui/x-data-grid';
-import Link from 'next/link';
+import TradeModal from './TradeModal';
+
 import UserLoader from '../UserLoader/UserLoader';
 
-// const transaction = [
-//   {
-//     reference:'1',
-
-//   }
-// ]
-
 const MainTransactionTable = () => {
-  const [windowWidth, setWindowWidth] = useState(null);
-
   const columns = [
     {
-      field: 'reference',
-      headerName: 'Order ID',
-      width: windowWidth <= 400 ? 200 : 300,
+      field: '_id',
+      headerName: 'Trade ID',
+      width: 170,
       renderCell: (params) => (
-        <Link href={`/user/transactions?${params.value}`} passHref>
-          <button
-            style={{
-              color: 'blue',
-              textDecoration: 'underline',
-            }}
-          >
-            {params.value}
-          </button>
-        </Link>
+        <button
+          onClick={() => editUser(params.id)}
+          style={{ color: 'blue', textDecoration: 'underline' }}
+        >
+          View details
+        </button>
       ),
     },
-    { field: 'whatFor', headerName: 'Description', width: 250 },
-    { field: 'createdAt', headerName: 'Date', width: 300 },
-    { field: 'amount', headerName: 'Amount', width: 200 },
+
+    { field: 'eventSelection', headerName: 'Game / Event', width: 250 },
+    { field: 'eventDate', headerName: 'Game Kick Off Time', width: 230 },
+    {
+      field: 'isUserTradeProcessed',
+      headerName: 'Trade Status',
+      width: 200,
+      renderCell: (params) => (
+        <p
+          className={
+            params.value === true ? styles.trade_is_true : styles.trade_is_false
+          }
+        >
+          {/* {params.value} */}
+          {params?.value === true ? 'settled' : 'not settled'}
+        </p>
+      ),
+    },
+    { field: 'createdAt', headerName: 'Date Traded', width: 250 },
   ];
 
   const [rows, setRows] = useState([]);
@@ -56,46 +60,45 @@ const MainTransactionTable = () => {
 
   const [loading, setLoading] = useState(false);
 
+  const [showPopup, setShowPopup] = useState(false);
+
+  const [userId, setUserId] = useState(false);
+
   useEffect(() => {
-    const updateWindowWidth = () => {
-      setWindowWidth(window.innerWidth);
-    };
-
-    updateWindowWidth();
-
-    window.addEventListener('resize', updateWindowWidth);
-
-    // Cleanup the event listener when component unmounts
-    return () => {
-      window.removeEventListener('resize', updateWindowWidth);
-    };
+    fetchTransactions();
   }, []);
-
-  // useEffect(() => {
-  //   const getPosts = async () => {
-  //     setLoading(true);
-  //     await axios
-  //       .get(`/api/transactions`)
-  //       .then((res) => {
-  //         setRows(res?.data?.message);
-  //         setLoading(false);
-  //       })
-  //       .catch((err) => {
-  //         setLoading(false);
-  //         console.log(err);
-  //       });
-  //   };
-  //   getPosts();
-  // }, []);
 
   const formattedRows = rows.map((row) => ({
     ...row,
     createdAt: formatDateTimeToGMT1(row?.createdAt),
+    fullName: row?.userId?.fullName,
+    eventSelection: row?.gameId?.eventSelection,
+    eventDate: `${row?.gameId?.eventDate} - ${row?.gameId?.eventTime} `,
   }));
 
+  const fetchTransactions = async () => {
+    setLoading(true);
+    await axios
+      .get(`/api/admin/game/allgames`)
+      .then((res) => {
+        setRows(res?.data?.message);
+        setLoading(false);
+      })
+      .catch((err) => {
+        setLoading(false);
+        console.log(err);
+      });
+  };
+
+  const editUser = (id) => {
+    setShowPopup(!showPopup);
+    setUserId(id);
+  };
+
   return (
-    <div className={styles.interest_container}>
-      <h1>Transactions</h1>
+    <div className={styles.transaction_container}>
+      <h3 onClick={fetchTransactions}>Trades</h3>
+
       <div style={{ height: 400, width: '100%' }}>
         {loading ? (
           <UserLoader />
@@ -106,7 +109,8 @@ const MainTransactionTable = () => {
             pageSize={5}
             rowsPerPageOptions={[5]}
             checkboxSelection
-            getRowId={(row) => row?.reference}
+            autoHeight
+            getRowId={(row) => row?._id}
             components={{
               NoRowsOverlay: () => (
                 <div
@@ -125,6 +129,11 @@ const MainTransactionTable = () => {
           />
         )}
       </div>
+      <TradeModal
+        setShowPopup={setShowPopup}
+        showPopup={showPopup}
+        userId={userId}
+      />
     </div>
   );
 };

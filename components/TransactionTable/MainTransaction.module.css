@@ -1,40 +1,41 @@
-.interest_container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 10px;
+.transaction_container {
+  margin-bottom: 100px !important;
 }
 
-.interest_container h1 {
-  margin-bottom: 20px;
-  letter-spacing: 0.05em;
-  font-family: 'Poppins', sans-serif;
+.transaction_container > h3 {
+  margin-bottom: 10px;
 }
 
-.btn_register {
-  border: none;
-  outline: none;
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-  gap: 5px;
-  background-color: #f48023;
+.wallet_icon {
+  font-size: 24px;
+}
+
+.trade_is_true {
+  /* for completed */
+  background: rgb(49, 148, 49);
+  color: #fff;
+  padding: 2px 5px;
   border-radius: 5px;
-  padding: 7px 15px;
-  color: #ffffff;
-  cursor: pointer;
-  margin-bottom: 20px;
+  font-size: 14px;
+}
+.trade_is_false {
+  /* background: #6b6b6b; */
+  background: rgb(63, 63, 180);
+  color: #fff;
+  padding: 2px 5px;
+  border-radius: 5px;
+  font-size: 14px;
+}
+/* utilitiesc */
+.btn_wallet {
+  border: 1px solid #f5a937;
+  font-family: 'Poppins', sans-serif;
+  padding: 5px 10px;
+  border-radius: 10px;
+  margin-bottom: 10px;
   transition: all 0.3s ease-in-out;
 }
 
-.btn_register:hover {
-  background-color: #ff9b49;
-}
-@media screen and (max-width: 900px) {
-  .interest_container h1 {
-    font-size: 19px;
-  }
-  .btn_register {
-    font-size: 13px;
-    padding: 5px 8px;
-  }
+.btn_wallet:hover {
+  background-color: #ebae52;
 }
