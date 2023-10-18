@@ -292,20 +292,19 @@ const EventSetup = () => {
             </label>
           </div>
 
-          {gameInfo?.gameDescription === 'latest game' ||
-            (!gameInfo && (
-              <button
-                onClick={submitFormData}
-                className={
-                  loading
-                    ? `${styles.btn_create_event} ${styles.btn_create_event_inactive}`
-                    : styles.btn_create_event
-                }
-                disabled={loading}
-              >
-                {loading ? <SiginLoader /> : 'Create Event'}
-              </button>
-            ))}
+          {gameInfo?.gameDescription === 'latest game' && (
+            <button
+              onClick={submitFormData}
+              className={
+                loading
+                  ? `${styles.btn_create_event} ${styles.btn_create_event_inactive}`
+                  : styles.btn_create_event
+              }
+              disabled={loading}
+            >
+              {loading ? <SiginLoader /> : 'Create Event'}
+            </button>
+          )}
           {gameInfo?.eventMode === 'pending' && (
             <button
               onClick={editGameFunction}
