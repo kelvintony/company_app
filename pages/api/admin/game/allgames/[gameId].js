@@ -1,6 +1,5 @@
 import { getSession } from 'next-auth/react';
 import { getToken } from 'next-auth/jwt';
-import { Decimal128 } from 'mongodb';
 
 import db from '../../../../../utils/db';
 import tradedGameModel from '../../../../../models/tradedGame';

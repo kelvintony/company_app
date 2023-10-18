@@ -189,7 +189,7 @@ const Login = () => {
             {loading ? <SiginLoader /> : 'Login'}
           </button>
           <button onClick={registerHandler} className={styles.create_account}>
-            New to DaxomPay?{' '}
+            New to dexomPay?{' '}
             <span className={styles.create_account_inner}>
               Create an account
             </span>
