@@ -40,7 +40,7 @@ const TradeTransactions = () => {
           }
         >
           {/* {params.value} */}
-          {params?.value === true ? 'yes' : 'no'}
+          {params?.value === true ? 'settled' : 'not settled'}
         </p>
       ),
     },

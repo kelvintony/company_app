@@ -91,6 +91,10 @@
   padding: 0px 5px;
   border-radius: 5px;
 }
+
+.success_trade_color {
+  color: #0fd46c !important;
+}
 /* .lock_icon {
   font-size: 30px;
   color: #f05822;
@@ -170,7 +174,10 @@
 .btn_stake:hover {
   background: linear-gradient(170.04deg, #ebb54b -8.91%, #e97247 99.52%);
 }
-
+.hide_stake_button {
+  opacity: 0;
+  visibility: hidden;
+}
 @media screen and (max-width: 900px) {
   .section_a {
     /* padding-bottom: 100px; */

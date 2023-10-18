@@ -8,6 +8,17 @@ import MuiAlert from '@mui/material/Alert';
 import { useRouter } from 'next/router';
 import ScrollToTopOnLoad from '../../ScrollToTopButton/ScrollToTopOnLoad';
 
+const eventOptions = [
+  {
+    id: '1',
+    eventOption: 'event 1',
+  },
+  {
+    id: '2',
+    eventOption: 'event 2',
+  },
+];
+
 const TradeModal = ({ userId, setShowPopup, showPopup }) => {
   // ALERT SECTION
   const Alert = forwardRef(function Alert(props, ref) {
@@ -30,12 +41,14 @@ const TradeModal = ({ userId, setShowPopup, showPopup }) => {
   const ref = useRef(null);
 
   const [UserDetails, setUserDetails] = useState({
-    email: '',
+    userId: '',
     password: '',
     eventOneExpectedReturns: '',
     eventOneRoi: '',
     eventTwoExpectedReturns: '',
     eventTwoRoi: '',
+    concludeTrade: false,
+    selectedEvent: '',
   });
 
   const [loading, setLoading] = useState(false);
@@ -46,6 +59,10 @@ const TradeModal = ({ userId, setShowPopup, showPopup }) => {
 
   const [errorMessage, setErrorMessage] = useState(null);
 
+  // const [selectedEvent, setSelectedEvent] = useState('');
+
+  const [eventOptionType, setEventOptionType] = useState(eventOptions);
+
   useEffect(() => {
     setFetchUserLoader(true);
     const verifyPay = async () => {
@@ -55,7 +72,7 @@ const TradeModal = ({ userId, setShowPopup, showPopup }) => {
           setFetchUserLoader(false);
           setUserDetails({
             ...UserDetails,
-            email: res?.data?.message?.userId,
+            userId: res?.data?.message?.userId,
             eventOneExpectedReturns:
               res?.data?.message?.eventOneStats?.expectedReturns
                 ?.$numberDecimal,
@@ -75,7 +92,7 @@ const TradeModal = ({ userId, setShowPopup, showPopup }) => {
           // console.log(error.response.data.message);
         });
     };
-    verifyPay();
+    userId && verifyPay();
   }, [userId]);
 
   const handleModalPopUp = () => {
@@ -89,8 +106,7 @@ const TradeModal = ({ userId, setShowPopup, showPopup }) => {
     });
   };
 
-  const handleMakepayment = async () => {
-    return;
+  const handleConcludeTrade = async () => {
     setResponseMessage(null);
     setErrorMessage(null);
 
@@ -98,7 +114,10 @@ const TradeModal = ({ userId, setShowPopup, showPopup }) => {
     setOpen(true); // make sure you set this guy open
 
     try {
-      const res = await axios.put(`/api/admin/users/${userId}`, UserDetails);
+      const res = await axios.put(
+        `/api/admin/game/allgames/${userId}`,
+        UserDetails
+      );
       if (res) {
         setLoading(false);
         setResponseMessage(res.data.message);
@@ -169,36 +188,68 @@ const TradeModal = ({ userId, setShowPopup, showPopup }) => {
               <div className={styles.data_wrapper}>
                 <div className={styles.input_wrapper}>
                   <p>User Id:</p>
-                  <label htmlFor='email'>
-                    <span>{UserDetails?.email}</span>
-
+                  <label htmlFor='userId'>
+                    <span>{UserDetails?.userId}</span>
                     <br />
                   </label>
                 </div>
                 <div className={styles.input_wrapper}>
                   <p>Event One:</p>
-                  <label htmlFor='email'>
+                  <label htmlFor='eventOneExpectedReturns'>
                     <span>
-                      Expected Returns: {UserDetails?.eventOneExpectedReturns}
+                      Expected Returns: &#36;
+                      {UserDetails?.eventOneExpectedReturns}
                     </span>{' '}
                     <br />
-                    <span>Even ROI: {UserDetails?.eventOneRoi}</span>
+                    <span>Even ROI: &#36;{UserDetails?.eventOneRoi}</span>
                     <br />
                   </label>
                 </div>
                 <div className={styles.input_wrapper}>
                   <p>Event Two:</p>
-                  <label htmlFor='email'>
+                  <label htmlFor='eventTwoExpectedReturns'>
                     <span>
-                      Expected Returns: {UserDetails?.eventTwoExpectedReturns}
+                      Expected Returns: &#36;
+                      {UserDetails?.eventTwoExpectedReturns}
                     </span>{' '}
                     <br />
-                    <span>Even ROI: {UserDetails?.eventTwoRoi}</span>
+                    <span>Even ROI: &#36;{UserDetails?.eventTwoRoi}</span>
                     <br />
                   </label>
                 </div>
                 <div className={styles.input_wrapper}>
-                  <label htmlFor='email'>
+                  <label htmlFor='selectedEvent'>
+                    Event: <br />
+                    <select
+                      name='selectedEvent'
+                      id=''
+                      value={UserDetails?.selectedEvent}
+                      onChange={(e) =>
+                        setUserDetails({
+                          ...UserDetails,
+                          selectedEvent: e.target.value,
+                        })
+                      }
+                    >
+                      <option>select event</option>
+                      {eventOptionType.map((events) => {
+                        return (
+                          <option key={events.id} value={events.eventOption}>
+                            {events.eventOption}
+                          </option>
+                        );
+                      })}
+                    </select>
+                    <br />
+                    {/* {formDataError && selectedEvent.length <= 0 ? (
+                      <span style={{ color: 'red' }}>* required</span>
+                    ) : (
+                      ''
+                    )} */}
+                  </label>
+                </div>
+                <div className={styles.input_wrapper}>
+                  <label htmlFor='password'>
                     Password: <br />
                     <input
                       type='password'
@@ -220,26 +271,46 @@ const TradeModal = ({ userId, setShowPopup, showPopup }) => {
               )} */}
                   </label>
                 </div>
+                <div className={styles.checkbox_container}>
+                  <input
+                    type='checkbox'
+                    name='concludeTrade'
+                    value={UserDetails?.concludeTrade}
+                    onChange={(e) =>
+                      setUserDetails({
+                        ...UserDetails,
+                        concludeTrade: e.target.checked,
+                      })
+                    }
+                  />
+                  Conclude Trade
+                  <br />
+                </div>
               </div>
             )}
-            <div className={styles.community_buttons}>
-              <button onClick={handleModalPopUp} className={styles.btn_cancel}>
-                Cancel
-              </button>
-              <button
-                target='_blank'
-                // href={`${payStackUrl}`}
-                onClick={handleMakepayment}
-                className={
-                  loading
-                    ? `${styles.btn_pay} ${styles.btn_pay_inactive}`
-                    : styles.btn_pay
-                }
-                disabled={loading}
-              >
-                {loading ? <SiginLoader /> : 'Process Trade'}
-              </button>
-            </div>
+            {fetchUserLoader ? null : (
+              <div className={styles.community_buttons}>
+                <button
+                  onClick={handleModalPopUp}
+                  className={styles.btn_cancel}
+                >
+                  Cancel
+                </button>
+                <button
+                  target='_blank'
+                  // href={`${payStackUrl}`}
+                  onClick={handleConcludeTrade}
+                  className={
+                    loading
+                      ? `${styles.btn_pay} ${styles.btn_pay_inactive}`
+                      : styles.btn_pay
+                  }
+                  disabled={loading}
+                >
+                  {loading ? <SiginLoader /> : 'Process Trade'}
+                </button>
+              </div>
+            )}
           </div>
         </div>
       </div>
