@@ -38,7 +38,7 @@ export const sendPasswordLink = async (req, res) => {
     });
 
     if (foundUserToken) {
-      await foundUserToken.remove();
+      await foundUserToken.deleteOne();
     }
 
     // const foundAlreadyExistingEmail = findOne({});
@@ -109,7 +109,7 @@ export const verifyPasswordLink = async (req, res) => {
 
       await user.save();
 
-      await orderToken.remove();
+      await orderToken.deleteOne();
 
       res.status(200).json({ message: 'password reset successful' });
     }
