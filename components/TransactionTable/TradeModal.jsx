@@ -46,6 +46,7 @@ const TradeModal = ({ userId, setShowPopup, showPopup }) => {
     eventOneRoi: '',
     eventTwoExpectedReturns: '',
     eventTwoRoi: '',
+    concludedEvent: '',
   });
 
   const [loading, setLoading] = useState(false);
@@ -80,6 +81,7 @@ const TradeModal = ({ userId, setShowPopup, showPopup }) => {
                 ?.$numberDecimal,
             eventTwoRoi:
               res?.data?.message?.eventTwoStats?.eventRoi?.$numberDecimal,
+            concludedEvent: res?.data?.message?.concludedEvent,
             // balance: res?.data?.message?.accountBalance,
           });
         })
@@ -167,7 +169,13 @@ const TradeModal = ({ userId, setShowPopup, showPopup }) => {
                     <br />
                   </label>
                 </div>
-                <div className={styles.input_wrapper}>
+                <div
+                  className={`${styles.input_wrapper} ${
+                    UserDetails?.concludedEvent === 'event 1'
+                      ? styles.success_input_wrapper
+                      : ''
+                  }`}
+                >
                   <p>Event One:</p>
                   <label htmlFor='eventOneExpectedReturns'>
                     <span>
@@ -179,7 +187,13 @@ const TradeModal = ({ userId, setShowPopup, showPopup }) => {
                     <br />
                   </label>
                 </div>
-                <div className={styles.input_wrapper}>
+                <div
+                  className={`${styles.input_wrapper} ${
+                    UserDetails?.concludedEvent === 'event 2'
+                      ? styles.success_input_wrapper
+                      : ''
+                  }`}
+                >
                   <p>Event Two:</p>
                   <label htmlFor='eventTwoExpectedReturns'>
                     <span>
@@ -188,6 +202,19 @@ const TradeModal = ({ userId, setShowPopup, showPopup }) => {
                     </span>{' '}
                     <br />
                     <span>Event ROI: &#36;{UserDetails?.eventTwoRoi}</span>
+                    <br />
+                  </label>
+                </div>
+                <div
+                  className={`${styles.input_wrapper} ${
+                    UserDetails?.concludedEvent === 'event 1' ||
+                    UserDetails?.concludedEvent === 'event 2'
+                      ? styles.success_input_wrapper
+                      : ''
+                  }`}
+                >
+                  <label htmlFor='eventTwoExpectedReturns'>
+                    <span>{UserDetails?.concludedEvent} was concluded</span>
                     <br />
                   </label>
                 </div>
