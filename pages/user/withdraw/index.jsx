@@ -1,10 +1,9 @@
 import React from 'react';
 import styles from './withdraw.module.css';
 import DashboardLayout from '../../../components/DashBoardLayout/DashboardLayout';
-import { RiInformationLine } from 'react-icons/ri';
 import { useState } from 'react';
-import { FaMoneyBillAlt } from 'react-icons/fa';
 import SiginLoader from '../../../components/SigninLoader/SiginLoader';
+import { GiMoneyStack } from 'react-icons/gi';
 
 const Withdraw = () => {
   const [loading, setLoading] = useState(false);
@@ -16,7 +15,7 @@ const Withdraw = () => {
     <DashboardLayout>
       <h3 className={styles.header}>
         Make Withdrawals
-        <FaMoneyBillAlt className={styles.comming_soon_icon} />
+        <GiMoneyStack className={styles.comming_soon_icon} />
       </h3>
       <section className={styles.withdraw_container}>
         <div className={styles.login_wrapper}>
