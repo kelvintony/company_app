@@ -107,7 +107,7 @@ const Login = () => {
           <LogoItem />
         </div>
         <div className={styles.login_wrapper}>
-          <h3>Login to your account</h3>
+          <h3>Welcome, kindly Login to your account</h3>
 
           {errorMessage && (
             <Snackbar open={open} autoHideDuration={5000} onClose={handleClose}>
