@@ -133,8 +133,8 @@
 @media screen and (max-width: 900px) {
   .login_container {
     justify-content: flex-start;
-    padding-top: 50px;
-    height: 640px;
+    padding-top: 10px;
+    height: 100vh;
   }
   .login_wrapper > h3 {
     font-size: 23px;
