@@ -29,7 +29,6 @@ const Signin = () => {
   const { userid, token } = router.query;
 
   const handleSubmit = async () => {
-    return;
     if (
       formData.confirmPassword.length === 0 ||
       formData.password.length === 0
