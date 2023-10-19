@@ -80,7 +80,7 @@ async function handler(req, res) {
     const message = `Click this link to verify your account: ${url} <br> If you have not requested this email please ignore`;
 
     const data = await resend.emails.send({
-      from: 'dexomPay <noreply@datafarm.ng>',
+      from: 'dexomPay <noreply@dexompay.com>',
       to: newUser.email,
       subject: 'Verify Account',
       html: message,
