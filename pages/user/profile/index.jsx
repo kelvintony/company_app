@@ -5,9 +5,14 @@ import { BsPersonCircle } from 'react-icons/bs';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import UserLoader from '../../../components/UserLoader/UserLoader';
+import ProfileModal from '../../../components/ProfileModal/ProfileModal';
 
 const Profile = () => {
   const [userProfile, setUserProfile] = useState(null);
+
+  const [showPopup, setShowPopup] = useState(false);
+
+  const [userId, setUserId] = useState(false);
 
   useEffect(() => {
     const fetchProfile = async () => {
@@ -23,6 +28,11 @@ const Profile = () => {
 
     fetchProfile();
   }, []);
+
+  const editUser = () => {
+    setShowPopup(!showPopup);
+  };
+
   return (
     <DashboardLayout>
       <h3 className={styles.header}>
@@ -56,9 +66,13 @@ const Profile = () => {
             <p>USDT (TRC-20) - {userProfile?.walletAddress}</p>
           </div>
 
-          <button className={styles.edit_wallet}>Edit Wallet Address</button>
+          <button onClick={editUser} className={styles.edit_wallet}>
+            Edit Wallet Address
+          </button>
         </div>
       )}
+
+      <ProfileModal setShowPopup={setShowPopup} showPopup={showPopup} />
     </DashboardLayout>
   );
 };

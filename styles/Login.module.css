@@ -16,7 +16,7 @@
 .login_container {
   position: relative;
   display: flex;
-  justify-content: center;
+  /* justify-content: center; */
   align-items: center;
   flex-direction: column;
 
@@ -29,13 +29,13 @@
   position: absolute;
 }
 .logo_item {
-  margin-bottom: 20px;
+  margin-bottom: 0px;
   display: flex;
   padding-left: 25%;
 }
 .login_wrapper {
   width: 458px;
-  height: 450px;
+  height: fit-content;
   border-radius: 8px;
   background-color: #ffffff;
 

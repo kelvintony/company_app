@@ -22,9 +22,6 @@ export const verifyPasswordLink = async (req, res) => {
 
   const { password, confirmPassword } = req.body;
 
-  console.log(userid);
-  console.log(token);
-
   try {
     const user = await userModel.findOne({ _id: userid });
 
@@ -42,10 +39,6 @@ export const verifyPasswordLink = async (req, res) => {
       return res.status(400).json({ message: 'token does not exist' });
     }
 
-    // if (!user.verified) {
-    //   user.verified = true;
-    // }
-
     if (password === confirmPassword) {
       const hashedPassword = await bcryptjs.hashSync(password);
 
@@ -53,7 +46,7 @@ export const verifyPasswordLink = async (req, res) => {
 
       await user.save();
 
-      await orderToken.remove();
+      await orderToken.deleteOne();
 
       res.status(200).json({ message: 'password reset successful' });
     }
