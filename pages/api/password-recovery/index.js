@@ -52,7 +52,7 @@ export const sendPasswordLink = async (req, res) => {
     // const url = `http://localhost:3000/password-reset/${user._id}/${newToken.token}`;
     const url = `https://dpayai.vercel.app/auth/reset-password?userid=${user._id}&token=${newToken.token}`;
 
-    const message = `Click this link to reset your password: ${url} <br> If you have not requested this email please ignore`;
+    const message = `Click this link to reset your password: ${url} <br> <br> If you have not requested this email please ignore`;
 
     const data = await resend.emails.send({
       from: 'dexomPay <noreply@dexompay.com>',
