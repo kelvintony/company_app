@@ -9,12 +9,12 @@
 .logo_container p {
   position: absolute;
   top: 0;
-  bottom: 0;
+  /* bottom: 0; */
   z-index: 5;
   color: #fff;
   color: #ffedad;
   color: #dab25d;
-  margin: 38% 80px;
+  margin: 38px 80px;
 }
 @media screen and (max-width: 900px) {
   .mylogo {
@@ -22,6 +22,6 @@
   }
 
   .logo_container p {
-    margin: 38% 78px;
+    margin: 38px 78px;
   }
 }

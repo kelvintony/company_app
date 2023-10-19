@@ -4,6 +4,8 @@ import axios from 'axios';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import LogoItem from '../../components/LogoItem/LogoItem';
+import dp4_removebg from '../../assets/dp4_removebg.png';
+import Image from 'next/image';
 
 const initialState = {
   email: '',
@@ -49,7 +51,7 @@ const ForgotPassword = () => {
 
   return (
     <>
-      <div onClick={() => router.push('/')} className={styles.logo_item}>
+      <div onClick={() => router.push('/')} className={styles.logo_container2}>
         <LogoItem />
       </div>
       <div className={styles.signin_container}>
