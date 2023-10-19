@@ -154,6 +154,9 @@
   font-weight: 500;
 }
 @media screen and (max-width: 900px) {
+  .login_container {
+    padding-top: 10px;
+  }
   .login_wrapper > h3 {
     font-size: 23px;
   }

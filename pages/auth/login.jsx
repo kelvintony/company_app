@@ -189,10 +189,8 @@ const Login = () => {
             {loading ? <SiginLoader /> : 'Login'}
           </button>
           <button onClick={registerHandler} className={styles.create_account}>
-            New to dexomPay?{' '}
-            <span className={styles.create_account_inner}>
-              Create an account
-            </span>
+            Don&apos;t have an account?{' '}
+            <span className={styles.create_account_inner}>Sign up</span>
           </button>
         </div>
       </div>
