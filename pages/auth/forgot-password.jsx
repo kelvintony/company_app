@@ -22,7 +22,6 @@ const ForgotPassword = () => {
   const [message, setMessage] = useState('');
 
   const handleSubmit = async () => {
-    return;
     if (formData.email.length === 0) {
       setError(true);
     }
