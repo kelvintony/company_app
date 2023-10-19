@@ -64,6 +64,7 @@ export const processUserTrade = async (req, res) => {
     }
 
     foundTradedGame.isUserTradeProcessed = true;
+    foundTradedGame.concludedEvent = selectedEvent;
 
     if (selectedEvent === 'event 1') {
       const updateOne = {

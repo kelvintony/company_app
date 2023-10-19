@@ -90,6 +90,13 @@
   font-size: 13px;
 }
 
+.success_input_wrapper {
+  background-color: rgba(15, 212, 108, 0.2);
+}
+
+.success_input_wrapper label {
+  color: rgb(56, 148, 56);
+}
 .input_wrapper input {
   width: 100%;
   padding: 7px;
