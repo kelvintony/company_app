@@ -7,9 +7,15 @@ import SiginLoader from '../SigninLoader/SiginLoader';
 import { Snackbar } from '@mui/material';
 import MuiAlert from '@mui/material/Alert';
 import { useRouter } from 'next/router';
-import { GiTruce } from 'react-icons/gi';
 
-const ProfileModal = ({ setShowPopup, showPopup }) => {
+const ProfileModal = ({
+  setShowPopup,
+  showPopup,
+  emailAddress,
+  runfetch,
+  buttonLoader,
+  setButtonLoader,
+}) => {
   // ALERT SECTION
   const Alert = forwardRef(function Alert(props, ref) {
     return <MuiAlert elevation={6} ref={ref} variant='filled' {...props} />;
@@ -46,31 +52,12 @@ const ProfileModal = ({ setShowPopup, showPopup }) => {
 
   const [errorMessage, setErrorMessage] = useState(null);
 
-  useEffect(() => {
-    setFetchUserLoader(true);
-    const verifyPay = async () => {
-      await axios
-        .get(`/api/customers/profile-details`)
-        .then(function (res) {
-          setFetchUserLoader(false);
-          setUserDetails({
-            ...UserDetails,
-            email: res?.data?.email,
-          });
-        })
-        .catch(function (error) {
-          setFetchUserLoader(false);
-        });
-    };
-
-    verifyPay();
-  }, []);
-
   const handleModalPopUp = () => {
     setShowPopup(!showPopup);
     setResponseMessage(null);
     setErrorMessage(null);
     setLoading(false);
+    setButtonLoader(false);
     setUserDetails({
       walletAddress: '',
       otp: '',
@@ -79,6 +66,11 @@ const ProfileModal = ({ setShowPopup, showPopup }) => {
   };
 
   const handleWalletUpdate = async () => {
+    // router.replace(router.asPath);
+    setShowPopup(!showPopup);
+    runfetch();
+
+    return;
     setResponseMessage(null);
     setErrorMessage(null);
 
@@ -147,8 +139,8 @@ const ProfileModal = ({ setShowPopup, showPopup }) => {
             </div>
             <p className={styles.otp_message}>
               One Time password will be sent to{' '}
-              <span style={{ fontWeight: 700 }}>{UserDetails?.email}</span>,
-              Kindly click on Send Otp.
+              <span style={{ fontWeight: 700 }}>{emailAddress}</span>, Kindly
+              click on Send Otp.
             </p>
             <button
               disabled={otpLoading}
@@ -245,24 +237,28 @@ const ProfileModal = ({ setShowPopup, showPopup }) => {
             )}
             {fetchUserLoader ? null : (
               <div className={styles.community_buttons}>
-                <button
-                  onClick={handleModalPopUp}
-                  className={styles.btn_cancel}
-                >
-                  Cancel
-                </button>
-                <button
-                  // href={`${payStackUrl}`}
-                  onClick={handleWalletUpdate}
-                  className={
-                    loading
-                      ? `${styles.btn_pay} ${styles.btn_pay_inactive}`
-                      : styles.btn_pay
-                  }
-                  disabled={loading}
-                >
-                  {loading ? <SiginLoader /> : 'Update Wallet'}
-                </button>
+                {buttonLoader && (
+                  <button
+                    onClick={handleModalPopUp}
+                    className={styles.btn_cancel}
+                  >
+                    Cancel
+                  </button>
+                )}
+                {buttonLoader && (
+                  <button
+                    // href={`${payStackUrl}`}
+                    onClick={handleWalletUpdate}
+                    className={
+                      loading
+                        ? `${styles.btn_pay} ${styles.btn_pay_inactive}`
+                        : styles.btn_pay
+                    }
+                    disabled={loading}
+                  >
+                    {loading ? <SiginLoader /> : 'Update Wallet'}
+                  </button>
+                )}
               </div>
             )}
           </div>
