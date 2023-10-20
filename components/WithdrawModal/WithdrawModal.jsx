@@ -1,5 +1,5 @@
 import React, { useRef, useState, forwardRef, useEffect } from 'react';
-import styles from './ProfileModal.module.css';
+import styles from './WithdrawModal.module.css';
 import { MdOutlineCancel } from 'react-icons/md';
 import axios from 'axios';
 
@@ -9,13 +9,13 @@ import MuiAlert from '@mui/material/Alert';
 import { useRouter } from 'next/router';
 import { BalanceLoader } from '../BalanceLoader/BalanceLoader';
 
-const ProfileModal = ({
+const WithdrawModal = ({
   setShowPopup,
   showPopup,
-  emailAddress,
-  runfetch,
+  email,
   buttonLoader,
   setButtonLoader,
+  amount,
 }) => {
   // ALERT SECTION
   const Alert = forwardRef(function Alert(props, ref) {
@@ -131,7 +131,7 @@ const ProfileModal = ({
         >
           <div ref={ref} id='paynow' className={styles.continue_wrapper}>
             <div className={styles.continue_wrapper_header}>
-              <p>Edit Wallet Address</p>
+              <p>Withdraw</p>
               <MdOutlineCancel
                 onClick={handleModalPopUp}
                 className={styles.continue_cancel_icon}
@@ -139,8 +139,8 @@ const ProfileModal = ({
             </div>
             <p className={styles.otp_message}>
               One Time password will be sent to{' '}
-              <span style={{ fontWeight: 700 }}>{emailAddress}</span>, Kindly
-              click on &quot;Send Otp&quot;
+              <span style={{ fontWeight: 700 }}>{email}</span>, Kindly click on
+              &quot;Send Otp&quot;
             </p>
             <button
               disabled={otpLoading}
@@ -209,28 +209,8 @@ const ProfileModal = ({
                 </div>
                 <div className={styles.input_wrapper}>
                   <label htmlFor='walletAdress'>
-                    Wallet Address:{' '}
-                    <span style={{ fontWeight: '600' }}>USDT (TRC-20)</span>
-                    <br />
-                    <input
-                      type='text'
-                      name='walletAddress'
-                      className={styles.form_control}
-                      value={UserDetails?.walletAddress}
-                      //   placeholder='USDT (TRC-20)'
-                      onChange={(e) =>
-                        setUserDetails({
-                          ...UserDetails,
-                          walletAddress: e.target.value,
-                        })
-                      }
-                    />
-                    <br />
-                    {/* {formDataError && formData.email.length <= 0 ? (
-                <span style={{ color: 'red' }}>* required</span>
-              ) : (
-                ''
-              )} */}
+                    Amount:{' '}
+                    <span style={{ fontWeight: '600' }}>&#36;{amount}</span>
                   </label>
                 </div>
               </div>
@@ -257,7 +237,7 @@ const ProfileModal = ({
                     }
                     disabled={loading}
                   >
-                    {loading ? <SiginLoader /> : 'Update Wallet'}
+                    {loading ? <SiginLoader /> : 'Withdraw'}
                   </button>
                 )}
               </div>
@@ -269,4 +249,4 @@ const ProfileModal = ({
   );
 };
 
-export default ProfileModal;
+export default WithdrawModal;

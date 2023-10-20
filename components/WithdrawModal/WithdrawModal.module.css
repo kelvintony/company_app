@@ -1,0 +1,224 @@
+/* MODAL SECTION  */
+.hide_container {
+  display: none;
+}
+
+.continue_container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: block;
+  width: 100%;
+  padding: 20px;
+  background-color: rgba(70, 70, 70, 0.7);
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  z-index: 10;
+  box-shadow: 2px 1px 5px rgba(0, 0, 0, 0.15);
+  margin-top: 0px;
+}
+
+.continue_container.active {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+  transition: 500ms ease;
+}
+
+.continue_container.inactive {
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-20px);
+  transition: 500ms ease;
+}
+
+.continue_wrapper {
+  border-top: 5px solid #65c9bb;
+  display: block;
+  width: 400px;
+  padding: 20px;
+  background-color: #ffffff;
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 2px 1px 5px rgba(0, 0, 0, 0.15);
+  margin-top: 50px;
+}
+.continue_wrapper_header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid rgb(209, 209, 209);
+  padding-bottom: 15px;
+  margin-bottom: 40px;
+}
+
+.continue_wrapper_header p {
+  font-weight: 500;
+}
+.continue_cancel_icon {
+  font-size: 20px;
+  /* color: #65c9bb; */
+  color: rgb(80, 80, 80);
+  cursor: pointer;
+}
+/* New stuff  */
+.otp_message {
+  font-size: 13px;
+  margin-bottom: 20px;
+  opacity: 0.7;
+}
+
+.resend_otp {
+  color: #26b9a6;
+  font-weight: 600;
+  display: inline-flex;
+  margin-bottom: 20px;
+  border: 1px solid #26b9a6;
+  width: fit-content;
+  padding: 5px 7px;
+  border-radius: 5px;
+  transition: all 0.3s ease-in-out;
+}
+
+.resend_otp:hover {
+  background-color: #26b9a6;
+  color: #fff;
+}
+.data_wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.input_wrapper {
+  /* border: 1px solid #757575; */
+  border: 1px solid rgb(204, 204, 204);
+
+  margin-bottom: 20px;
+  padding-left: 8px;
+  padding-bottom: 8px;
+  border-radius: 5px;
+}
+
+.input_wrapper > p {
+  font-size: 15px !important;
+  font-weight: 600;
+}
+.input_wrapper label {
+  color: rgb(95, 95, 95);
+  font-size: 13px;
+}
+
+.input_wrapper input {
+  width: 100%;
+  padding: 7px;
+  padding-left: 0px;
+  font-size: 15px;
+  font-family: 'Roboto', sans-serif;
+  color: rgb(56, 56, 56);
+
+  background: #ffffff;
+  border: none;
+  outline: none;
+  fill: none;
+}
+
+.input_wrapper input:-webkit-autofill,
+.input_wrapper input:-webkit-autofill:hover,
+.input_wrapper input:-webkit-autofill:focus,
+.input_wrapper input:-webkit-autofill:active {
+  transition: background-color 1000000s ease-in-out 0s;
+}
+.checkbox_container {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 15px;
+  margin-bottom: 20px;
+}
+
+.input_wrapper select {
+  width: 100%;
+  padding: 7px;
+  padding-left: 0px;
+  font-size: 15px;
+  font-family: 'Roboto', sans-serif;
+  color: rgb(56, 56, 56);
+
+  background: rgba(240, 240, 240, 0.6);
+  border: none;
+  outline: none;
+  fill: none;
+}
+
+/* UTILITIES  */
+.community_buttons {
+  margin-top: auto;
+  display: flex;
+  gap: 7px;
+  margin-top: 20px;
+}
+.btn_cancel {
+  border: 0.5px solid #f48023;
+  outline: none;
+  gap: 5px;
+  background-color: #ffffff;
+  color: #f48023;
+  border-radius: 5px;
+  padding: 7px 15px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 700;
+  height: 36px;
+  transition: all 0.3s ease-in-out;
+}
+
+.btn_cancel:hover {
+  background-color: #f48023;
+  color: white;
+}
+
+.btn_pay {
+  border: none;
+  outline: none;
+  gap: 5px;
+  background-color: #f48023;
+  border-radius: 5px;
+  padding: 7px 15px;
+  color: #ffffff;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 700;
+  height: 36px;
+  width: 100%;
+  transition: all 0.3s ease-in-out;
+}
+
+.btn_pay:hover {
+  background-color: #ff9138;
+}
+
+.btn_pay_inactive {
+  box-shadow: none;
+  background: linear-gradient(170.04deg, #f0aa22 -8.91%, #f09b7c 99.52%);
+}
+
+@media screen and (max-width: 900px) {
+  .continue_container {
+    height: 100%;
+  }
+  .continue_wrapper {
+    width: 300px;
+    margin-top: 50px;
+  }
+
+  .data_inner h3 {
+    font-size: 16px;
+    font-weight: 600;
+  }
+  .data_value {
+    font-weight: 400;
+    font-size: 14px;
+  }
+}
