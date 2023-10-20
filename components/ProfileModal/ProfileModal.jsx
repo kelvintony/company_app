@@ -70,7 +70,6 @@ const ProfileModal = ({
     setShowPopup(!showPopup);
     runfetch();
 
-    return;
     setResponseMessage(null);
     setErrorMessage(null);
 
