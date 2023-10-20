@@ -14,8 +14,6 @@ const Profile = () => {
 
   const [buttonLoader, setButtonLoader] = useState(false);
 
-  const [userId, setUserId] = useState(false);
-
   useEffect(() => {
     fetchProfile();
   }, []);
