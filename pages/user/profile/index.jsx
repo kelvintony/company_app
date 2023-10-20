@@ -12,25 +12,30 @@ const Profile = () => {
 
   const [showPopup, setShowPopup] = useState(false);
 
+  const [buttonLoader, setButtonLoader] = useState(false);
+
   const [userId, setUserId] = useState(false);
 
   useEffect(() => {
-    const fetchProfile = async () => {
-      try {
-        const res = await axios.get('/api/customers/profile-details');
-        if (res) {
-          setUserProfile(res.data);
-        }
-      } catch (error) {
-        console.log('');
-      }
-    };
-
     fetchProfile();
   }, []);
 
-  const editUser = () => {
+  const fetchProfile = async () => {
+    try {
+      const res = await axios.get('/api/customers/profile-details');
+      if (res) {
+        setUserProfile(res.data);
+      }
+    } catch (error) {
+      console.log('');
+    }
+  };
+
+  const editUser = async () => {
     setShowPopup(!showPopup);
+
+    await new Promise((resolve) => setTimeout(resolve, 2000));
+    setButtonLoader(true);
   };
 
   return (
@@ -72,7 +77,14 @@ const Profile = () => {
         </div>
       )}
 
-      <ProfileModal setShowPopup={setShowPopup} showPopup={showPopup} />
+      <ProfileModal
+        setShowPopup={setShowPopup}
+        showPopup={showPopup}
+        emailAddress={userProfile?.email}
+        runfetch={fetchProfile}
+        buttonLoader={buttonLoader}
+        setButtonLoader={setButtonLoader}
+      />
     </DashboardLayout>
   );
 };
