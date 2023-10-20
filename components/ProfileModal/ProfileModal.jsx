@@ -7,6 +7,7 @@ import SiginLoader from '../SigninLoader/SiginLoader';
 import { Snackbar } from '@mui/material';
 import MuiAlert from '@mui/material/Alert';
 import { useRouter } from 'next/router';
+import { BalanceLoader } from '../BalanceLoader/BalanceLoader';
 
 const ProfileModal = ({
   setShowPopup,
@@ -234,6 +235,7 @@ const ProfileModal = ({
                 </div>
               </div>
             )}
+            {!buttonLoader && <BalanceLoader />}
             {fetchUserLoader ? null : (
               <div className={styles.community_buttons}>
                 {buttonLoader && (
