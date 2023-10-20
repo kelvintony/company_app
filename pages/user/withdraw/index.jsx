@@ -51,6 +51,9 @@ const Withdraw = () => {
   };
 
   const editUser = async () => {
+    setResponseMessage(null);
+    setErrorMessage(null);
+
     setOpen(true); //! make sure you set this guy open for the MUI alert
 
     try {
