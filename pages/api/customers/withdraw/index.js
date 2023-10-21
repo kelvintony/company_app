@@ -2,6 +2,7 @@ import { getSession } from 'next-auth/react';
 import { getToken } from 'next-auth/jwt';
 import { Decimal128 } from 'mongodb';
 import Token from '../../../../models/token';
+import accountHistoryModel from '../../../../models/accountHistory';
 
 import db from '../../../../utils/db';
 import walletProfileModel from '../../../../models/walletProfile';
@@ -108,8 +109,8 @@ export const placeWithdrawal = async (req, res) => {
 
     const updateOne = {
       $inc: {
-        // accountBalance: eventOneExpectedReturns,
-        // roi: eventOneRoi,
+        accountBalance: -convertedAmount,
+        roi: -convertedAmount,
         withdrawableBalance: -convertedAmount,
       },
     };
@@ -119,9 +120,18 @@ export const placeWithdrawal = async (req, res) => {
       updateOne
     );
 
+    await accountHistoryModel.create({
+      userId: session.user._id,
+      paymentStatus: 'pending',
+      amount: convertedAmount,
+      whatFor: 'wallet Withdrawal',
+      transactionId: { type: String },
+    });
     // await oldToken.deleteOne();
 
-    return res.status(200).json({ message: 'Withraw was successful' });
+    return res
+      .status(200)
+      .json({ message: "Withraw was successful and it's been processed " });
   } catch (error) {
     return res.status(500).json({ message: error.message });
   }

@@ -11,6 +11,7 @@ const accountHistorySchema = new mongoose.Schema(
     amount: { type: Number },
     whatFor: { type: String },
     transactionId: { type: String },
+    transactionIdForAdmin: { type: String },
   },
   {
     timestamps: true,
