@@ -121,7 +121,7 @@ export const placeWithdrawal = async (req, res) => {
     );
 
     await accountHistoryModel.create({
-      userId: seesion.user._id,
+      userId: session.user._id,
       paymentStatus: 'pending',
       amount: convertedAmount,
       whatFor: 'wallet Withdrawal',
@@ -129,7 +129,9 @@ export const placeWithdrawal = async (req, res) => {
     });
     // await oldToken.deleteOne();
 
-    return res.status(200).json({ message: 'Withraw was successful' });
+    return res
+      .status(200)
+      .json({ message: "Withraw was successful and it's been processed " });
   } catch (error) {
     return res.status(500).json({ message: error.message });
   }
