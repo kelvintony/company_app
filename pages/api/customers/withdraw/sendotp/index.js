@@ -1,5 +1,4 @@
 import { Resend } from 'resend';
-import bcryptjs from 'bcryptjs';
 import { getSession } from 'next-auth/react';
 
 import userModel from '../../../../../models/user';
@@ -22,10 +21,6 @@ export default async (req, res) => {
   switch (req.method) {
     case 'GET':
       await sendOTP(req, res);
-      break;
-
-    case 'POST':
-      await updateWalletAddress(req, res);
       break;
 
     default:
@@ -63,12 +58,12 @@ export const sendOTP = async (req, res) => {
 
     const savedToken = newToken.token;
 
-    const message = `This is your OTP(One Time Password) for Wallet Address update: <br> <br> <strong>${savedToken}</strong> <br> <br> If you have not requested this email please ignore`;
+    const message = `This is your OTP(One Time Password) for amount withdrawal: <br> <br> <strong>${savedToken}</strong> <br> <br> If you have not requested this email please ignore`;
 
     const data = await resend.emails.send({
       from: 'dexomPay <noreply@dexompay.com>',
       to: session.user.email,
-      subject: 'Wallet Address Reset Link',
+      subject: 'Amount Withdrawal Link',
       html: message,
     });
 
@@ -82,42 +77,6 @@ export const sendOTP = async (req, res) => {
     });
   } catch (error) {
     res.status(500).json({ message: 'Something went wrong' });
-    console.log(error.message);
-  }
-};
-
-export const updateWalletAddress = async (req, res) => {
-  const session = await getSession({ req });
-
-  if (!session) {
-    return res.status(401).send('you are not authenticated');
-  }
-
-  const { walletAddress, otp } = req.body;
-
-  try {
-    const user = await userModel.findById(session.user._id);
-
-    if (!user) return res.status(400).json({ message: 'User does not exist' });
-
-    const oldToken = await Token.findOne({
-      userId: session.user._id,
-      token: otp,
-    });
-
-    if (!oldToken) {
-      return res.status(400).json({ message: 'OTP does not exist' });
-    }
-
-    user.walletAddress = walletAddress;
-
-    await user.save();
-
-    await oldToken.deleteOne();
-
-    res.status(200).json({ message: 'Wallet Address updated successfully' });
-  } catch (error) {
-    res.status(500).json({ message: 'something went wrong' });
     console.log(error.message);
   }
 };
