@@ -68,8 +68,7 @@ const ProfileModal = ({
 
   const handleWalletUpdate = async () => {
     // router.replace(router.asPath);
-    setShowPopup(!showPopup);
-    runfetch();
+    
 
     setResponseMessage(null);
     setErrorMessage(null);
@@ -85,7 +84,9 @@ const ProfileModal = ({
       if (res) {
         setLoading(false);
         setResponseMessage(res.data.message);
-        // handleModalPopUp();
+        handleModalPopUp();
+      
+        runfetch();
       }
     } catch (error) {
       setLoading(false);
