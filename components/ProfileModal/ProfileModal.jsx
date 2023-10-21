@@ -84,6 +84,7 @@ const ProfileModal = ({
       if (res) {
         setLoading(false);
         setResponseMessage(res.data.message);
+        await new Promise((resolve)=>setTimeout(resolve,1500))
         handleModalPopUp();
       
         runfetch();
