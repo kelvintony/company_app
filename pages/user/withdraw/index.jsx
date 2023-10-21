@@ -23,6 +23,7 @@ const Withdraw = () => {
   const [amount, setAmount] = useState('');
 
   const [userBalance, setUserBalance] = useState(null);
+  const [checkBalanceLoader, setCheckBalanceLoader] = useState(false);
 
   //! ALERT SECTION
   const [errorMessage, setErrorMessage] = useState(null);
@@ -54,17 +55,25 @@ const Withdraw = () => {
     setResponseMessage(null);
     setErrorMessage(null);
 
+    if (amount.length === 0) {
+      return setFormDataError(true);
+    }
+
     setOpen(true); //! make sure you set this guy open for the MUI alert
 
     try {
+      setCheckBalanceLoader(true);
       const res = await axios.get(`/api/customers/withdraw?amount=${amount}`);
       if (res) {
+        setCheckBalanceLoader(false);
         setResponseMessage(res?.data?.message);
         setShowPopup(!showPopup);
+
         await new Promise((resolve) => setTimeout(resolve, 2000));
         setButtonLoader(true);
       }
     } catch (error) {
+      setCheckBalanceLoader(false);
       setErrorMessage(error?.response?.data?.message);
       console.log('');
     }
@@ -78,6 +87,7 @@ const Withdraw = () => {
         setOpen={setOpen}
         responseMessage={responseMessage}
       />
+
       <h3 className={styles.header}>
         Make Withdrawals
         <GiMoneyStack className={styles.comming_soon_icon} />
@@ -95,11 +105,11 @@ const Withdraw = () => {
                 onChange={handleInputChange}
               />
               <br />
-              {/* {formDataError && formData.email.length <= 0 ? (
+              {formDataError && amount.length <= 0 ? (
                 <span style={{ color: 'red' }}>* required</span>
               ) : (
                 ''
-              )} */}
+              )}
             </label>
           </div>
 
@@ -112,7 +122,7 @@ const Withdraw = () => {
             }
             disabled={loading}
           >
-            {loading ? <SiginLoader /> : 'Withdraw'}
+            {checkBalanceLoader ? <SiginLoader /> : 'Withdraw'}
           </button>
 
           <p className={styles.withdraw_text}>
@@ -128,6 +138,7 @@ const Withdraw = () => {
           </p>
         </div>
       </section>
+
       <WithdrawModal
         setShowPopup={setShowPopup}
         showPopup={showPopup}

@@ -38,9 +38,7 @@ const WithdrawModal = ({
   const ref = useRef(null);
 
   const [UserDetails, setUserDetails] = useState({
-    walletAddress: '',
     otp: '',
-    email: '',
   });
 
   const [loading, setLoading] = useState(false);
@@ -48,6 +46,8 @@ const WithdrawModal = ({
   const [otpLoading, setOtpLoading] = useState(false);
 
   const [fetchUserLoader, setFetchUserLoader] = useState(false);
+
+  const [formDataError, setFormDataError] = useState(false);
 
   const [responseMessage, setResponseMessage] = useState(null);
 
@@ -60,28 +60,28 @@ const WithdrawModal = ({
     setLoading(false);
     setButtonLoader(false);
     setUserDetails({
-      walletAddress: '',
       otp: '',
-      email: '',
     });
   };
 
-  const handleWalletUpdate = async () => {
+  const handleWithdraw = async () => {
     // router.replace(router.asPath);
-    setShowPopup(!showPopup);
-    runfetch();
 
     setResponseMessage(null);
     setErrorMessage(null);
+
+    if (UserDetails.otp.length === 0) {
+      return setFormDataError(true);
+    }
 
     setLoading(true);
     setOpen(true); // make sure you set this guy open
 
     try {
-      const res = await axios.post(
-        `/api/customers/user-wallet-profile/updatewallet`,
-        UserDetails
-      );
+      const res = await axios.post(`/api/customers/withdraw`, {
+        amount,
+        otp: UserDetails?.otp,
+      });
       if (res) {
         setLoading(false);
         setResponseMessage(res.data.message);
@@ -102,9 +102,7 @@ const WithdrawModal = ({
     setOtpLoading(true);
 
     try {
-      const res = await axios.get(
-        `/api/customers/user-wallet-profile/updatewallet`
-      );
+      const res = await axios.get(`/api/customers/withdraw/sendotp`);
       if (res) {
         setOtpLoading(false);
         setResponseMessage(res.data.message);
@@ -117,6 +115,24 @@ const WithdrawModal = ({
   };
   return (
     <>
+      {errorMessage && (
+        <Snackbar open={open} autoHideDuration={5000} onClose={handleClose}>
+          <Alert onClose={handleClose} severity='error' sx={{ width: '100%' }}>
+            {errorMessage}
+          </Alert>
+        </Snackbar>
+      )}
+      {responseMessage && (
+        <Snackbar open={open} autoHideDuration={5000} onClose={handleClose}>
+          <Alert
+            onClose={handleClose}
+            severity='success'
+            sx={{ width: '100%' }}
+          >
+            {responseMessage}
+          </Alert>
+        </Snackbar>
+      )}
       <div
         style={{
           marginTop: '0px',
@@ -149,36 +165,6 @@ const WithdrawModal = ({
             >
               {otpLoading ? 'Sending Otp...' : 'Send OTP'}
             </button>
-            {errorMessage && (
-              <Snackbar
-                open={open}
-                autoHideDuration={5000}
-                onClose={handleClose}
-              >
-                <Alert
-                  onClose={handleClose}
-                  severity='error'
-                  sx={{ width: '100%' }}
-                >
-                  {errorMessage}
-                </Alert>
-              </Snackbar>
-            )}
-            {responseMessage && (
-              <Snackbar
-                open={open}
-                autoHideDuration={5000}
-                onClose={handleClose}
-              >
-                <Alert
-                  onClose={handleClose}
-                  severity='success'
-                  sx={{ width: '100%' }}
-                >
-                  {responseMessage}
-                </Alert>
-              </Snackbar>
-            )}
 
             {fetchUserLoader ? (
               <h4>Loading...</h4>
@@ -200,11 +186,11 @@ const WithdrawModal = ({
                       }
                     />
                     <br />
-                    {/* {formDataError && formData.email.length <= 0 ? (
-                <span style={{ color: 'red' }}>* required</span>
-              ) : (
-                ''
-              )} */}
+                    {formDataError && UserDetails.otp.length <= 0 ? (
+                      <span style={{ color: 'red' }}>* required</span>
+                    ) : (
+                      ''
+                    )}
                   </label>
                 </div>
                 <div className={styles.input_wrapper}>
@@ -216,6 +202,7 @@ const WithdrawModal = ({
               </div>
             )}
             {!buttonLoader && <BalanceLoader />}
+
             {fetchUserLoader ? null : (
               <div className={styles.community_buttons}>
                 {buttonLoader && (
@@ -229,7 +216,7 @@ const WithdrawModal = ({
                 {buttonLoader && (
                   <button
                     // href={`${payStackUrl}`}
-                    onClick={handleWalletUpdate}
+                    onClick={handleWithdraw}
                     className={
                       loading
                         ? `${styles.btn_pay} ${styles.btn_pay_inactive}`
