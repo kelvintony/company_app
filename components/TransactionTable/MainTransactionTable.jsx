@@ -13,6 +13,34 @@ import TradeModal from './TradeModal';
 import UserLoader from '../UserLoader/UserLoader';
 
 const MainTransactionTable = () => {
+  const [rows, setRows] = useState([]);
+  const router = useRouter();
+
+  const { status, data: session } = useSession();
+
+  const { redirect } = router.query;
+  const { pathname } = router;
+
+  // const effectRan = useRef(false);
+
+  const [loading, setLoading] = useState(false);
+
+  const [showPopup, setShowPopup] = useState(false);
+
+  const [userId, setUserId] = useState(false);
+
+  useEffect(() => {
+    fetchTransactions();
+  }, []);
+
+  const formattedRows = rows.map((row) => ({
+    ...row,
+    createdAt: formatDateTimeToGMT1(row?.createdAt),
+    fullName: row?.userId?.fullName,
+    eventSelection: row?.gameId?.eventSelection,
+    eventDate: `${row?.gameId?.eventDate} - ${row?.gameId?.eventTime} `,
+  }));
+
   const columns = [
     {
       field: '_id',
@@ -47,34 +75,6 @@ const MainTransactionTable = () => {
     },
     { field: 'createdAt', headerName: 'Date Traded', width: 250 },
   ];
-
-  const [rows, setRows] = useState([]);
-  const router = useRouter();
-
-  const { status, data: session } = useSession();
-
-  const { redirect } = router.query;
-  const { pathname } = router;
-
-  // const effectRan = useRef(false);
-
-  const [loading, setLoading] = useState(false);
-
-  const [showPopup, setShowPopup] = useState(false);
-
-  const [userId, setUserId] = useState(false);
-
-  useEffect(() => {
-    fetchTransactions();
-  }, []);
-
-  const formattedRows = rows.map((row) => ({
-    ...row,
-    createdAt: formatDateTimeToGMT1(row?.createdAt),
-    fullName: row?.userId?.fullName,
-    eventSelection: row?.gameId?.eventSelection,
-    eventDate: `${row?.gameId?.eventDate} - ${row?.gameId?.eventTime} `,
-  }));
 
   const fetchTransactions = async () => {
     setLoading(true);
@@ -112,24 +112,26 @@ const MainTransactionTable = () => {
             checkboxSelection
             autoHeight
             getRowId={(row) => row?._id}
-            components={{
-              NoRowsOverlay: () => (
-                <div
-                  style={{
-                    width: '100%',
-                    height: '100%',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                  }}
-                >
-                  No records available
-                </div>
-              ),
-            }}
+            // components={{
+            //   NoRowsOverlay: () => (
+            //     <div
+            //       style={{
+            //         width: '100%',
+            //         height: '100%',
+            //         display: 'flex',
+            //         alignItems: 'center',
+            //         justifyContent: 'center',
+            //       }}
+            //     >
+            //       No records available
+            //     </div>
+            //   ),
+            // }}
           />
         )}
       </div>
+
+      <p>test if its working</p>
       <TradeModal
         setShowPopup={setShowPopup}
         showPopup={showPopup}
