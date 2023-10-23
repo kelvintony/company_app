@@ -151,6 +151,7 @@ const TradeTransactions = () => {
         setShowPopup={setShowPopup}
         showPopup={showPopup}
         userId={userId}
+        fetchTransactions={fetchTransactions}
       />
     </div>
   );

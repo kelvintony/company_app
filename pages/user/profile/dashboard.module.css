@@ -46,6 +46,21 @@
   background: linear-gradient(170.04deg, #ebb54b -8.91%, #e97247 99.52%);
 }
 
+.btn_copy {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  font-weight: 600;
+  border: 1px solid rgb(216, 216, 216);
+  padding: 5px;
+  margin-top: 10px;
+}
+
+.btn_copy:hover {
+  background-color: rgb(224, 224, 224);
+}
+
 @media screen and (max-width: 900px) {
   .header {
     font-size: 26px;
