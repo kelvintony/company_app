@@ -8,6 +8,7 @@ import { Snackbar } from '@mui/material';
 import MuiAlert from '@mui/material/Alert';
 import { useRouter } from 'next/router';
 import { BalanceLoader } from '../BalanceLoader/BalanceLoader';
+import { AiFillCheckCircle } from 'react-icons/ai';
 
 const WithdrawModal = ({
   setShowPopup,
@@ -49,6 +50,8 @@ const WithdrawModal = ({
 
   const [formDataError, setFormDataError] = useState(false);
 
+  const [transactionProcessed, setTransactionProcessed] = useState(false);
+
   const [responseMessage, setResponseMessage] = useState(null);
 
   const [errorMessage, setErrorMessage] = useState(null);
@@ -59,6 +62,7 @@ const WithdrawModal = ({
     setErrorMessage(null);
     setLoading(false);
     setButtonLoader(false);
+    setTransactionProcessed(false);
     setUserDetails({
       otp: '',
     });
@@ -84,6 +88,7 @@ const WithdrawModal = ({
       });
       if (res) {
         setLoading(false);
+        setTransactionProcessed(true);
         setResponseMessage(res.data.message);
         // handleModalPopUp();
       }
@@ -113,6 +118,11 @@ const WithdrawModal = ({
       console.log('something went wrong');
     }
   };
+
+  //   const handleContinue = ()=>{
+
+  //   }
+
   return (
     <>
       {errorMessage && (
@@ -146,86 +156,110 @@ const WithdrawModal = ({
           }`}
         >
           <div ref={ref} id='paynow' className={styles.continue_wrapper}>
-            <div className={styles.continue_wrapper_header}>
-              <p>Withdraw</p>
-              <MdOutlineCancel
-                onClick={handleModalPopUp}
-                className={styles.continue_cancel_icon}
-              />
-            </div>
-            <p className={styles.otp_message}>
-              One Time password will be sent to{' '}
-              <span style={{ fontWeight: 700 }}>{email}</span>, Kindly click on
-              &quot;Send Otp&quot;
-            </p>
-            <button
-              disabled={otpLoading}
-              onClick={sendOTP}
-              className={styles.resend_otp}
-            >
-              {otpLoading ? 'Sending Otp...' : 'Send OTP'}
-            </button>
-
-            {fetchUserLoader ? (
-              <h4>Loading...</h4>
-            ) : (
-              <div className={styles.data_wrapper}>
-                <div className={styles.input_wrapper}>
-                  <label htmlFor='otp'>
-                    OTP: <br />
-                    <input
-                      type='text'
-                      name='otp'
-                      className={styles.form_control}
-                      value={UserDetails?.otp}
-                      onChange={(e) =>
-                        setUserDetails({
-                          ...UserDetails,
-                          otp: e.target.value,
-                        })
-                      }
-                    />
-                    <br />
-                    {formDataError && UserDetails.otp.length <= 0 ? (
-                      <span style={{ color: 'red' }}>* required</span>
-                    ) : (
-                      ''
-                    )}
-                  </label>
+            {transactionProcessed && (
+              <div className={styles.success_message}>
+                <p>Amount withdrawn</p>
+                <div className={styles.amount_container}>
+                  <p>&#36;{amount}</p>
+                  <AiFillCheckCircle className={styles.success_icon} />
                 </div>
-                <div className={styles.input_wrapper}>
-                  <label htmlFor='walletAdress'>
-                    Amount:{' '}
-                    <span style={{ fontWeight: '600' }}>&#36;{amount}</span>
-                  </label>
-                </div>
+                <p>Transaction Successful</p>
+                <p>
+                  Your transfer was successful and it&apos;s been processed.
+                </p>
+                <button
+                  onClick={handleModalPopUp}
+                  className={`${styles.btn_pay} ${styles.btn_pay_contine}`}
+                >
+                  Continue
+                </button>
               </div>
             )}
-            {!buttonLoader && <BalanceLoader />}
 
-            {fetchUserLoader ? null : (
-              <div className={styles.community_buttons}>
-                {buttonLoader && (
-                  <button
+            {!transactionProcessed && (
+              <div className={styles.wrap_them}>
+                <div className={styles.continue_wrapper_header}>
+                  <p>Withdraw</p>
+                  <MdOutlineCancel
                     onClick={handleModalPopUp}
-                    className={styles.btn_cancel}
-                  >
-                    Cancel
-                  </button>
+                    className={styles.continue_cancel_icon}
+                  />
+                </div>
+                <p className={styles.otp_message}>
+                  One Time password will be sent to{' '}
+                  <span style={{ fontWeight: 700 }}>{email}</span>, Kindly click
+                  on &quot;Send Otp&quot;
+                </p>
+                <button
+                  disabled={otpLoading}
+                  onClick={sendOTP}
+                  className={styles.resend_otp}
+                >
+                  {otpLoading ? 'Sending Otp...' : 'Send OTP'}
+                </button>
+
+                {fetchUserLoader ? (
+                  <h4>Loading...</h4>
+                ) : (
+                  <div className={styles.data_wrapper}>
+                    <div className={styles.input_wrapper}>
+                      <label htmlFor='otp'>
+                        OTP: <br />
+                        <input
+                          type='text'
+                          name='otp'
+                          className={styles.form_control}
+                          value={UserDetails?.otp}
+                          onChange={(e) =>
+                            setUserDetails({
+                              ...UserDetails,
+                              otp: e.target.value,
+                            })
+                          }
+                        />
+                        <br />
+                        {formDataError && UserDetails.otp.length <= 0 ? (
+                          <span style={{ color: 'red' }}>* required</span>
+                        ) : (
+                          ''
+                        )}
+                      </label>
+                    </div>
+                    <div className={styles.input_wrapper}>
+                      <label htmlFor='walletAdress'>
+                        Amount:{' '}
+                        <span style={{ fontWeight: '600' }}>&#36;{amount}</span>
+                      </label>
+                    </div>
+                  </div>
                 )}
-                {buttonLoader && (
-                  <button
-                    // href={`${payStackUrl}`}
-                    onClick={handleWithdraw}
-                    className={
-                      loading
-                        ? `${styles.btn_pay} ${styles.btn_pay_inactive}`
-                        : styles.btn_pay
-                    }
-                    disabled={loading}
-                  >
-                    {loading ? <SiginLoader /> : 'Withdraw'}
-                  </button>
+                {!buttonLoader && <BalanceLoader />}
+
+                {fetchUserLoader ? null : (
+                  <div className={styles.community_buttons}>
+                    {buttonLoader && (
+                      <button
+                        onClick={handleModalPopUp}
+                        className={styles.btn_cancel}
+                      >
+                        Cancel
+                      </button>
+                    )}
+                    {buttonLoader && (
+                      <button
+                        // href={`${payStackUrl}`}
+                        onClick={handleWithdraw}
+                        className={
+                          loading
+                            ? `${styles.btn_pay} ${styles.btn_pay_inactive}`
+                            : styles.btn_pay
+                        }
+                        disabled={loading}
+                      >
+                        {loading ? <SiginLoader /> : 'Withdraw'}
+                      </button>
+                    )}
+                  </div>
                 )}
               </div>
             )}
