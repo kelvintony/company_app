@@ -22,17 +22,41 @@ export const getAllGames = async (req, res) => {
   try {
     await db.connect();
 
+    // const latestDocument = await tradedGameModel
+    //   .find({ userId: session.user._id })
+    //   .sort({ createdAt: -1 })
+    //   .populate({
+    //     path: 'gameId',
+    //     select: 'eventSelection eventDate eventTime _id',
+    //   })
+    //   .select('-updatedAt -eventOneStats -eventTwoStats');
+
     const latestDocument = await tradedGameModel
       .find({ userId: session.user._id })
-      .sort({ createdAt: -1 })
-      .populate({
-        path: 'gameId',
-        select: 'eventSelection eventDate eventTime _id',
-      })
-      .select('-updatedAt -eventOneStats -eventTwoStats');
+      .populate('gameId');
+    // const filteredDocuments ={
 
-    return res.status(200).json({ message: latestDocument });
+    // }
+
+    const docArray = latestDocument.map(({ _doc }) => _doc);
+
+    console.log('my array', docArray);
+
+    if (latestDocument) {
+      const filteredDocument = {
+        _id: latestDocument?._id,
+        eventSelection: latestDocument?.eventSelection,
+        eventDate: latestDocument?.gameId?.eventDate,
+        eventTime: latestDocument?.gameId?.eventTime,
+        isUserTradeProcessed: latestDocument?.isUserTradeProcessed,
+        createdAt: latestDocument?.createdAt,
+      };
+
+      // console.log(filteredDocument);
+      return res.status(200).json({ message: latestDocument });
+    }
   } catch (error) {
+    console.log(error.message);
     return res.status(400).json({ message: error.message });
   }
 };
