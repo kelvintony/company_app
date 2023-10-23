@@ -111,21 +111,21 @@ const MainTransactionTable = () => {
             checkboxSelection
             autoHeight
             getRowId={(row) => row?._id}
-            components={{
-              NoRowsOverlay: () => (
-                <div
-                  style={{
-                    width: '100%',
-                    height: '100%',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                  }}
-                >
-                  No records available
-                </div>
-              ),
-            }}
+            // components={{
+            //   NoRowsOverlay: () => (
+            //     <div
+            //       style={{
+            //         width: '100%',
+            //         height: '100%',
+            //         display: 'flex',
+            //         alignItems: 'center',
+            //         justifyContent: 'center',
+            //       }}
+            //     >
+            //       No records available
+            //     </div>
+            //   ),
+            // }}
           />
         )}
       </div>
