@@ -22,7 +22,6 @@ const Withdraw = () => {
 
   const [amount, setAmount] = useState('');
 
-  const [userBalance, setUserBalance] = useState(null);
   const [checkBalanceLoader, setCheckBalanceLoader] = useState(false);
 
   //! ALERT SECTION
@@ -51,7 +50,7 @@ const Withdraw = () => {
     }
   };
 
-  const editUser = async () => {
+  const handleWithdraw = async () => {
     setResponseMessage(null);
     setErrorMessage(null);
 
@@ -114,7 +113,7 @@ const Withdraw = () => {
           </div>
 
           <button
-            onClick={editUser}
+            onClick={handleWithdraw}
             className={
               loading
                 ? `${styles.btn_hero} ${styles.btn_hero_inactive}`

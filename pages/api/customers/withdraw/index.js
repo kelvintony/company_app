@@ -3,7 +3,7 @@ import { getToken } from 'next-auth/jwt';
 import { Decimal128 } from 'mongodb';
 import Token from '../../../../models/token';
 import accountHistoryModel from '../../../../models/accountHistory';
-
+import { v4 as uuidv4 } from 'uuid';
 import db from '../../../../utils/db';
 import walletProfileModel from '../../../../models/walletProfile';
 
@@ -52,7 +52,7 @@ export const validateWithdrawAmount = async (req, res) => {
         .json({ message: 'Amount is greater than your withdrawable balance' });
     }
 
-    return res.status(200).json({ message: 'Amount validated' });
+    return res.status(200).json({ message: 'Amount validated, continue' });
   } catch (error) {
     return res.status(500).json({ message: error.message });
   }
@@ -94,7 +94,9 @@ export const placeWithdrawal = async (req, res) => {
     if (convertedAmount <= 0) {
       return res
         .status(500)
-        .json({ message: 'we do not accept negative value' });
+        .json({
+          message: 'The amount you entered is less than or equal to 0 USD',
+        });
     }
 
     if (convertedAmount > withdrawableBalance) {
@@ -106,6 +108,8 @@ export const placeWithdrawal = async (req, res) => {
     if (!oldToken) {
       return res.status(400).json({ message: 'OTP does not exist' });
     }
+
+    return res.status(200).json({ message: 'Withraw was successful' });
 
     const updateOne = {
       $inc: {
@@ -125,13 +129,11 @@ export const placeWithdrawal = async (req, res) => {
       paymentStatus: 'pending',
       amount: convertedAmount,
       whatFor: 'wallet Withdrawal',
-      transactionId: { type: String },
+      transactionId: uuidv4(),
     });
     // await oldToken.deleteOne();
 
-    return res
-      .status(200)
-      .json({ message: "Withraw was successful and it's been processed " });
+    return res.status(200).json({ message: 'Withraw was successful' });
   } catch (error) {
     return res.status(500).json({ message: error.message });
   }
