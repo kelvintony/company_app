@@ -28,7 +28,7 @@ export const getAllOrders = async (req, res) => {
 
     const latestDocument = await accountHistoryModel
       .find({})
-      .sort({ createdAt: -1 })
+      .sort({ _id: -1 })
       .populate({
         path: 'userId',
         select: 'fullName walletAddress',

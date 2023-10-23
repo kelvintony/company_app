@@ -73,10 +73,7 @@ export const getGame = async (req, res) => {
   }
 
   try {
-    const latestDocument = await gameModel
-      .find({})
-      .sort({ createdAt: -1 })
-      .limit(1);
+    const latestDocument = await gameModel.find({}).sort({ _id: -1 }).limit(1);
 
     return res.status(200).json({ message: latestDocument[0] });
   } catch (error) {

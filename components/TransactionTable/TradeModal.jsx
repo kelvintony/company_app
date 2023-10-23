@@ -213,10 +213,12 @@ const TradeModal = ({ userId, setShowPopup, showPopup }) => {
                       : ''
                   }`}
                 >
-                  <label htmlFor='eventTwoExpectedReturns'>
-                    <span>{UserDetails?.concludedEvent} was concluded</span>
-                    <br />
-                  </label>
+                  {UserDetails?.concludedEvent && (
+                    <label htmlFor='eventTwoExpectedReturns'>
+                      <span>{UserDetails?.concludedEvent} was concluded</span>
+                      <br />
+                    </label>
+                  )}
                 </div>
               </div>
             )}
