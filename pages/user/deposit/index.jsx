@@ -2,6 +2,7 @@ import React, { forwardRef, useState } from 'react';
 import styles from './deposit.module.css';
 import DashboardLayout from '../../../components/DashBoardLayout/DashboardLayout';
 import { RiLuggageDepositLine } from 'react-icons/ri';
+
 import { BiCopy } from 'react-icons/bi';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 
@@ -61,7 +62,8 @@ const Deposit = () => {
             wallet address
           </p>
           <p>
-            USDT (TRC-20) - <span>{walletAddress}</span>
+            USDT (TRC-20) <br />
+            <span>{walletAddress}</span>
           </p>
           <CopyToClipboard text={walletAddress} onCopy={handleCopy}>
             <button className={styles.btn_copy}>

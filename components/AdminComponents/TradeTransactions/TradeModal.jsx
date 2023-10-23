@@ -19,7 +19,7 @@ const eventOptions = [
   },
 ];
 
-const TradeModal = ({ userId, setShowPopup, showPopup }) => {
+const TradeModal = ({ userId, setShowPopup, showPopup, fetchTransactions }) => {
   // ALERT SECTION
   const Alert = forwardRef(function Alert(props, ref) {
     return <MuiAlert elevation={6} ref={ref} variant='filled' {...props} />;
@@ -121,6 +121,9 @@ const TradeModal = ({ userId, setShowPopup, showPopup }) => {
       if (res) {
         setLoading(false);
         setResponseMessage(res.data.message);
+        fetchTransactions();
+        setShowPopup(!showPopup);
+
         // handleModalPopUp();
       }
     } catch (error) {

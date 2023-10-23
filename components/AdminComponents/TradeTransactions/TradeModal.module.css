@@ -36,7 +36,7 @@
 .continue_wrapper {
   border-top: 5px solid #65c9bb;
   display: block;
-  width: 600px;
+  width: 400px;
   padding: 20px;
   background-color: #ffffff;
   height: fit-content;
@@ -184,6 +184,7 @@
 @media screen and (max-width: 900px) {
   .continue_container {
     height: 800px;
+    /* height: 100%; */
   }
   .continue_wrapper {
     width: 300px;

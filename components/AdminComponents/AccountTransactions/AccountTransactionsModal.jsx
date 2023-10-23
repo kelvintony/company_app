@@ -7,7 +7,15 @@ import { Snackbar } from '@mui/material';
 import MuiAlert from '@mui/material/Alert';
 import { useRouter } from 'next/router';
 
-const AccountTransactionsModal = ({ userId, setShowPopup, showPopup }) => {
+import { BiCopy } from 'react-icons/bi';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
+
+const AccountTransactionsModal = ({
+  userId,
+  setShowPopup,
+  showPopup,
+  fetchTransactions,
+}) => {
   // ALERT SECTION
   const Alert = forwardRef(function Alert(props, ref) {
     return <MuiAlert elevation={6} ref={ref} variant='filled' {...props} />;
@@ -101,6 +109,9 @@ const AccountTransactionsModal = ({ userId, setShowPopup, showPopup }) => {
       if (res) {
         setLoading(false);
         setResponseMessage(res.data.message);
+        fetchTransactions();
+        setShowPopup(!showPopup);
+
         // handleModalPopUp();
       }
     } catch (error) {
@@ -109,6 +120,12 @@ const AccountTransactionsModal = ({ userId, setShowPopup, showPopup }) => {
       console.log('something went wrong');
     }
   };
+
+  const handleCopy = () => {
+    setOpen(true); // make sure you set this guy open
+    setResponseMessage('Wallet Address copied');
+  };
+
   return (
     <>
       <div
@@ -191,6 +208,14 @@ const AccountTransactionsModal = ({ userId, setShowPopup, showPopup }) => {
                   <p>Wallet Address:</p>
                   <label htmlFor='walletAddress'>
                     <span>{UserDetails?.walletAddress}</span>
+                    <CopyToClipboard
+                      text={UserDetails?.walletAddress}
+                      onCopy={handleCopy}
+                    >
+                      <button className={styles.btn_copy}>
+                        Copy <BiCopy />
+                      </button>
+                    </CopyToClipboard>
                     <br />
                   </label>
                 </div>
