@@ -24,7 +24,7 @@ export const getAllGames = async (req, res) => {
 
     const latestDocument = await tradedGameModel
       .find({ userId: session.user._id })
-      .sort({ createdAt: -1 })
+      .sort({ _id: -1 })
       .populate({
         path: 'gameId',
         select: 'eventSelection eventDate eventTime _id',
