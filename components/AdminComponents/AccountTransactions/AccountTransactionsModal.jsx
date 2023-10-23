@@ -6,18 +6,6 @@ import SiginLoader from '../../SigninLoader/SiginLoader';
 import { Snackbar } from '@mui/material';
 import MuiAlert from '@mui/material/Alert';
 import { useRouter } from 'next/router';
-import ScrollToTopOnLoad from '../../ScrollToTopButton/ScrollToTopOnLoad';
-
-const eventOptions = [
-  {
-    id: '1',
-    eventOption: 'event 1',
-  },
-  {
-    id: '2',
-    eventOption: 'event 2',
-  },
-];
 
 const AccountTransactionsModal = ({ userId, setShowPopup, showPopup }) => {
   // ALERT SECTION
@@ -43,12 +31,12 @@ const AccountTransactionsModal = ({ userId, setShowPopup, showPopup }) => {
   const [UserDetails, setUserDetails] = useState({
     userId: '',
     password: '',
-    eventOneExpectedReturns: '',
-    eventOneRoi: '',
-    eventTwoExpectedReturns: '',
-    eventTwoRoi: '',
+    paymentStatus: '',
+    amount: '',
+    whatFor: '',
+    walletAddress: '',
+    fullName: '',
     concludeTrade: false,
-    selectedEvent: '',
   });
 
   const [loading, setLoading] = useState(false);
@@ -59,31 +47,25 @@ const AccountTransactionsModal = ({ userId, setShowPopup, showPopup }) => {
 
   const [errorMessage, setErrorMessage] = useState(null);
 
-  // const [selectedEvent, setSelectedEvent] = useState('');
-
-  const [eventOptionType, setEventOptionType] = useState(eventOptions);
+  // const [fullName, setfullName] = useState('');
 
   useEffect(() => {
     setFetchUserLoader(true);
     const verifyPay = async () => {
+      const orderId = userId;
       await axios
-        .get(`/api/admin/game/allgames/${userId}`)
+        .get(`/api/admin/wallet/${orderId}`)
         .then(function (res) {
           setFetchUserLoader(false);
+          console.log('orderID', res.data.message);
           setUserDetails({
             ...UserDetails,
-            userId: res?.data?.message?.userId,
-            eventOneExpectedReturns:
-              res?.data?.message?.eventOneStats?.expectedReturns
-                ?.$numberDecimal,
-            eventOneRoi:
-              res?.data?.message?.eventOneStats?.eventRoi?.$numberDecimal,
-            eventTwoExpectedReturns:
-              res?.data?.message?.eventTwoStats?.expectedReturns
-                ?.$numberDecimal,
-            eventTwoRoi:
-              res?.data?.message?.eventTwoStats?.eventRoi?.$numberDecimal,
-            // balance: res?.data?.message?.accountBalance,
+            userId: res?.data?.message?.userId?._id,
+            paymentStatus: res?.data?.message?.paymentStatus,
+            amount: res?.data?.message?.amount,
+            whatFor: res?.data?.message?.whatFor,
+            walletAddress: res?.data?.message?.userId?.walletAddress,
+            fullName: res?.data?.message?.userId?.fullName,
           });
         })
         .catch(function (error) {
@@ -145,7 +127,7 @@ const AccountTransactionsModal = ({ userId, setShowPopup, showPopup }) => {
         >
           <div ref={ref} id='paynow' className={styles.continue_wrapper}>
             <div className={styles.continue_wrapper_header}>
-              <p>Edit User Trade</p>
+              <p>Edit Order Transaction</p>
               <MdOutlineCancel
                 onClick={handleModalPopUp}
                 className={styles.continue_cancel_icon}
@@ -194,60 +176,27 @@ const AccountTransactionsModal = ({ userId, setShowPopup, showPopup }) => {
                   </label>
                 </div>
                 <div className={styles.input_wrapper}>
-                  <p>Event One:</p>
-                  <label htmlFor='eventOneExpectedReturns'>
-                    <span>
-                      Expected Returns: &#36;
-                      {UserDetails?.eventOneExpectedReturns}
-                    </span>{' '}
-                    <br />
-                    <span>Event ROI: &#36;{UserDetails?.eventOneRoi}</span>
+                  <p>Full Name:</p>
+                  <label htmlFor='userId'>
+                    <span>{UserDetails?.fullName}</span>
                     <br />
                   </label>
                 </div>
                 <div className={styles.input_wrapper}>
-                  <p>Event Two:</p>
-                  <label htmlFor='eventTwoExpectedReturns'>
-                    <span>
-                      Expected Returns: &#36;
-                      {UserDetails?.eventTwoExpectedReturns}
-                    </span>{' '}
-                    <br />
-                    <span>Event ROI: &#36;{UserDetails?.eventTwoRoi}</span>
+                  <p>Amount:</p>
+                  <label htmlFor='paymentStatus'>
+                    <span>&#36;{UserDetails?.amount}</span>
                     <br />
                   </label>
                 </div>
                 <div className={styles.input_wrapper}>
-                  <label htmlFor='selectedEvent'>
-                    Event: <br />
-                    <select
-                      name='selectedEvent'
-                      id=''
-                      value={UserDetails?.selectedEvent}
-                      onChange={(e) =>
-                        setUserDetails({
-                          ...UserDetails,
-                          selectedEvent: e.target.value,
-                        })
-                      }
-                    >
-                      <option>select event</option>
-                      {eventOptionType.map((events) => {
-                        return (
-                          <option key={events.id} value={events.eventOption}>
-                            {events.eventOption}
-                          </option>
-                        );
-                      })}
-                    </select>
+                  <p>Wallet Address:</p>
+                  <label htmlFor='walletAddress'>
+                    <span>{UserDetails?.walletAddress}</span>
                     <br />
-                    {/* {formDataError && selectedEvent.length <= 0 ? (
-                      <span style={{ color: 'red' }}>* required</span>
-                    ) : (
-                      ''
-                    )} */}
                   </label>
                 </div>
+
                 <div className={styles.input_wrapper}>
                   <label htmlFor='password'>
                     Password: <br />
@@ -283,7 +232,7 @@ const AccountTransactionsModal = ({ userId, setShowPopup, showPopup }) => {
                       })
                     }
                   />
-                  Conclude Trade
+                  Conclude Order
                   <br />
                 </div>
               </div>
@@ -307,7 +256,7 @@ const AccountTransactionsModal = ({ userId, setShowPopup, showPopup }) => {
                   }
                   disabled={loading}
                 >
-                  {loading ? <SiginLoader /> : 'Process Trade'}
+                  {loading ? <SiginLoader /> : 'Complete Order'}
                 </button>
               </div>
             )}
