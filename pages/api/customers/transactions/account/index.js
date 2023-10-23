@@ -25,7 +25,6 @@ export const getAccountHistory = async (req, res) => {
     const latestDocument = await accountHistoryModel
       .find({ userId: session.user._id })
       .sort({ createdAt: -1 })
-
       .select('-updatedAt -transactionIdForAdmin');
 
     return res.status(200).json({ message: latestDocument });

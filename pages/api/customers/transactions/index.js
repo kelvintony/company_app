@@ -22,15 +22,26 @@ export const getAllGames = async (req, res) => {
   try {
     await db.connect();
 
+    // const latestDocument = await tradedGameModel
+    //   .find({ userId: session.user._id })
+    //   .sort({ createdAt: -1 })
+    //   .populate({
+    //     path: 'gameId',
+    //     select: 'eventSelection eventDate eventTime _id',
+    //   })
+    //   .select('-updatedAt -eventOneStats -eventTwoStats');
+
     const latestDocument = await tradedGameModel
       .find({ userId: session.user._id })
       .sort({ createdAt: -1 })
       .populate({
         path: 'gameId',
         select: 'eventSelection eventDate eventTime _id',
-      })
-      .select('-updatedAt -eventOneStats -eventTwoStats');
+      });
+    // const filteredDocuments ={
 
+    // }
+    console.log(latestDocument);
     return res.status(200).json({ message: latestDocument });
   } catch (error) {
     return res.status(400).json({ message: error.message });
