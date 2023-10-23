@@ -57,7 +57,7 @@ const menuItems = [
   {
     id: 'accounthistory',
     url: '/user/account-history',
-    menuName: 'Account History',
+    menuName: 'Withdrawals / Top Up History',
     iconsType: <MdOutlineWorkHistory />,
   },
 ];
