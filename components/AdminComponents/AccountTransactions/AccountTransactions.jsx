@@ -139,11 +139,11 @@ const AccountTransactions = () => {
           />
         )}
       </div>
-      {/* <AccountTransactionsModal
+      <AccountTransactionsModal
         setShowPopup={setShowPopup}
         showPopup={showPopup}
         userId={userId}
-      /> */}
+      />
     </div>
   );
 };

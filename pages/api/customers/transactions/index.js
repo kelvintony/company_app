@@ -28,7 +28,6 @@ export const getAllGames = async (req, res) => {
       .populate({
         path: 'gameId',
         select: 'eventSelection eventDate eventTime _id',
-        // model: gameModel,
       })
       .select('-updatedAt -eventOneStats -eventTwoStats')
       .lean();
