@@ -12,7 +12,6 @@ import { AlertHandler } from '../../../utils/AlertHandler';
 
 const Withdraw = () => {
   const [loading, setLoading] = useState(false);
-  const [formData, setFormData] = useState({ email: '' });
   const [formDataError, setFormDataError] = useState(false);
 
   const [state, dispatch] = useStore();
@@ -145,6 +144,7 @@ const Withdraw = () => {
         buttonLoader={buttonLoader}
         setButtonLoader={setButtonLoader}
         email={state?.user?.email}
+        setAmount={setAmount}
       />
     </DashboardLayout>
   );

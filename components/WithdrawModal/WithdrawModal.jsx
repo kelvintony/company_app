@@ -9,6 +9,8 @@ import MuiAlert from '@mui/material/Alert';
 import { useRouter } from 'next/router';
 import { BalanceLoader } from '../BalanceLoader/BalanceLoader';
 import { AiFillCheckCircle } from 'react-icons/ai';
+import { authConstants } from '../../context/constants';
+import { useStore } from '../../context';
 
 const WithdrawModal = ({
   setShowPopup,
@@ -17,6 +19,7 @@ const WithdrawModal = ({
   buttonLoader,
   setButtonLoader,
   amount,
+  setAmount,
 }) => {
   // ALERT SECTION
   const Alert = forwardRef(function Alert(props, ref) {
@@ -37,6 +40,8 @@ const WithdrawModal = ({
   const router = useRouter();
 
   const ref = useRef(null);
+
+  const [state, dispatch] = useStore();
 
   const [UserDetails, setUserDetails] = useState({
     otp: '',
@@ -86,10 +91,18 @@ const WithdrawModal = ({
         amount,
         otp: UserDetails?.otp,
       });
+
+      const res2 = await axios.get('/api/customers/user-wallet-profile');
+
       if (res) {
         setLoading(false);
         setTransactionProcessed(true);
         setResponseMessage(res.data.message);
+        setAmount('');
+        dispatch({
+          type: authConstants.FETCH_USER_TRANSACTION_DETAILS,
+          payload: res2.data,
+        });
         // handleModalPopUp();
       }
     } catch (error) {
@@ -118,10 +131,6 @@ const WithdrawModal = ({
       console.log('something went wrong');
     }
   };
-
-  //   const handleContinue = ()=>{
-
-  //   }
 
   return (
     <>
@@ -165,7 +174,7 @@ const WithdrawModal = ({
                 </div>
                 <p>Transaction Successful</p>
                 <p>
-                  Your transfer was successful and it&apos;s been processed.
+                  Your withdraw was successful and it&apos;s been processed.
                 </p>
                 <button
                   onClick={handleModalPopUp}

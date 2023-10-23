@@ -1,37 +1,37 @@
 import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
-import styles from './TradeSanctions.module.css';
+import styles from './AccountHistoryTable.module.css';
 import { useRouter } from 'next/router';
 import axios from 'axios';
 
 import { useSession } from 'next-auth/react';
-import formatDateTimeToGMT1 from '../../../utils/dateTimeConverter';
+import formatDateTimeToGMT1 from '../../utils/dateTimeConverter';
 
 import { DataGrid } from '@mui/x-data-grid';
-import Link from 'next/link';
-import TradeModal from './TradeModal';
-// import Loader from '../../Loader/Loader';
 
-import UserLoader from '../../UserLoader/UserLoader';
+import UserLoader from '../UserLoader/UserLoader';
 
-const TradeTransactions = () => {
+const AccountHistoryTable = () => {
   const columns = [
     {
       field: '_id',
       headerName: 'Trade ID',
-      width: 250,
+      width: 170,
       renderCell: (params) => (
         <button
           onClick={() => editUser(params.id)}
           style={{ color: 'blue', textDecoration: 'underline' }}
         >
-          {params.value}
+          View details
         </button>
       ),
     },
+
+    { field: 'eventSelection', headerName: 'Game / Event', width: 250 },
+    { field: 'eventDate', headerName: 'Game Kick Off Time', width: 230 },
     {
       field: 'isUserTradeProcessed',
-      headerName: 'is Trade Processed',
+      headerName: 'Trade Status',
       width: 200,
       renderCell: (params) => (
         <p
@@ -41,25 +41,6 @@ const TradeTransactions = () => {
         >
           {/* {params.value} */}
           {params?.value === true ? 'settled' : 'not settled'}
-        </p>
-      ),
-    },
-    { field: 'fullName', headerName: 'Full Name', width: 200 },
-
-    { field: 'eventSelection', headerName: 'Game / Event', width: 250 },
-    { field: 'eventDate', headerName: 'Game Kick Off Time', width: 230 },
-    {
-      field: 'isGameTraded',
-      headerName: 'Is Game Traded',
-      width: 160,
-      renderCell: (params) => (
-        <p
-          className={
-            params.value === true ? styles.trade_is_true : styles.trade_is_false
-          }
-        >
-          {/* {params.value} */}
-          {params?.value === true ? 'true' : 'false'}
         </p>
       ),
     },
@@ -147,13 +128,8 @@ const TradeTransactions = () => {
           />
         )}
       </div>
-      <TradeModal
-        setShowPopup={setShowPopup}
-        showPopup={showPopup}
-        userId={userId}
-      />
     </div>
   );
 };
 
-export default TradeTransactions;
+export default AccountHistoryTable;

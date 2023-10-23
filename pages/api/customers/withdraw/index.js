@@ -92,11 +92,9 @@ export const placeWithdrawal = async (req, res) => {
     //! convertion ends here
 
     if (convertedAmount <= 0) {
-      return res
-        .status(500)
-        .json({
-          message: 'The amount you entered is less than or equal to 0 USD',
-        });
+      return res.status(500).json({
+        message: 'The amount you entered is less than or equal to 0 USD',
+      });
     }
 
     if (convertedAmount > withdrawableBalance) {
@@ -108,8 +106,6 @@ export const placeWithdrawal = async (req, res) => {
     if (!oldToken) {
       return res.status(400).json({ message: 'OTP does not exist' });
     }
-
-    return res.status(200).json({ message: 'Withraw was successful' });
 
     const updateOne = {
       $inc: {

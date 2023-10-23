@@ -79,7 +79,7 @@ const MainTransactionTable = () => {
   const fetchTransactions = async () => {
     setLoading(true);
     await axios
-      .get(`/api/admin/game/allgames`)
+      .get(`/api/customers/transactions`)
       .then((res) => {
         setRows(res?.data?.message);
         setLoading(false);
