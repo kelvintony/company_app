@@ -1,11 +1,12 @@
 import mongoose from 'mongoose';
+import user from './user';
 
 const gameSchema = new mongoose.Schema(
   {
     createdBy: {
       type: mongoose.Schema.Types.ObjectId,
       required: true,
-      ref: 'user',
+      ref: user,
     },
     eventType: { type: String },
     eventSelection: { type: String },

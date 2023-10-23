@@ -1,8 +1,9 @@
 import mongoose from 'mongoose';
+import user from './user';
 
 const orderSchema = new mongoose.Schema(
   {
-    userId: { type: mongoose.Schema.Types.ObjectId, ref: 'user' },
+    userId: { type: mongoose.Schema.Types.ObjectId, ref: user },
     reference: { type: String },
     referenceIdForAdmin: { type: String },
     email: { type: String },

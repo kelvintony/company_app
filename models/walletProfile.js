@@ -1,8 +1,9 @@
 import mongoose from 'mongoose';
+import user from './user';
 
 const walletProfileSchema = new mongoose.Schema(
   {
-    userId: { type: mongoose.Schema.Types.ObjectId, ref: 'user' },
+    userId: { type: mongoose.Schema.Types.ObjectId, ref: user },
     accountBalance: { type: mongoose.Schema.Types.Decimal128, default: 0 },
     equity: { type: mongoose.Schema.Types.Decimal128, default: 0 },
     roi: { type: mongoose.Schema.Types.Decimal128, default: 0 },

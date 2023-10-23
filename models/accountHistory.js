@@ -1,11 +1,12 @@
 import mongoose from 'mongoose';
+import user from './user';
 
 const accountHistorySchema = new mongoose.Schema(
   {
     userId: {
       type: mongoose.Schema.Types.ObjectId,
       required: true,
-      ref: 'user',
+      ref: user,
     },
     paymentStatus: { type: String, default: 'pending' },
     amount: { type: Number },
