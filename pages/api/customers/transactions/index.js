@@ -13,22 +13,22 @@ export default async (req, res) => {
 };
 
 export const getAllGames = async (req, res) => {
-  const session = await getSession({ req });
-
-  if (!session) {
-    return res.status(401).send('you are not authenticated');
-  }
-
   try {
+    const session = await getSession({ req });
+
+    if (!session) {
+      return res.status(401).send('you are not authenticated');
+    }
+
     await db.connect();
 
     const latestDocument = await tradedGameModel
       .find({ userId: session.user._id })
-      .sort({ _id: -1 })
       .populate({
         path: 'gameId',
         select: 'eventSelection eventDate eventTime _id',
       })
+      .sort({ _id: -1 })
       .select('-updatedAt -eventOneStats -eventTwoStats')
       .lean();
 
