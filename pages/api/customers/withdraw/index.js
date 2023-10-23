@@ -127,7 +127,7 @@ export const placeWithdrawal = async (req, res) => {
       whatFor: 'wallet Withdrawal',
       transactionId: uuidv4(),
     });
-    // await oldToken.deleteOne();
+    await oldToken.deleteOne();
 
     return res.status(200).json({ message: 'Withraw was successful' });
   } catch (error) {
