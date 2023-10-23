@@ -71,7 +71,7 @@ const Dashboard = ({ children }) => {
 
   const [loadBalance, setLoadBalance] = useState(false);
 
-  console.log('dashboard Layout ran');
+  // console.log('dashboard Layout ran');
 
   // console.log('from dashboard', state?.userTransactionProfile);
 
@@ -158,7 +158,6 @@ const Dashboard = ({ children }) => {
               {state?.userTransactionProfile?.loading && <BalanceLoader />}
               <>
                 &#36;
-                {/* {state?.userTransactionProfile?.accountBalance?.$numberDecimal?.toLocaleString()} */}
                 {convertWalletBalance(
                   state?.userTransactionProfile?.accountBalance?.$numberDecimal
                 )}

@@ -2,7 +2,7 @@ import { getSession } from 'next-auth/react';
 import { getToken } from 'next-auth/jwt';
 
 import db from '../../../../../utils/db';
-import tradedGameModel from '../../../../../models/tradedGame';
+import accountHistoryModel from '../../../../../models/accountHistory';
 
 export default async (req, res) => {
   if (req.method === 'GET') {
@@ -22,20 +22,11 @@ export const getAccountHistory = async (req, res) => {
   try {
     await db.connect();
 
-    const latestDocument = await tradedGameModel
+    const latestDocument = await accountHistoryModel
       .find({ userId: session.user._id })
       .sort({ createdAt: -1 })
-      .populate([
-        {
-          path: 'gameId',
-          select: 'eventSelection eventDate eventTime _id',
-        },
-        {
-          path: 'userId',
-          select: 'fullName',
-        },
-      ])
-      .select('-updatedAt -eventOneStats -eventTwoStats');
+
+      .select('-updatedAt -transactionIdForAdmin');
 
     return res.status(200).json({ message: latestDocument });
   } catch (error) {

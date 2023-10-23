@@ -12,6 +12,7 @@ import Image from 'next/image';
 import EventSetup from '../EventSetup/EventSetup';
 import LiveEvent from '../LiveEvent/LiveEvent';
 import TradeTransactions from '../TradeTransactions/TradeTransactions';
+import AccountTransactions from '../AccountTransactions/AccountTransactions';
 
 export default function AdminTab() {
   const { status, data: session } = useSession();
@@ -44,10 +45,15 @@ export default function AdminTab() {
             />
             <Tab
               className={styles.userTab}
-              label='Financial Analytics'
+              label='Wallet Tops / Withdrawals'
               value='4'
             />
-            <Tab className={styles.userTab} label='Users' value='5' />
+            <Tab
+              className={styles.userTab}
+              label='Financial Analytics'
+              value='5'
+            />
+            <Tab className={styles.userTab} label='Users' value='6' />
           </TabList>
         </Box>
         <TabPanel value='1'>
@@ -67,10 +73,15 @@ export default function AdminTab() {
         </TabPanel>
         <TabPanel value='4'>
           <div className={styles.tab_container}>
-            <h3>Financial Analytics</h3>
+            <AccountTransactions />
           </div>
         </TabPanel>
         <TabPanel value='5'>
+          <div className={styles.tab_container}>
+            <h3>Financial Analytics</h3>
+          </div>
+        </TabPanel>
+        <TabPanel value='6'>
           <div className={styles.tab_container}>
             <h3>Users</h3>
           </div>
