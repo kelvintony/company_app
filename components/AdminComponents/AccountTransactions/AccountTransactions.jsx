@@ -1,31 +1,42 @@
 import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
-import styles from './AccountHistoryTable.module.css';
+import styles from './AccountTransactions.module.css';
 import { useRouter } from 'next/router';
 import axios from 'axios';
 
 import { useSession } from 'next-auth/react';
-import formatDateTimeToGMT1 from '../../utils/dateTimeConverter';
+import formatDateTimeToGMT1 from '../../../utils/dateTimeConverter';
 
 import { DataGrid } from '@mui/x-data-grid';
+import Link from 'next/link';
+import AccountTransactionsModal from './AccountTransactionsModal';
+// import Loader from '../../Loader/Loader';
 
-import UserLoader from '../UserLoader/UserLoader';
+import UserLoader from '../../UserLoader/UserLoader';
 
-const AccountHistoryTable = () => {
+const AccountTransactions = () => {
   const columns = [
     {
       field: '_id',
       headerName: 'ID',
       width: 250,
+      renderCell: (params) => (
+        <button
+          onClick={() => editUser(params.id)}
+          style={{ color: 'blue', textDecoration: 'underline' }}
+        >
+          {params.value}
+        </button>
+      ),
     },
-
     {
       field: 'amount',
       headerName: 'Amount',
       width: 140,
       renderCell: (params) => <p>&#36;{params.value}</p>,
     },
-
+    { field: 'walletAddress', headerName: 'Wallet Address', width: 200 },
+    { field: 'fullName', headerName: 'Full Name', width: 200 },
     {
       field: 'paymentStatus',
       headerName: 'Status',
@@ -45,7 +56,7 @@ const AccountHistoryTable = () => {
     },
     { field: 'whatFor', headerName: 'What For', width: 230 },
 
-    { field: 'createdAt', headerName: 'Date', width: 250 },
+    { field: 'createdAt', headerName: 'Date Traded', width: 250 },
   ];
 
   const [rows, setRows] = useState([]);
@@ -71,12 +82,14 @@ const AccountHistoryTable = () => {
   const formattedRows = rows.map((row) => ({
     ...row,
     createdAt: formatDateTimeToGMT1(row?.createdAt),
+    fullName: row?.userId?.fullName,
+    walletAddress: row?.userId?.walletAddress,
   }));
 
   const fetchTransactions = async () => {
     setLoading(true);
     await axios
-      .get(`/api/customers/transactions/account`)
+      .get(`/api/admin/wallet`)
       .then((res) => {
         setRows(res?.data?.message);
         setLoading(false);
@@ -94,7 +107,7 @@ const AccountHistoryTable = () => {
 
   return (
     <div className={styles.transaction_container}>
-      <h3 onClick={fetchTransactions}>Trades</h3>
+      <h3 onClick={fetchTransactions}>Account Transactions</h3>
 
       <div style={{ height: 400, width: '100%' }}>
         {loading ? (
@@ -126,8 +139,13 @@ const AccountHistoryTable = () => {
           />
         )}
       </div>
+      {/* <AccountTransactionsModal
+        setShowPopup={setShowPopup}
+        showPopup={showPopup}
+        userId={userId}
+      /> */}
     </div>
   );
 };
 
-export default AccountHistoryTable;
+export default AccountTransactions;
