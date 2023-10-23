@@ -9,8 +9,8 @@ const CableTv = () => {
   return (
     <DashboardLayout>
       <section className={styles.transaction_container}>
-        <MainTransactionTable />
-        {/* <NewTransactionTable /> */}
+        {/* <MainTransactionTable /> */}
+        <NewTransactionTable />
       </section>
     </DashboardLayout>
   );
