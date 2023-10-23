@@ -86,6 +86,7 @@
   gap: 10px;
   transition: all 0.2s ease-in-out;
   color: black;
+  font-size: 16px;
 }
 
 .menu_items_active {
@@ -236,6 +237,17 @@
     align-items: center;
     gap: 10px;
     display: none;
+  }
+
+  /* .menu_items {
+    font-size: 14px;
+  }
+  .menu_items_active {
+    font-size: 14px;
+  } */
+
+  .item_icon {
+    font-size: 14px !important;
   }
 
   .extra_menu {

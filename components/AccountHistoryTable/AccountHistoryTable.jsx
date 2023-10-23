@@ -94,7 +94,7 @@ const AccountHistoryTable = () => {
 
   return (
     <div className={styles.transaction_container}>
-      <h3 onClick={fetchTransactions}>Trades</h3>
+      <h3 onClick={fetchTransactions}>Acoount Transactions</h3>
 
       <div style={{ height: 400, width: '100%' }}>
         {loading ? (
