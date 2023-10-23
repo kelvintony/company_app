@@ -20,7 +20,7 @@ const NewTransactionTable = () => {
       .then((res) => {
         setTrades(res?.data?.message);
         setLoading(false);
-        // console.log(res?.data?.message);
+        console.log('traded game data', res?.data?.message);
       })
       .catch((err) => {
         setLoading(false);
