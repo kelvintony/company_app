@@ -1,9 +1,10 @@
 import mongoose from 'mongoose';
+import gameModel from './game';
 
 const tradedGameSchema = new mongoose.Schema(
   {
     userId: { type: mongoose.Schema.Types.ObjectId, ref: 'user' },
-    gameId: { type: mongoose.Schema.Types.ObjectId, ref: 'game' },
+    gameId: { type: mongoose.Schema.Types.ObjectId, ref: gameModel },
     isGameTraded: { type: Boolean, default: false },
     isUserTradeProcessed: { type: Boolean, default: false },
     concludedEvent: { type: String },
