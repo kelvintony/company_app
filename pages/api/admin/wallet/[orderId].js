@@ -4,7 +4,6 @@ import { getToken } from 'next-auth/jwt';
 import db from '../../../../utils/db';
 import accountHistoryModel from '../../../../models/accountHistory';
 
-import tradedGameModel from '../../../../models/tradedGame';
 import walletProfileModel from '../../../../models/walletProfile';
 
 const concludeUserTradePassword = process.env.CONCLUDE_USER_TRADE_PASSWORD;
@@ -34,16 +33,9 @@ export const processUserOrder = async (req, res) => {
     // console.log('id', gameId);
     // console.log('body', req.body);
 
-    const {
-      userId,
-      password,
-      eventOneExpectedReturns,
-      eventOneRoi,
-      eventTwoExpectedReturns,
-      eventTwoRoi,
-      concludeTrade,
-      selectedEvent,
-    } = req.body;
+    const { password, concludeTrade } = req.body;
+
+    const orderId = req.query.orderId;
 
     if (password !== concludeUserTradePassword) {
       return res.status(401).json({ message: 'Password is incorrect' });
@@ -52,51 +44,28 @@ export const processUserOrder = async (req, res) => {
     if (!concludeTrade) {
       return res
         .status(401)
-        .json({ message: 'kindly check the complete trade' });
+        .json({ message: 'kindly check the conclude order' });
     }
 
-    const foundUserWallet = await walletProfileModel.findOne({
-      userId: userId,
-    });
+    const foundOrder = await accountHistoryModel.findById(orderId);
 
-    const foundTradedGame = await tradedGameModel.findById(gameId);
-
-    if (foundTradedGame) {
-      return res.status(401).json({ message: 'Game already settled' });
+    if (!foundOrder) {
+      return res.status(401).json({ message: 'Order does not exist' });
     }
 
-    if (foundTradedGame.isUserTradeProcessed === true) {
-      return res.status(401).json({ message: 'Game already settled' });
+    if (foundOrder.paymentStatus === 'completed') {
+      return res.status(401).json({ message: 'Order already settled' });
     }
 
-    foundTradedGame.isUserTradeProcessed = true;
-    foundTradedGame.concludedEvent = selectedEvent;
+    await accountHistoryModel.findByIdAndUpdate(
+      orderId,
+      {
+        paymentStatus: 'completed',
+      },
+      { new: true }
+    );
 
-    if (selectedEvent === 'event 1') {
-      const updateOne = {
-        $inc: {
-          accountBalance: eventOneExpectedReturns,
-          roi: eventOneRoi,
-          withdrawableBalance: eventOneRoi,
-        },
-      };
-
-      await walletProfileModel.findOneAndUpdate({ userId: userId }, updateOne);
-    } else {
-      const updateTwo = {
-        $inc: {
-          accountBalance: eventTwoExpectedReturns,
-          roi: eventTwoRoi,
-          withdrawableBalance: eventTwoRoi,
-        },
-      };
-
-      await walletProfileModel.findOneAndUpdate({ userId: userId }, updateTwo);
-    }
-
-    await foundTradedGame.save();
-
-    return res.status(200).json({ message: 'Trade processed successful' });
+    return res.status(200).json({ message: 'Order completed' });
   } catch (error) {
     console.log(error.message);
     return res.status(400).json({ message: error.message });

@@ -45,7 +45,7 @@ export default function AdminTab() {
             />
             <Tab
               className={styles.userTab}
-              label='Wallet Tops / Withdrawals'
+              label='Wallet Withdrawals / Top Ups'
               value='4'
             />
             <Tab

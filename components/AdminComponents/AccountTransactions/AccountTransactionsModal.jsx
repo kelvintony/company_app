@@ -57,7 +57,6 @@ const AccountTransactionsModal = ({ userId, setShowPopup, showPopup }) => {
         .get(`/api/admin/wallet/${orderId}`)
         .then(function (res) {
           setFetchUserLoader(false);
-          console.log('orderID', res.data.message);
           setUserDetails({
             ...UserDetails,
             userId: res?.data?.message?.userId?._id,
@@ -96,10 +95,9 @@ const AccountTransactionsModal = ({ userId, setShowPopup, showPopup }) => {
     setOpen(true); // make sure you set this guy open
 
     try {
-      const res = await axios.put(
-        `/api/admin/game/allgames/${userId}`,
-        UserDetails
-      );
+      const orderId = userId;
+
+      const res = await axios.put(`/api/admin/wallet/${orderId}`, UserDetails);
       if (res) {
         setLoading(false);
         setResponseMessage(res.data.message);
