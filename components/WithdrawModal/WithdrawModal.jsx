@@ -164,7 +164,9 @@ const WithdrawModal = ({
                   <AiFillCheckCircle className={styles.success_icon} />
                 </div>
                 <p>Transaction Successful</p>
-                <p>Your transfer was successful and it's been processed.</p>
+                <p>
+                  Your transfer was successful and it&apos;s been processed.
+                </p>
                 <button
                   onClick={handleModalPopUp}
                   className={`${styles.btn_pay} ${styles.btn_pay_contine}`}
