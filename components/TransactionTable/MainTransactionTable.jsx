@@ -131,7 +131,9 @@ const MainTransactionTable = () => {
         )}
       </div>
 
-      <p>test if its working</p>
+      <div style={{ width: '300px', overflow: 'hidden' }}>
+        {JSON.stringify(rows[0])}
+      </div>
       <TradeModal
         setShowPopup={setShowPopup}
         showPopup={showPopup}
