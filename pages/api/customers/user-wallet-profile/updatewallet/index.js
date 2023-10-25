@@ -66,7 +66,7 @@ export const sendOTP = async (req, res) => {
     const message = `This is your OTP(One Time Password) for Wallet Address update: <br> <br> <strong>${savedToken}</strong> <br> <br> If you have not requested this email please ignore`;
 
     const data = await resend.emails.send({
-      from: 'dexomPay <noreply@dexompay.com>',
+      from: 'DexomPay <noreply@dexompay.com>',
       to: session.user.email,
       subject: 'Wallet Address Reset Link',
       html: message,

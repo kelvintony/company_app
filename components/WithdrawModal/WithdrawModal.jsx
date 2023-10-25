@@ -98,7 +98,6 @@ const WithdrawModal = ({
         setLoading(false);
         setTransactionProcessed(true);
         setResponseMessage(res.data.message);
-        setAmount('');
         dispatch({
           type: authConstants.FETCH_USER_TRANSACTION_DETAILS,
           payload: res2.data,
@@ -197,7 +196,7 @@ const WithdrawModal = ({
                 <p className={styles.otp_message}>
                   One Time password will be sent to{' '}
                   <span style={{ fontWeight: 700 }}>{email}</span>, Kindly click
-                  on &quot;Send Otp&quot;
+                  on &quot;Send Otp&quot;, also check inbox or spam for Otp
                 </p>
                 <button
                   disabled={otpLoading}
