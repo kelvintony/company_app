@@ -78,7 +78,8 @@ export const sendOTP = async (req, res) => {
     }
 
     res.status(200).json({
-      message: 'OTP(One Time Password) has been sent to your email address',
+      message:
+        'OTP(One Time Password) has been sent to your email address, check inbox or spam',
     });
   } catch (error) {
     res.status(500).json({ message: 'Something went wrong' });
