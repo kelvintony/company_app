@@ -159,7 +159,7 @@ const DepositModal = ({
                         <span style={{ fontWeight: '600' }}>&#36;{amount}</span>
                       </label>
                     </div>
-                    <div className={styles.input_wrapper}>
+                    {/* <div className={styles.input_wrapper}>
                       <p>Processing fee</p>
                       <label htmlFor='eventOneExpectedReturns'>
                         <span>
@@ -169,11 +169,11 @@ const DepositModal = ({
                         </span>
                         <br />
                       </label>
-                    </div>
+                    </div> */}
                     <div className={styles.input_wrapper}>
-                      <p>Total amount to be paid</p>
+                      <p>Total amount to be paid in USDT</p>
                       <label htmlFor='eventOneExpectedReturns'>
-                        <span>{transferDetails?.pay_amount} USDT</span>
+                        <span>{transferDetails?.price_amount} USDT</span>
                         <br />
                       </label>
                     </div>
