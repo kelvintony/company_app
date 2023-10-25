@@ -132,7 +132,7 @@ const Withdraw = () => {
             >
               NB: Amounts are rounded up to the whole numbers
             </span>
-            , withdrawals takes 5mins - 24hrs to be processed.
+            , withdrawal takes 5mins - 24hrs to be processed.
           </p>
         </div>
       </section>

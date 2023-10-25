@@ -42,8 +42,6 @@ const DepositModal = ({
   };
   // THE END OF ALERT SECTION
 
-  console.log(transferDetails);
-
   const router = useRouter();
 
   const ref = useRef(null);
@@ -78,65 +76,6 @@ const DepositModal = ({
     setUserDetails({
       otp: '',
     });
-  };
-
-  const handleWithdraw = async () => {
-    // router.replace(router.asPath);
-
-    setResponseMessage(null);
-    setErrorMessage(null);
-
-    if (UserDetails.otp.length === 0) {
-      return setFormDataError(true);
-    }
-
-    setLoading(true);
-    setOpen(true); // make sure you set this guy open
-
-    try {
-      const res = await axios.post(`/api/customers/withdraw`, {
-        amount: Number(amount.replace(/,/g, '')),
-        otp: UserDetails?.otp,
-      });
-
-      const res2 = await axios.get('/api/customers/user-wallet-profile');
-
-      if (res) {
-        setLoading(false);
-        setTransactionProcessed(true);
-        setResponseMessage(res.data.message);
-        setAmount('');
-        dispatch({
-          type: authConstants.FETCH_USER_TRANSACTION_DETAILS,
-          payload: res2.data,
-        });
-        // handleModalPopUp();
-      }
-    } catch (error) {
-      setLoading(false);
-      setErrorMessage(error?.response?.data?.message);
-      console.log('something went wrong');
-    }
-  };
-
-  const sendOTP = async () => {
-    setResponseMessage(null);
-    setErrorMessage(null);
-
-    setOpen(true); // make sure you set this guy open
-    setOtpLoading(true);
-
-    try {
-      const res = await axios.get(`/api/customers/withdraw/sendotp`);
-      if (res) {
-        setOtpLoading(false);
-        setResponseMessage(res.data.message);
-      }
-    } catch (error) {
-      setOtpLoading(false);
-      setErrorMessage(error?.response?.data?.message);
-      console.log('something went wrong');
-    }
   };
 
   return (

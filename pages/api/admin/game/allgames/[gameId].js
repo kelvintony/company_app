@@ -59,8 +59,8 @@ export const processUserTrade = async (req, res) => {
 
     const foundTradedGame = await tradedGameModel.findById(gameId);
 
-    if (foundTradedGame) {
-      return res.status(401).json({ message: 'Game already settled' });
+    if (!foundTradedGame) {
+      return res.status(401).json({ message: 'Game does not exist' });
     }
 
     if (foundTradedGame.isUserTradeProcessed === true) {
