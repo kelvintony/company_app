@@ -55,7 +55,7 @@ export const sendPasswordLink = async (req, res) => {
     const message = `Click this link to reset your password: ${url} <br> <br> If you have not requested this email please ignore`;
 
     const data = await resend.emails.send({
-      from: 'dexomPay <noreply@dexompay.com>',
+      from: 'DexomPay <noreply@dexompay.com>',
       to: email,
       subject: 'Password Reset Link',
       html: message,
@@ -67,7 +67,8 @@ export const sendPasswordLink = async (req, res) => {
     }
 
     res.status(200).json({
-      message: 'password reset link has been sent to your email account',
+      message:
+        'password reset link has been sent to your email account, check inbox or spam',
     });
   } catch (error) {
     res.status(500).json({ message: 'Something went wrong' });

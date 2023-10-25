@@ -61,9 +61,9 @@ export const sendOTP = async (req, res) => {
     const message = `This is your OTP(One Time Password) for amount withdrawal: <br> <br> <strong>${savedToken}</strong> <br> <br> If you have not requested this email please ignore`;
 
     const data = await resend.emails.send({
-      from: 'dexomPay <noreply@dexompay.com>',
+      from: 'DexomPay <noreply@dexompay.com>',
       to: session.user.email,
-      subject: 'Amount Withdrawal Link',
+      subject: 'OTP For withdrawal',
       html: message,
     });
 
@@ -73,10 +73,11 @@ export const sendOTP = async (req, res) => {
     }
 
     res.status(200).json({
-      message: 'OTP(One Time Password) has been sent to your email address',
+      message:
+        'OTP(One Time Password) has been sent to your email address, check inbox or spam',
     });
   } catch (error) {
-    res.status(500).json({ message: 'Something went wrong' });
+    res.status(500).json({ message: error.message });
     console.log(error.message);
   }
 };

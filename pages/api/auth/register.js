@@ -80,7 +80,7 @@ async function handler(req, res) {
     const message = `Click this link to verify your account: ${url} <br> If you have not requested this email please ignore`;
 
     const data = await resend.emails.send({
-      from: 'dexomPay <noreply@dexompay.com>',
+      from: 'DexomPay <noreply@dexompay.com>',
       to: newUser.email,
       subject: 'Verify Account',
       html: message,
@@ -93,7 +93,7 @@ async function handler(req, res) {
 
     return res.status(201).send({
       message:
-        'Registration successful, kindly check your email to verify account',
+        'Registration successful!, Email has been sent, kindly check your inbox or spam to verify account',
     });
   } catch (error) {
     return res.status(409).json({ message: error.message });

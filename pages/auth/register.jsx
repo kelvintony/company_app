@@ -108,7 +108,7 @@ const Register = () => {
         <div className={styles.login_wrapper}>
           <h3>Create account</h3>
           {/* <p>Let&apos;s get you started with your dexomPay account.</p> */}
-          <p>Set up your dexomPay account in just 2mins.</p>
+          <p>Set up your DexomPay account in just 2mins.</p>
           {errorMessage && (
             <Snackbar
               open={open}

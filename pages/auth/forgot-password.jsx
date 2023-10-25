@@ -37,7 +37,9 @@ const ForgotPassword = () => {
           if (response) {
             // localStorage.setItem('profile', JSON.stringify(response.data));
             setisLoading(false);
-            setMessage('Check your email for password reset link');
+            setMessage(
+              'Email has been sent, check your inbox or spam for password reset link'
+            );
           }
         })
         .catch(function (error) {

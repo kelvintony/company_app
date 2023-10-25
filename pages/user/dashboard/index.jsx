@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import DashboardLayout from '../../../components/DashBoardLayout/DashboardLayout';
 import styles from './dashboard.module.css';
 import Image from 'next/image';
@@ -13,7 +13,6 @@ import { useStore } from '../../../context';
 
 import { FiArrowDown } from 'react-icons/fi';
 import { FiArrowUp } from 'react-icons/fi';
-import { CiWarning } from 'react-icons/ci';
 import splitText from '../../../utils/splitText';
 import SiginLoader from '../../../components/SigninLoader/SiginLoader';
 import {
@@ -21,7 +20,6 @@ import {
   AiFillWarning,
   AiOutlineCheckCircle,
   AiOutlineClockCircle,
-  AiOutlineWarning,
 } from 'react-icons/ai';
 import UserLoader from '../../../components/UserLoader/UserLoader';
 
@@ -204,7 +202,7 @@ const UserDashboard = () => {
                             color: '#0fd46c',
                           }}
                         >
-                          Show stats <FiArrowDown />
+                          Show Details <FiArrowDown />
                         </span>
                       )}
                     </p>
@@ -227,7 +225,7 @@ const UserDashboard = () => {
                                 : ''
                             }`}
                           >
-                            Event 1:
+                            Outcome 1:
                           </p>
                           <p
                             style={{
@@ -256,7 +254,7 @@ const UserDashboard = () => {
                                 : ''
                             }`}
                           >
-                            Event 2:
+                            Outcome 2:
                           </p>
                           <p
                             style={{

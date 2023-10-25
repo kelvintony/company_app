@@ -1,15 +1,12 @@
 import React, { useRef, useState, forwardRef, useEffect } from 'react';
 import styles from './DepositModal.module.css';
 import { MdOutlineCancel } from 'react-icons/md';
-import axios from 'axios';
 
-import SiginLoader from '../SigninLoader/SiginLoader';
 import { Snackbar } from '@mui/material';
 import MuiAlert from '@mui/material/Alert';
 import { useRouter } from 'next/router';
 import { BalanceLoader } from '../BalanceLoader/BalanceLoader';
 import { AiFillCheckCircle } from 'react-icons/ai';
-import { authConstants } from '../../context/constants';
 import { useStore } from '../../context';
 import { BiCopy } from 'react-icons/bi';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
@@ -76,6 +73,11 @@ const DepositModal = ({
     setUserDetails({
       otp: '',
     });
+  };
+
+  const handleCopy = () => {
+    setOpen(true); // make sure you set this guy open
+    setResponseMessage('Wallet Address copied');
   };
 
   return (
@@ -189,8 +191,8 @@ const DepositModal = ({
                           {transferDetails?.pay_address}
                         </span>
                         <CopyToClipboard
-                        // text={UserDetails?.walletAddress}
-                        // onCopy={handleCopy}
+                          text={transferDetails?.pay_address}
+                          onCopy={handleCopy}
                         >
                           <button className={styles.btn_copy}>
                             Copy <BiCopy />
