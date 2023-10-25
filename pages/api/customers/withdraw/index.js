@@ -124,7 +124,7 @@ export const placeWithdrawal = async (req, res) => {
       userId: session.user._id,
       paymentStatus: 'pending',
       amount: convertedAmount,
-      whatFor: 'wallet Withdrawal',
+      whatFor: 'Wallet withdrawal',
       transactionId: uuidv4(),
     });
     await oldToken.deleteOne();
