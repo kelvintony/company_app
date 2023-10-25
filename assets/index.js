@@ -16,8 +16,10 @@ import partner12 from './partner12.JPG';
 import partner13 from './partner13.JPG';
 import partner14 from './partner14.JPG';
 import partner15 from './partner15.JPG';
+import usdtIcon from './usdt.png';
 
 export {
+  usdtIcon,
   partner1,
   partner2,
   partner3,
