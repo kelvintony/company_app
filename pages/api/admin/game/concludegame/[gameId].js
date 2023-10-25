@@ -20,15 +20,6 @@ export const editGame = async (req, res) => {
   try {
     await db.connect();
 
-    // const user = await getToken({
-    //   req,
-    //   secret: process.env.NEXTAUTH_SECRET,
-    // });
-
-    // if (!user || (user && !user.superUser)) {
-    //   return res.status(401).send('signin required');
-    // }
-
     const session = await getSession({ req });
 
     if (!session || (session && !session.user.superUser)) {

@@ -190,7 +190,7 @@ const UserDashboard = () => {
                             color: '#0fd46c',
                           }}
                         >
-                          Hide stats <FiArrowUp />
+                          Hide details <FiArrowUp />
                         </span>
                       ) : (
                         <span
@@ -202,7 +202,7 @@ const UserDashboard = () => {
                             color: '#0fd46c',
                           }}
                         >
-                          Show Details <FiArrowDown />
+                          Show details <FiArrowDown />
                         </span>
                       )}
                     </p>
