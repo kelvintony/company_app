@@ -37,6 +37,8 @@ export const verifyPaymentViaWebhook = async (req, res) => {
       ) {
         //! update payment status
         foundOrder.paymentStatus = 'completed';
+        foundOrder.amountPaidByUser = req.body.actually_paid;
+
         await foundOrder.save();
 
         //! increase balance and roi

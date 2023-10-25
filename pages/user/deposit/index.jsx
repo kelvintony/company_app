@@ -1,77 +1,137 @@
-import React, { forwardRef, useState } from 'react';
+import React, { useEffect } from 'react';
 import styles from './deposit.module.css';
 import DashboardLayout from '../../../components/DashBoardLayout/DashboardLayout';
+import { useState } from 'react';
+import SiginLoader from '../../../components/SigninLoader/SiginLoader';
+import { GiMoneyStack } from 'react-icons/gi';
+import DepositModal from '../../../components/DepositModal/DepositModal';
+import { useStore } from '../../../context';
+import axios from 'axios';
+
+import { AlertHandler } from '../../../utils/AlertHandler';
 import { RiLuggageDepositLine } from 'react-icons/ri';
 
-import { BiCopy } from 'react-icons/bi';
-import { CopyToClipboard } from 'react-copy-to-clipboard';
-
-import Snackbar from '@mui/material/Snackbar';
-import MuiAlert from '@mui/material/Alert';
-
 const Deposit = () => {
-  // ALERT SECTION
-  const Alert = forwardRef(function Alert(props, ref) {
-    return <MuiAlert elevation={6} ref={ref} variant='filled' {...props} />;
-  });
+  const [loading, setLoading] = useState(false);
+  const [formDataError, setFormDataError] = useState(false);
 
-  const [open, setOpen] = useState(false);
+  const [state, dispatch] = useStore();
 
-  const handleClose = (event, reason) => {
-    if (reason === 'clickaway') {
-      return;
-    }
+  const [buttonLoader, setButtonLoader] = useState(false);
+  const [showPopup, setShowPopup] = useState(false);
 
-    setOpen(false);
-  };
-  // THE END OF ALERT SECTION
+  const [amount, setAmount] = useState('');
+  const [transferDetails, setTransferDetails] = useState({});
 
+  //! ALERT SECTION
+  const [errorMessage, setErrorMessage] = useState(null);
   const [responseMessage, setResponseMessage] = useState(null);
-  const [copied, setCopied] = useState(false);
+  const [open, setOpen] = useState(false);
+  //! THE END OF ALERT SECTION
 
-  const [walletAddress, setWalletAddress] = useState(
-    '1TFBbqZHks9XKqDLCF3C0Lo2Hje6QCQNwS5'
-  );
+  const handleInputChange = (e) => {
+    // Remove any non-numeric characters and existing commas before updating the input value
+    const valueWithoutNonNumericChars = e.target.value.replace(/[^0-9]/g, '');
+    const valueWithoutCommas = valueWithoutNonNumericChars.replace(/,/g, '');
 
-  const handleCopy = () => {
+    // Parse the input value as a number
+    const numberValue = Number(valueWithoutCommas);
+
+    // Check if the parsed number is a valid number
+    if (!isNaN(numberValue)) {
+      // Format the number with commas and update the state, only if the input value is not empty
+      const formattedValue =
+        valueWithoutCommas !== '' ? numberValue.toLocaleString() : '';
+      setAmount(formattedValue);
+    } else {
+      // If the input is not a valid number, set the input value as is
+      setAmount(valueWithoutCommas);
+    }
+  };
+
+  const handleWithdraw = async () => {
+    // router.replace(router.asPath);
+
+    setResponseMessage(null);
+    setErrorMessage(null);
+
+    setLoading(true);
     setOpen(true); // make sure you set this guy open
-    setResponseMessage('Wallet Address copied');
+
+    try {
+      const res = await axios.post(`/api/payments`, {
+        amount: Number(amount.replace(/,/g, '')),
+      });
+
+      if (res) {
+        setLoading(false);
+        setTransferDetails(res.data.message);
+        setShowPopup(!showPopup);
+      }
+    } catch (error) {
+      setLoading(false);
+      setErrorMessage(error?.response?.data?.message);
+      console.log('something went wrong');
+    }
   };
 
   return (
     <DashboardLayout>
+      <AlertHandler
+        errorMessage={errorMessage}
+        open={open}
+        setOpen={setOpen}
+        responseMessage={responseMessage}
+      />
       <h3 className={styles.header}>
         Make Deposit
         <RiLuggageDepositLine className={styles.comming_soon_icon} />
       </h3>
-      {responseMessage && (
-        <Snackbar open={open} autoHideDuration={2000} onClose={handleClose}>
-          <Alert
-            onClose={handleClose}
-            severity='success'
-            sx={{ width: '100%' }}
+      <section className={styles.withdraw_container}>
+        <div className={styles.login_wrapper}>
+          <div className={styles.input_wrapper}>
+            <label htmlFor='amount'>
+              Amount (&#36;): <br />
+              <input
+                type='text'
+                name='amount'
+                className={styles.form_control}
+                value={amount}
+                onChange={handleInputChange}
+              />
+              <br />
+              {formDataError && amount.length <= 0 ? (
+                <span style={{ color: 'red' }}>* required</span>
+              ) : (
+                ''
+              )}
+            </label>
+          </div>
+
+          <button
+            onClick={handleWithdraw}
+            className={
+              loading
+                ? `${styles.btn_hero} ${styles.btn_hero_inactive}`
+                : styles.btn_hero
+            }
+            disabled={loading}
           >
-            {responseMessage}
-          </Alert>
-        </Snackbar>
-      )}
-      <main className={styles.dashboard_wrapper}>
-        <section className={styles.desposit_container}>
-          <p>
-            Your wallet is credited automatically when you make payment to this
-            wallet address
-          </p>
-          <p>
-            USDT (TRC-20) <br />
-            <span>{walletAddress}</span>
-          </p>
-          <CopyToClipboard text={walletAddress} onCopy={handleCopy}>
-            <button className={styles.btn_copy}>
-              Copy <BiCopy />
-            </button>
-          </CopyToClipboard>
-        </section>
-      </main>
+            {loading ? <SiginLoader /> : 'Deposit'}
+          </button>
+        </div>
+      </section>
+
+      <DepositModal
+        setShowPopup={setShowPopup}
+        showPopup={showPopup}
+        amount={amount}
+        buttonLoader={buttonLoader}
+        setButtonLoader={setButtonLoader}
+        email={state?.user?.email}
+        setAmount={setAmount}
+        transferDetails={transferDetails}
+      />
     </DashboardLayout>
   );
 };
