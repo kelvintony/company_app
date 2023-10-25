@@ -50,7 +50,9 @@ const Deposit = () => {
   };
 
   const handleWithdraw = async () => {
-    // router.replace(router.asPath);
+    if (amount.length === 0) {
+      return setFormDataError(true);
+    }
 
     setResponseMessage(null);
     setErrorMessage(null);
