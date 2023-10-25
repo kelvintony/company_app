@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import styles from './Deposit.module.css';
+import styles from './deposit.module.css';
 import DashboardLayout from '../../../components/DashBoardLayout/DashboardLayout';
 import { useState } from 'react';
 import SiginLoader from '../../../components/SigninLoader/SiginLoader';

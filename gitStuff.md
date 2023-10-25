@@ -12,5 +12,5 @@ git push origin main
 
 ===> for feature branch
 git add .
-git commit -m"update 1.1"
+git commit -m"update 1.33"
 git push origin feature_branch
