@@ -18,14 +18,6 @@ export const createGame = async (req, res) => {
   await db.connect();
 
   try {
-    // const user = await getToken({
-    //   req,
-    //   secret: process.env.NEXTAUTH_SECRET,
-    // });
-
-    // if (!user || (user && !user.superUser)) {
-    //   return res.status(401).send('signin required');
-    // }
     const {
       eventType,
       eventSelection,
@@ -41,7 +33,21 @@ export const createGame = async (req, res) => {
     const session = await getSession({ req });
 
     if (!session || (session && !session.user.superUser)) {
-      return res.status(401).send('you are not authenticated');
+      return res.status(401).send({ message: 'you are not authenticated' });
+    }
+
+    if (
+      !eventType ||
+      !eventSelection ||
+      !eventOption1 ||
+      !eventOption1Odd ||
+      !eventOption2 ||
+      !eventOption2Odd ||
+      !eventDate ||
+      !eventTime ||
+      !eventDateWithoutFormat
+    ) {
+      return res.status(401).send({ message: 'one of the field is empty' });
     }
 
     await gameModel.create({
@@ -59,6 +65,7 @@ export const createGame = async (req, res) => {
 
     return res.status(200).json({ message: 'game created' });
   } catch (error) {
+    console.log(error.message);
     return res.status(400).json({ message: error.message });
   }
 };
@@ -69,7 +76,7 @@ export const getGame = async (req, res) => {
   const session = await getSession({ req });
 
   if (!session) {
-    return res.status(401).send('you are not authenticated');
+    return res.status(401).send({ message: 'you are not authenticated' });
   }
 
   try {

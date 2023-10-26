@@ -41,11 +41,11 @@ export const processUserOrder = async (req, res) => {
       return res.status(401).json({ message: 'Password is incorrect' });
     }
 
-    if (!concludeTrade) {
-      return res
-        .status(401)
-        .json({ message: 'kindly check the conclude order' });
-    }
+    // if (!concludeTrade) {
+    //   return res
+    //     .status(401)
+    //     .json({ message: 'kindly check the conclude order' });
+    // }
 
     const foundOrder = await accountHistoryModel.findById(orderId);
 

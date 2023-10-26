@@ -98,7 +98,9 @@ const MainTransactionTable = () => {
 
   return (
     <div className={styles.transaction_container}>
-      <h3 onClick={fetchTransactions}>Trades</h3>
+      <h3 style={{ marginBottom: '20px' }} onClick={fetchTransactions}>
+        Trades
+      </h3>
 
       <div style={{ height: 400, width: '100%' }}>
         {loading ? (
@@ -109,7 +111,7 @@ const MainTransactionTable = () => {
             columns={columns}
             pageSize={5}
             rowsPerPageOptions={[5]}
-            checkboxSelection
+            // checkboxSelection
             autoHeight
             getRowId={(row) => row?._id}
             components={{

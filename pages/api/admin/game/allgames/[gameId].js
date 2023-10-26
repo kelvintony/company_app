@@ -5,6 +5,7 @@ import db from '../../../../../utils/db';
 import tradedGameModel from '../../../../../models/tradedGame';
 import walletProfileModel from '../../../../../models/walletProfile';
 
+import { Decimal128 } from 'mongodb';
 const concludeUserTradePassword = process.env.CONCLUDE_USER_TRADE_PASSWORD;
 
 export default async (req, res) => {
@@ -43,9 +44,9 @@ export const processUserTrade = async (req, res) => {
       selectedEvent,
     } = req.body;
 
-    if (password !== concludeUserTradePassword) {
-      return res.status(401).json({ message: 'Password is incorrect' });
-    }
+    // if (password !== concludeUserTradePassword) {
+    //   return res.status(401).json({ message: 'Password is incorrect' });
+    // }
 
     if (!concludeTrade) {
       return res
@@ -122,3 +123,34 @@ export const getSingleGameTradedByUser = async (req, res) => {
     return res.status(400).json({ message: error.message });
   }
 };
+
+/*
+const updateEquityWithRoi = (
+  existingValueInDecimal128,
+  ordinaryValueToAddInNumber
+) => {
+  // first convert both value to Decimal128
+  const existingValue = Decimal128.fromString(
+    existingValueInDecimal128.toString()
+  );
+  const valueToAdd = Decimal128.fromString(
+    ordinaryValueToAddInNumber.toString()
+  );
+
+  //second, add the number to avoid and multiply by 1 to avoid NaN
+  const numericResult =
+    existingValue.toString() * 1 + valueToAdd.toString() * 1;
+
+  //optional - i rounded up to two decimal places
+  const roundedResult = parseFloat(numericResult.toFixed(2));
+
+  //lastly Convert the total value back to Decimal128 and return
+  return Decimal128.fromString(roundedResult.toString());
+};
+
+const newEquity = updateEquityWithRoi(foundUserWallet.equity, eventOneRoi);
+
+foundUserWallet.equity = newEquity;
+
+await foundUserWallet.save();
+*/

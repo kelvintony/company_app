@@ -29,16 +29,15 @@ export const createPayment = async (req, res) => {
 
     const session = await getSession({ req });
 
-    if (!session) {
-      return res.status(401).send('you are not authenticated');
-    }
+    // if (!session) {
+    //   return res.status(401).send('you are not authenticated');
+    // }
     const data = {
       price_amount: req.body.amount,
       price_currency: 'usd',
       pay_currency: 'usdttrc20',
       order_id: uuidv4(),
       order_description: 'Wallet funding',
-      is_fee_paid_by_user: true,
     };
 
     const response = await fetch(apiUrl, {
@@ -50,12 +49,13 @@ export const createPayment = async (req, res) => {
 
     if (!response.ok) {
       const dk = await response.json();
-      return res.status(409).json({ message: dk });
+      return res.status(409).json({ message: dk.message });
     } else {
       const responseData = await response.json();
 
       await accountHistoryModel.create({
         userId: session.user._id,
+        // userId: '64f8bea4381305e13619b884',
         paymentStatus: 'pending',
         amount: responseData.price_amount,
         whatFor: responseData.order_description,
@@ -63,14 +63,18 @@ export const createPayment = async (req, res) => {
         transactionIdForAdmin: responseData.payment_id,
         payAddress: responseData.pay_address,
         payAmount: responseData.pay_amount,
-        processingFee: responseData.pay_amount - responseData.price_amount,
       });
 
-      return res.status(200).json({ message: responseData });
+      const formattedResponse = {
+        payment_id: responseData.payment_id,
+        pay_address: responseData.pay_address,
+        price_amount: responseData.price_amount,
+        pay_amount: responseData.pay_amount,
+        order_id: responseData.order_id,
+      };
+      // return res.status(200).json({ message: responseData });
+      return res.status(200).json({ message: formattedResponse });
     }
-
-    // foundUserWallet.accountBalance -= foundUserWallet.equity;
-    // await foundUserWallet.save();
   } catch (error) {
     console.log(error.message);
     return res.status(400).json({ message: error.message });
