@@ -26,26 +26,26 @@ export const verifyPaymentViaWebhook = async (req, res) => {
       .update(JSON.stringify(req.body, Object.keys(req.body).sort()))
       .digest('hex');
     if (hash === req.headers['x-nowpayments-sig']) {
-      if (foundOrder.paymentStatus === 'completed') {
-        // console.log('value already given');
-        res.status(401).json({ error: 'Order Completed' });
-        return;
-      }
+      res.status(200).send('Ok');
+      console.log('this nigga ran');
+
       if (
-        req.body.actually_paid === req.body.pay_amount &&
+        foundOrder.paymentStatus === 'pending' &&
+        req.body.actually_paid === req.body.price_amount &&
         req.body.payment_status === 'finished'
       ) {
         //! update payment status
         foundOrder.paymentStatus = 'completed';
         foundOrder.amountPaidByUser = req.body.actually_paid;
+        foundOrder.amountReceived = req.body.outcome_amount;
 
         await foundOrder.save();
 
         //! increase balance and roi
         const updateOne = {
           $inc: {
-            accountBalance: req.body.price_amount,
-            equity: req.body.price_amount,
+            accountBalance: req.body.actually_paid,
+            equity: req.body.actually_paid,
           },
         };
 
@@ -56,14 +56,7 @@ export const verifyPaymentViaWebhook = async (req, res) => {
 
         console.log('value was given');
         res.status(200).send('Ok');
-      } else {
-        // console.log('validation did not go through');
-        res.status(400).send({ error: 'Unauthorized' });
       }
-    } else {
-      // console.log('hash was not valid');
-      res.status(401).json({ error: 'Unauthorized' });
-      return;
     }
   } catch (error) {
     console.log(error);

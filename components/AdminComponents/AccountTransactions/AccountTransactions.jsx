@@ -52,10 +52,10 @@ const AccountTransactions = () => {
         </p>
       ),
     },
-    { field: 'walletAddress', headerName: 'Wallet Address', width: 200 },
-    { field: 'fullName', headerName: 'Full Name', width: 200 },
-
+    // { field: 'walletAddress', headerName: 'Wallet Address', width: 200 },
     { field: 'whatFor', headerName: 'What For', width: 230 },
+
+    { field: 'fullName', headerName: 'Full Name', width: 200 },
 
     { field: 'createdAt', headerName: 'Date Traded', width: 250 },
   ];
@@ -108,7 +108,9 @@ const AccountTransactions = () => {
 
   return (
     <div className={styles.transaction_container}>
-      <h3 onClick={fetchTransactions}>Wallet Withdrawals / Top Ups</h3>
+      <h3 style={{ marginBottom: '20px' }} onClick={fetchTransactions}>
+        Wallet Withdrawals / Top Ups
+      </h3>
 
       <div style={{ height: 400, width: '100%' }}>
         {loading ? (

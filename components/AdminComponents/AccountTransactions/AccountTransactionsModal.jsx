@@ -95,7 +95,7 @@ const AccountTransactionsModal = ({
     });
   };
 
-  const handleConcludeTrade = async () => {
+  const handleProcessWithdrawal = async () => {
     setResponseMessage(null);
     setErrorMessage(null);
 
@@ -204,46 +204,50 @@ const AccountTransactionsModal = ({
                     <br />
                   </label>
                 </div>
-                <div className={styles.input_wrapper}>
-                  <p>Wallet Address:</p>
-                  <label htmlFor='walletAddress'>
-                    <span>{UserDetails?.walletAddress}</span>
-                    <CopyToClipboard
-                      text={UserDetails?.walletAddress}
-                      onCopy={handleCopy}
-                    >
-                      <button className={styles.btn_copy}>
-                        Copy <BiCopy />
-                      </button>
-                    </CopyToClipboard>
-                    <br />
-                  </label>
-                </div>
+                {UserDetails?.whatFor === 'Wallet withdrawal' && (
+                  <div className={styles.input_wrapper}>
+                    <p>Wallet Address:</p>
+                    <label htmlFor='walletAddress'>
+                      <span>{UserDetails?.walletAddress}</span>
+                      <CopyToClipboard
+                        text={UserDetails?.walletAddress}
+                        onCopy={handleCopy}
+                      >
+                        <button className={styles.btn_copy}>
+                          Copy <BiCopy />
+                        </button>
+                      </CopyToClipboard>
+                      <br />
+                    </label>
+                  </div>
+                )}
 
-                <div className={styles.input_wrapper}>
-                  <label htmlFor='password'>
-                    Password: <br />
-                    <input
-                      type='password'
-                      name='password'
-                      className={styles.form_control}
-                      value={UserDetails?.password}
-                      onChange={(e) =>
-                        setUserDetails({
-                          ...UserDetails,
-                          password: e.target.value,
-                        })
-                      }
-                    />
-                    <br />
-                    {/* {formDataError && formData.email.length <= 0 ? (
+                {UserDetails?.whatFor === 'Wallet withdrawal' && (
+                  <div className={styles.input_wrapper}>
+                    <label htmlFor='password'>
+                      Password: <br />
+                      <input
+                        type='password'
+                        name='password'
+                        className={styles.form_control}
+                        value={UserDetails?.password}
+                        onChange={(e) =>
+                          setUserDetails({
+                            ...UserDetails,
+                            password: e.target.value,
+                          })
+                        }
+                      />
+                      <br />
+                      {/* {formDataError && formData.email.length <= 0 ? (
                 <span style={{ color: 'red' }}>* required</span>
               ) : (
                 ''
               )} */}
-                  </label>
-                </div>
-                <div className={styles.checkbox_container}>
+                    </label>
+                  </div>
+                )}
+                {/* <div className={styles.checkbox_container}>
                   <input
                     type='checkbox'
                     name='concludeTrade'
@@ -257,7 +261,7 @@ const AccountTransactionsModal = ({
                   />
                   Conclude Order
                   <br />
-                </div>
+                </div> */}
               </div>
             )}
             {fetchUserLoader ? null : (
@@ -268,19 +272,21 @@ const AccountTransactionsModal = ({
                 >
                   Cancel
                 </button>
-                <button
-                  target='_blank'
-                  // href={`${payStackUrl}`}
-                  onClick={handleConcludeTrade}
-                  className={
-                    loading
-                      ? `${styles.btn_pay} ${styles.btn_pay_inactive}`
-                      : styles.btn_pay
-                  }
-                  disabled={loading}
-                >
-                  {loading ? <SiginLoader /> : 'Complete Order'}
-                </button>
+                {UserDetails?.whatFor === 'Wallet withdrawal' && (
+                  <button
+                    target='_blank'
+                    // href={`${payStackUrl}`}
+                    onClick={handleProcessWithdrawal}
+                    className={
+                      loading
+                        ? `${styles.btn_pay} ${styles.btn_pay_inactive}`
+                        : styles.btn_pay
+                    }
+                    disabled={loading}
+                  >
+                    {loading ? <SiginLoader /> : 'Complete Order'}
+                  </button>
+                )}
               </div>
             )}
           </div>

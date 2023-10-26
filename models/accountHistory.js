@@ -16,7 +16,7 @@ const accountHistorySchema = new mongoose.Schema(
     amountPaidByUser: { type: String },
     payAddress: { type: String },
     payAmount: { type: Number, float: true },
-    processingFee: { type: Number, float: true },
+    amountReceived: { type: Number, float: true },
   },
   {
     timestamps: true,

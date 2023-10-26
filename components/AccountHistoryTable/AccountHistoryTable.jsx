@@ -94,7 +94,9 @@ const AccountHistoryTable = () => {
 
   return (
     <div className={styles.transaction_container}>
-      <h3 onClick={fetchTransactions}>Withdrawals / Top Up History</h3>
+      <h3 style={{ marginBottom: '20px' }} onClick={fetchTransactions}>
+        Withdrawals / Top Up History
+      </h3>
 
       <div style={{ height: 400, width: '100%' }}>
         {loading ? (
