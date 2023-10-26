@@ -27,7 +27,7 @@ export const getAllGames = async (req, res) => {
     await db.connect();
 
     const latestDocument = await tradedGameModel
-      .find({})
+      .find({ concludedEvent: { $exists: false } })
       .sort({ _id: -1 })
       .populate([
         {

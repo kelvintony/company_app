@@ -105,7 +105,7 @@ const AccountHistoryTable = () => {
             columns={columns}
             pageSize={5}
             rowsPerPageOptions={[5]}
-            checkboxSelection
+            // checkboxSelection
             autoHeight
             getRowId={(row) => row?._id}
             components={{

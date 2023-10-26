@@ -7,6 +7,7 @@ import splitText from '../../../utils/splitText';
 import { BiEdit } from 'react-icons/bi';
 import { AiFillLock } from 'react-icons/ai';
 import UserLoader from '../../UserLoader/UserLoader';
+import { AlertHandler } from '../../../utils/AlertHandler';
 
 const EventSetup = () => {
   const [loading, setLoading] = useState(false);
@@ -27,6 +28,11 @@ const EventSetup = () => {
 
   const [loadGameData, setLoadGameData] = useState(false);
 
+  //! ALERT SECTION
+  const [errorMessage, setErrorMessage] = useState(null);
+  const [open, setOpen] = useState(false);
+  //! THE END OF ALERT SECTION
+
   useEffect(() => {
     fetchDame();
   }, []);
@@ -46,6 +52,8 @@ const EventSetup = () => {
   };
   const submitFormData = async () => {
     setLoading(true);
+    setOpen(true); //! make sure you set this guy open for the MUI alert
+
     try {
       const res = await axios.post('/api/admin/game', {
         ...formData,
@@ -70,7 +78,9 @@ const EventSetup = () => {
       }
     } catch (error) {
       setLoading(false);
-      console.log(error);
+      setErrorMessage(error?.response?.data?.message);
+
+      console.log('');
     }
   };
 
@@ -109,6 +119,12 @@ const EventSetup = () => {
   };
   return (
     <div className={styles.event_container}>
+      <AlertHandler
+        errorMessage={errorMessage}
+        open={open}
+        setOpen={setOpen}
+        responseMessage={null}
+      />
       <h3>Event Setup</h3>
       <div className={styles.event_wrapper}>
         <div className={styles.login_wrapper}>
@@ -380,7 +396,7 @@ const EventSetup = () => {
                           }}
                           className={styles.event_right}
                         >
-                          Event 1:
+                          Outcome 1:
                         </p>
                         <p
                           style={{
@@ -401,7 +417,7 @@ const EventSetup = () => {
                           }}
                           className={styles.event_left}
                         >
-                          Event 2:
+                          Outcome 2:
                         </p>
                         <p
                           style={{

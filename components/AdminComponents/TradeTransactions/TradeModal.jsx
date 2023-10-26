@@ -251,7 +251,7 @@ const TradeModal = ({ userId, setShowPopup, showPopup, fetchTransactions }) => {
                     )} */}
                   </label>
                 </div>
-                <div className={styles.input_wrapper}>
+                {/* <div className={styles.input_wrapper}>
                   <label htmlFor='password'>
                     Password: <br />
                     <input
@@ -267,13 +267,8 @@ const TradeModal = ({ userId, setShowPopup, showPopup, fetchTransactions }) => {
                       }
                     />
                     <br />
-                    {/* {formDataError && formData.email.length <= 0 ? (
-                <span style={{ color: 'red' }}>* required</span>
-              ) : (
-                ''
-              )} */}
                   </label>
-                </div>
+                </div> */}
                 <div className={styles.checkbox_container}>
                   <input
                     type='checkbox'

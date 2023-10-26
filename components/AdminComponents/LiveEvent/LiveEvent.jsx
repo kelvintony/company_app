@@ -176,7 +176,7 @@ const LiveEvent = () => {
                         }}
                         className={styles.event_right}
                       >
-                        Event 1:
+                        Outcome 1:
                       </p>
                       <p
                         style={{
@@ -195,7 +195,7 @@ const LiveEvent = () => {
                         }}
                         className={styles.event_left}
                       >
-                        Event 2:
+                        Outcome 2:
                       </p>
                       <p
                         style={{
@@ -321,9 +321,11 @@ const LiveEvent = () => {
                         gap: '10px',
                       }}
                     >
-                      Concluded Event:{' '}
+                      Concluded:
                       <span style={{ color: '#3BA54B' }}>
-                        {gameInfo?.concludedEvent}
+                        {gameInfo?.concludedEvent === 'event 1'
+                          ? 'Outcome 1'
+                          : 'Outcome 2'}
                       </span>
                       <AiFillCheckCircle
                         style={{ color: '#3BA54B' }}
