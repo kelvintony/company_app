@@ -73,6 +73,7 @@ const AccountTransactionsModal = ({
             whatFor: res?.data?.message?.whatFor,
             walletAddress: res?.data?.message?.userId?.walletAddress,
             fullName: res?.data?.message?.userId?.fullName,
+            transactionId: res?.data?.message?.transactionId,
           });
         })
         .catch(function (error) {
@@ -201,6 +202,13 @@ const AccountTransactionsModal = ({
                   <p>Amount:</p>
                   <label htmlFor='paymentStatus'>
                     <span>&#36;{UserDetails?.amount}</span>
+                    <br />
+                  </label>
+                </div>
+                <div className={styles.input_wrapper}>
+                  <p>Transaction ID:</p>
+                  <label htmlFor='paymentStatus'>
+                    <span>{UserDetails?.transactionId}</span>
                     <br />
                   </label>
                 </div>

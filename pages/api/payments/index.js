@@ -49,13 +49,13 @@ export const createPayment = async (req, res) => {
 
     if (!response.ok) {
       const dk = await response.json();
-      return res.status(409).json({ message: dk });
+      return res.status(409).json({ message: dk.message });
     } else {
       const responseData = await response.json();
 
       await accountHistoryModel.create({
-        // userId: session.user._id,
-        userId: '64f8bea4381305e13619b884',
+        userId: session.user._id,
+        // userId: '64f8bea4381305e13619b884',
         paymentStatus: 'pending',
         amount: responseData.price_amount,
         whatFor: responseData.order_description,
