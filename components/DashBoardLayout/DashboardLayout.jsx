@@ -54,12 +54,6 @@ const menuItems = [
     menuName: 'Transactions',
     iconsType: <BsJournalRichtext />,
   },
-  {
-    id: 'accounthistory',
-    url: '/user/account-history',
-    menuName: 'Withdrawals / Top Up History',
-    iconsType: <MdOutlineWorkHistory />,
-  },
 ];
 const Dashboard = ({ children }) => {
   const router = useRouter();
