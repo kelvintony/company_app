@@ -29,9 +29,10 @@ export const createPayment = async (req, res) => {
 
     const session = await getSession({ req });
 
-    // if (!session) {
-    //   return res.status(401).send('you are not authenticated');
-    // }
+    if (!session) {
+      return res.status(401).send('you are not authenticated');
+    }
+
     const data = {
       price_amount: req.body.amount,
       price_currency: 'usd',
@@ -40,6 +41,11 @@ export const createPayment = async (req, res) => {
       order_description: 'Wallet funding',
     };
 
+    if (req.body.amount < 5) {
+      return res
+        .status(409)
+        .json({ message: 'amount must not be less than $5' });
+    }
     const response = await fetch(apiUrl, {
       method: 'POST',
       maxBodyLength: Infinity,

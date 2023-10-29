@@ -21,14 +21,18 @@ async function handler(req, res) {
     email,
     password,
     confirmPassword,
+    userName,
   } = req.body;
+
+  console.log(userName);
   if (
     !firstName ||
     !lastName ||
     !email ||
     !email.includes('@') ||
     !password ||
-    !walletAddress
+    !walletAddress ||
+    !userName
   ) {
     return res.status(409).json({
       message: 'Validation error',
@@ -39,9 +43,14 @@ async function handler(req, res) {
     await db.connect();
 
     const existingUser = await userModel.findOne({ email: email });
+    const existingUserName = await userModel.findOne({ userName: userName });
 
     if (existingUser) {
-      return res.status(409).json({ message: 'User already exists!' });
+      return res.status(409).json({ message: 'Email already exists!' });
+    }
+
+    if (existingUserName) {
+      return res.status(409).json({ message: 'Username already exists!' });
     }
 
     if (password !== confirmPassword) {
@@ -60,6 +69,7 @@ async function handler(req, res) {
       email,
       password: bcryptjs.hashSync(password),
       superUser: false,
+      userName: userName.toLowerCase(),
     });
 
     //! create wallet profile

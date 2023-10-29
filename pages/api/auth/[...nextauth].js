@@ -32,8 +32,9 @@ export default NextAuth({
     CredentialsProvider({
       async authorize(credentials) {
         await db.connect();
+
         const user = await User.findOne({
-          email: credentials.email,
+          email: credentials.email.toLowerCase(),
         });
 
         if (

@@ -88,7 +88,7 @@ const Profile = () => {
               <span style={{ fontSize: '14px' }}> USDT (TRC-20)</span>{' '}
             </p>
             <p>
-              {userProfile?.walletAddress}{' '}
+              {userProfile?.walletAddress}
               <CopyToClipboard
                 text={userProfile?.walletAddress}
                 onCopy={handleCopy}
