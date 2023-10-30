@@ -25,6 +25,7 @@ export const verifyPaymentViaWebhook = async (req, res) => {
       .createHmac('sha512', `${process.env.NOWPAYMENT_IPN_SECRET_KEY}`)
       .update(JSON.stringify(req.body, Object.keys(req.body).sort()))
       .digest('hex');
+
     if (hash === req.headers['x-nowpayments-sig']) {
       res.status(200).send('Ok');
       console.log('this nigga ran');

@@ -23,8 +23,6 @@ async function handler(req, res) {
     confirmPassword,
     userName,
   } = req.body;
-
-  console.log(userName);
   if (
     !firstName ||
     !lastName ||

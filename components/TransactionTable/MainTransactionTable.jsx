@@ -27,7 +27,7 @@ const MainTransactionTable = () => {
 
   const [showPopup, setShowPopup] = useState(false);
 
-  const [userId, setUserId] = useState(false);
+  const [userId, setUserId] = useState('');
 
   useEffect(() => {
     fetchTransactions();
@@ -98,9 +98,7 @@ const MainTransactionTable = () => {
 
   return (
     <div className={styles.transaction_container}>
-      <h3 style={{ marginBottom: '20px' }} onClick={fetchTransactions}>
-        Trades
-      </h3>
+      <h3 style={{ marginBottom: '20px' }}>Trades</h3>
 
       <div style={{ height: 400, width: '100%' }}>
         {loading ? (

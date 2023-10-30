@@ -3,7 +3,6 @@ import styles from './deposit.module.css';
 import DashboardLayout from '../../../components/DashBoardLayout/DashboardLayout';
 import { useState } from 'react';
 import SiginLoader from '../../../components/SigninLoader/SiginLoader';
-import { GiMoneyStack } from 'react-icons/gi';
 import DepositModal from '../../../components/DepositModal/DepositModal';
 import { useStore } from '../../../context';
 import axios from 'axios';

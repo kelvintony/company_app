@@ -34,6 +34,7 @@ const Register = () => {
     email: '',
     password: '',
     confirmPassword: '',
+    userName: '',
   });
 
   const [responseMessage, setResponseMessage] = useState(null);
@@ -54,7 +55,8 @@ const Register = () => {
       formData.walletAddress.length === 0 ||
       formData.email.length === 0 ||
       formData.password.length === 0 ||
-      formData.confirmPassword.length === 0
+      formData.confirmPassword.length === 0 ||
+      formData.userName.length === 0
     ) {
       return setFormDataError(true);
     }
@@ -65,7 +67,8 @@ const Register = () => {
       formData.walletAddress &&
       formData.email &&
       formData.password &&
-      formData.confirmPassword
+      formData.confirmPassword &&
+      formData.userName
     ) {
       try {
         setLoading(true);
@@ -84,6 +87,7 @@ const Register = () => {
             email: '',
             password: '',
             confirmPassword: '',
+            userName: '',
           });
         }
         setLoading(false);
@@ -208,6 +212,29 @@ const Register = () => {
                   />
                   <br />
                   {formDataError && formData.walletAddress.length <= 0 ? (
+                    <span style={{ color: 'red' }}>* required</span>
+                  ) : (
+                    ''
+                  )}
+                </label>
+              </div>
+              <div className={styles.input_wrapper}>
+                <label htmlFor='userName'>
+                  Username : <br />
+                  <input
+                    type='text'
+                    name='text'
+                    className={styles.form_control}
+                    value={formData.userName}
+                    onChange={(e) =>
+                      setFormData({
+                        ...formData,
+                        userName: e.target.value,
+                      })
+                    }
+                  />
+                  <br />
+                  {formDataError && formData.userName.length <= 0 ? (
                     <span style={{ color: 'red' }}>* required</span>
                   ) : (
                     ''

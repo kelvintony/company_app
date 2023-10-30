@@ -17,7 +17,7 @@ import UserLoader from '../../UserLoader/UserLoader';
 const AccountTransactions = () => {
   const columns = [
     {
-      field: '_id',
+      field: 'transactionId',
       headerName: 'ID',
       width: 250,
       renderCell: (params) => (

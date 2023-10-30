@@ -19,7 +19,7 @@ export default async (req, res) => {
   } else if (req.method === 'GET') {
     return verifyPayment(req, res);
   } else {
-    return res.status(400).send({ message: 'Method not allowed' });
+    return res.status(400).json({ message: 'Method not allowed' });
   }
 };
 
@@ -30,7 +30,7 @@ export const createPayment = async (req, res) => {
     const session = await getSession({ req });
 
     if (!session) {
-      return res.status(401).send('you are not authenticated');
+      return res.status(401).json({ message: 'you are not authenticated' });
     }
 
     const data = {

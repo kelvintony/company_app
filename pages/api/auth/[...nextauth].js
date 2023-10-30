@@ -56,7 +56,9 @@ export default NextAuth({
           bcryptjs.compareSync(credentials.password, user.password) &&
           user.verified === false
         ) {
-          throw new Error('Your email has not been verified');
+          throw new Error(
+            'Your email has not been verified, check your inbox or spam for verification link'
+          );
         }
 
         throw new Error('Invalid email or password');
