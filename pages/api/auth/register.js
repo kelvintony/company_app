@@ -3,6 +3,7 @@ import userModel from '../../../models/user';
 import db from '../../../utils/db';
 import tokenModel from '../../../models/token';
 import walletProfileModel from '../../../models/walletProfile';
+import referralModel from '../../../models/referral';
 
 import { Resend } from 'resend';
 import crypto from 'crypto';
@@ -22,6 +23,7 @@ async function handler(req, res) {
     password,
     confirmPassword,
     userName,
+    referralId,
   } = req.body;
   if (
     !firstName ||
@@ -70,11 +72,30 @@ async function handler(req, res) {
       userName: userName.toLowerCase(),
     });
 
+    if (referralId) {
+      const foundReferral = await referralModel.findOne({
+        referralId: referralId.toLowerCase(),
+      });
+
+      if (foundReferral) {
+        foundReferral.referredUsers.push({
+          userId: newUser._id,
+          isUserBonusAdded: false,
+        });
+        await foundReferral.save();
+      }
+    }
+
     //! create wallet profile
-    const newWalletProfile = await walletProfileModel.create({
+    await walletProfileModel.create({
       userId: newUser?._id,
     });
 
+    //! create user referral system
+    await referralModel.create({
+      userId: newUser._id,
+      referralId: userName.toLowerCase(),
+    });
     //! create the token
 
     let newToken = new tokenModel({

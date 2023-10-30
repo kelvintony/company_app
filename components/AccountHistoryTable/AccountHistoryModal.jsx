@@ -129,11 +129,10 @@ const AccountHistoryModal = ({
 
                 <div className={styles.data_wrapper}>
                   <div className={styles.input_wrapper}>
+                    <p>Transaction ID:</p>
                     <label htmlFor='transactionID'>
-                      Transaction ID: <br />
-                      <span style={{ fontWeight: '600' }}>
-                        {transferDetails?.transactionId}
-                      </span>
+                      <span>{transferDetails?.transactionId}</span>
+                      <br />
                     </label>
                   </div>
                   <div className={styles.input_wrapper}>
@@ -157,11 +156,10 @@ const AccountHistoryModal = ({
                     </label>
                   </div>
                   <div className={styles.input_wrapper}>
+                    <p>Payment Status:</p>
                     <label htmlFor='paymentStatus'>
-                      Payment Status:{' '}
-                      <span style={{ fontWeight: '600' }}>
-                        {transferDetails?.paymentStatus}
-                      </span>
+                      <span>{transferDetails?.paymentStatus}</span>
+                      <br />
                     </label>
                   </div>
                   <div className={styles.input_wrapper}>
@@ -194,25 +192,24 @@ const AccountHistoryModal = ({
                 </div>
                 <div className={styles.data_wrapper}>
                   <div className={styles.input_wrapper}>
+                    <p>Transaction ID:</p>
                     <label htmlFor='transactionID'>
-                      Transaction ID: <br />
-                      <span style={{ fontWeight: '600' }}>
-                        {transferDetails?.transactionId}
-                      </span>
+                      <span>{transferDetails?.transactionId}</span>
+                      <br />
                     </label>
                   </div>
                   <div className={styles.input_wrapper}>
-                    <label htmlFor='walletAdress'>
-                      Amount:{' '}
-                      <span style={{ fontWeight: '600' }}>&#36;{amount}</span>
+                    <p>Amount:</p>
+                    <label htmlFor='amount'>
+                      <span>&#36;{amount}</span>
+                      <br />
                     </label>
                   </div>
                   <div className={styles.input_wrapper}>
+                    <p>Payment Status:</p>
                     <label htmlFor='paymentStatus'>
-                      Payment Status:{' '}
-                      <span style={{ fontWeight: '600' }}>
-                        {transferDetails?.paymentStatus}
-                      </span>
+                      <span>{transferDetails?.paymentStatus}</span>
+                      <br />
                     </label>
                   </div>
                 </div>

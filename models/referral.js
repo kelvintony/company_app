@@ -4,9 +4,10 @@ import user from './user';
 const referralSchema = new mongoose.Schema(
   {
     userId: { type: mongoose.Schema.Types.ObjectId, ref: user },
+    referralId: { type: String },
     referredUsers: [
       {
-        userId: { type: mongoose.Schema.Types.ObjectId, ref: user },
+        userId: { type: String, default: 'none' },
         isUserBonusAdded: { type: Boolean, default: false },
       },
     ],
