@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import Image from 'next/image';
 import styles from './AccountHistoryTable.module.css';
 import { useRouter } from 'next/router';
 import axios from 'axios';
@@ -10,13 +9,32 @@ import formatDateTimeToGMT1 from '../../utils/dateTimeConverter';
 import { DataGrid } from '@mui/x-data-grid';
 
 import UserLoader from '../UserLoader/UserLoader';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
+import { BiCopy } from 'react-icons/bi';
+import DepositModal from './AccountHistoryModal';
 
 const AccountHistoryTable = () => {
+  const truncateString = (inputString, maxLength) => {
+    if (inputString?.length > maxLength) {
+      return inputString?.slice(0, maxLength) + '...';
+    } else {
+      return inputString;
+    }
+  };
+
   const columns = [
     {
       field: '_id',
       headerName: 'ID',
       width: 250,
+      renderCell: (params) => (
+        <button
+          onClick={() => editUser(params.id)}
+          style={{ color: 'blue', textDecoration: 'underline' }}
+        >
+          View details
+        </button>
+      ),
     },
 
     {
@@ -25,6 +43,7 @@ const AccountHistoryTable = () => {
       width: 140,
       renderCell: (params) => <p>&#36;{params.value}</p>,
     },
+    { field: 'whatFor', headerName: 'What For', width: 230 },
 
     {
       field: 'paymentStatus',
@@ -43,7 +62,6 @@ const AccountHistoryTable = () => {
         </p>
       ),
     },
-    { field: 'whatFor', headerName: 'What For', width: 230 },
 
     { field: 'createdAt', headerName: 'Date', width: 250 },
   ];
@@ -60,9 +78,15 @@ const AccountHistoryTable = () => {
 
   const [loading, setLoading] = useState(false);
 
+  const [isCopied, setIsCopied] = useState(false);
+
+  const [buttonLoader, setButtonLoader] = useState(false);
+
   const [showPopup, setShowPopup] = useState(false);
 
-  const [userId, setUserId] = useState(false);
+  const [amount, setAmount] = useState('');
+
+  const [transferDetails, setTransferDetails] = useState({});
 
   useEffect(() => {
     fetchTransactions();
@@ -87,16 +111,21 @@ const AccountHistoryTable = () => {
       });
   };
 
-  const editUser = (id) => {
-    setShowPopup(!showPopup);
-    setUserId(id);
+  const editUser = async (transactionId) => {
+    await axios
+      .post(`/api/customers/transactions/account`, { transactionId })
+      .then((res) => {
+        setShowPopup(!showPopup);
+        setTransferDetails(res?.data?.message);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   return (
     <div className={styles.transaction_container}>
-      <h3 style={{ marginBottom: '20px' }} onClick={fetchTransactions}>
-        Withdrawals / Top Ups
-      </h3>
+      <h3 style={{ marginBottom: '20px' }}>Withdrawals / Top Ups</h3>
 
       <div style={{ height: 400, width: '100%' }}>
         {loading ? (
@@ -128,6 +157,14 @@ const AccountHistoryTable = () => {
           />
         )}
       </div>
+      <DepositModal
+        setShowPopup={setShowPopup}
+        showPopup={showPopup}
+        amount={transferDetails?.amount}
+        buttonLoader={buttonLoader}
+        setButtonLoader={setButtonLoader}
+        transferDetails={transferDetails}
+      />
     </div>
   );
 };

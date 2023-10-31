@@ -8,6 +8,7 @@ const walletProfileSchema = new mongoose.Schema(
     equity: { type: mongoose.Schema.Types.Decimal128, default: 0 },
     roi: { type: mongoose.Schema.Types.Decimal128, default: 0 },
     withdrawableBalance: { type: mongoose.Schema.Types.Decimal128, default: 0 },
+    referralBonus: { type: mongoose.Schema.Types.Decimal128, default: 0 },
     // accountType: { type: String, default: 'customer' },
   },
   {

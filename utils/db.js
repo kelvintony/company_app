@@ -18,7 +18,7 @@ async function connect() {
         console.log('connection successful');
       });
   } catch (error) {
-    console.log('something went wrong with db');
+    console.log('something went wrong with db', error.message);
   }
 }
 

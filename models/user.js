@@ -13,8 +13,9 @@ const userSchema = new mongoose.Schema(
       trim: true,
       lowercase: true,
     },
+    userName: { type: String, required: true, trim: true, lowercase: true },
     password: { type: String, required: true, trim: true },
-    superUser: { type: Boolean, default: false },
+    superUser: { type: Boolean, lowercase: true, default: false },
     verified: { type: Boolean, default: false },
   },
   {

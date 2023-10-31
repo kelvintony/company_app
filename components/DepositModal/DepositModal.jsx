@@ -16,11 +16,9 @@ import Image from 'next/image';
 const DepositModal = ({
   setShowPopup,
   showPopup,
-  email,
   buttonLoader,
   setButtonLoader,
   amount,
-  setAmount,
   transferDetails,
 }) => {
   // ALERT SECTION

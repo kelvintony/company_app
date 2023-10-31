@@ -465,6 +465,12 @@ const UserDashboard = () => {
                     ?.$numberDecimal
                 )}{' '}
               </p>
+              <p>
+                Referral Bonus: &#36;
+                {convertWalletBalance(
+                  state?.userTransactionProfile?.referralBonus?.$numberDecimal
+                )}{' '}
+              </p>
             </div>
           </div>
         </div>

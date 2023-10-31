@@ -19,7 +19,7 @@ export default async (req, res) => {
   } else if (req.method === 'GET') {
     return verifyPayment(req, res);
   } else {
-    return res.status(400).send({ message: 'Method not allowed' });
+    return res.status(400).json({ message: 'Method not allowed' });
   }
 };
 
@@ -30,8 +30,9 @@ export const createPayment = async (req, res) => {
     const session = await getSession({ req });
 
     // if (!session) {
-    //   return res.status(401).send('you are not authenticated');
+    //   return res.status(401).json({ message: 'you are not authenticated' });
     // }
+
     const data = {
       price_amount: req.body.amount,
       price_currency: 'usd',
@@ -40,6 +41,11 @@ export const createPayment = async (req, res) => {
       order_description: 'Wallet funding',
     };
 
+    if (req.body.amount < 5) {
+      return res
+        .status(409)
+        .json({ message: 'amount must not be less than $5' });
+    }
     const response = await fetch(apiUrl, {
       method: 'POST',
       maxBodyLength: Infinity,
@@ -54,8 +60,8 @@ export const createPayment = async (req, res) => {
       const responseData = await response.json();
 
       await accountHistoryModel.create({
-        userId: session.user._id,
-        // userId: '64f8bea4381305e13619b884',
+        // userId: session.user._id,
+        userId: '653fecf38ffb5e26514bdd6d',
         paymentStatus: 'pending',
         amount: responseData.price_amount,
         whatFor: responseData.order_description,

@@ -27,6 +27,7 @@
   border-radius: 5px;
   font-size: 14px;
 }
+
 /* utilitiesc */
 .btn_wallet {
   border: 1px solid #f5a937;
@@ -39,6 +40,24 @@
 
 .btn_wallet:hover {
   background-color: #ebae52;
+}
+
+.btn_copy {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  font-weight: 600;
+  border: 1px solid rgb(216, 216, 216);
+  padding: 5px;
+  margin-top: 10px;
+  margin-left: 5px;
+  margin-right: 5px;
+
+  background-color: rgb(197, 197, 197);
+}
+.btn_copy:hover {
+  background-color: rgba(224, 224, 224, 1);
 }
 
 @media screen and (max-width: 900px) {
