@@ -28,7 +28,6 @@ export const verifyPaymentViaWebhook = async (req, res) => {
       .digest('hex');
 
     if (hash === req.headers['x-nowpayments-sig']) {
-      res.status(200).send('Ok');
       if (
         foundOrder.paymentStatus === 'pending' &&
         req.body.actually_paid === req.body.price_amount &&
@@ -59,30 +58,41 @@ export const verifyPaymentViaWebhook = async (req, res) => {
           'referredUsers.userId': foundOrder.userId,
         });
 
-        if (
-          foundReferral &&
-          foundReferral.referredUsers.isUserBonusAdded === false
-        ) {
-          foundReferral.referredUsers.isUserBonusAdded === true;
-          await foundReferral.save();
+        for (const referral of foundReferral.referredUsers) {
+          if (
+            referral.userId === foundOrder.userId.toString() &&
+            referral.isUserBonusAdded === false
+          ) {
+            referral.isUserBonusAdded = true;
+            await foundReferral.save();
 
-          //* give 5% of the money paid to the upliner
-          const userReferralUpdateDetails = {
-            $inc: {
-              referralBonus: (req.body.actually_paid * 5) / 100,
-            },
-          };
+            //* give 5% of the money paid to the upliner
+            const userReferralUpdateDetails = {
+              $inc: {
+                referralBonus: (req.body.actually_paid * 5) / 100,
+              },
+            };
 
-          await walletProfileModel.findOneAndUpdate(
-            { userId: foundReferral.userId },
-            userReferralUpdateDetails
-          );
+            await walletProfileModel.findOneAndUpdate(
+              { userId: foundReferral.userId },
+              userReferralUpdateDetails
+            );
+
+            console.log('this place ran');
+            break; // If you found the user, you can exit the loop early.
+          }
         }
+        //! Referral configuration ends here
 
         console.log('value was given');
-        res.status(200).send('Ok');
       }
+
+      res.status(200).send('Ok');
+      console.log('header was confirmed');
     }
+    //! remove this when
+    // res.status(200).send('Ok');
+    // console.log('hook ran');
   } catch (error) {
     console.log(error);
     res.status(500).json({ error: error.message });
