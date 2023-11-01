@@ -35,7 +35,7 @@ export const verifyPaymentViaWebhook = async (req, res) => {
         transactionId: req.body.order_id,
       });
 
-      foundPaymentStatus.amountPaidByUser = req.body.actually_paid;
+      foundPaymentStatus.amountPaidByUser >= req.body.actually_paid;
       foundPaymentStatus.paymentStatus.push({
         status: req.body.payment_status,
       });
