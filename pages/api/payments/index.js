@@ -62,8 +62,8 @@ export const createPayment = async (req, res) => {
 
       //! create Payment Order
       await accountHistoryModel.create({
-        userId: session.user._id,
-        // userId: '6542502e2fc788baf01ebc54',
+        // userId: session.user._id,
+        userId: '6542502e2fc788baf01ebc54',
         paymentStatus: 'pending',
         amount: responseData.price_amount,
         whatFor: responseData.order_description,
@@ -75,8 +75,8 @@ export const createPayment = async (req, res) => {
 
       //! create Status Report
       await paymentStatusModel.create({
-        userId: session.user._id,
-        // userId: '6542502e2fc788baf01ebc54',
+        // userId: session.user._id,
+        userId: '6542502e2fc788baf01ebc54',
         transactionId: responseData.order_id,
         transactionIdForAdmin: responseData.payment_id,
         amount: responseData.price_amount,
