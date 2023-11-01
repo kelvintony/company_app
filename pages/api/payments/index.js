@@ -42,11 +42,11 @@ export const createPayment = async (req, res) => {
       order_description: 'Wallet funding',
     };
 
-    if (req.body.amount < 5) {
-      return res
-        .status(409)
-        .json({ message: 'amount must not be less than $5' });
-    }
+    // if (req.body.amount < 5) {
+    //   return res
+    //     .status(409)
+    //     .json({ message: 'amount must not be less than $5' });
+    // }
     const response = await fetch(apiUrl, {
       method: 'POST',
       maxBodyLength: Infinity,
