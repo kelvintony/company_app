@@ -30,9 +30,9 @@ export const createPayment = async (req, res) => {
 
     const session = await getSession({ req });
 
-    // if (!session) {
-    //   return res.status(401).json({ message: 'you are not authenticated' });
-    // }
+    if (!session) {
+      return res.status(401).json({ message: 'you are not authenticated' });
+    }
 
     const data = {
       price_amount: req.body.amount,
@@ -42,11 +42,11 @@ export const createPayment = async (req, res) => {
       order_description: 'Wallet funding',
     };
 
-    // if (req.body.amount < 5) {
-    //   return res
-    //     .status(409)
-    //     .json({ message: 'amount must not be less than $5' });
-    // }
+    if (req.body.amount < 10) {
+      return res
+        .status(409)
+        .json({ message: 'amount must not be less than $10' });
+    }
     const response = await fetch(apiUrl, {
       method: 'POST',
       maxBodyLength: Infinity,
@@ -62,8 +62,8 @@ export const createPayment = async (req, res) => {
 
       //! create Payment Order
       await accountHistoryModel.create({
-        // userId: session.user._id,
-        userId: '6542502e2fc788baf01ebc54',
+        userId: session.user._id,
+        // userId: '6542502e2fc788baf01ebc54',
         paymentStatus: 'pending',
         amount: responseData.price_amount,
         whatFor: responseData.order_description,
@@ -75,8 +75,8 @@ export const createPayment = async (req, res) => {
 
       //! create Status Report
       await paymentStatusModel.create({
-        // userId: session.user._id,
-        userId: '6542502e2fc788baf01ebc54',
+        userId: session.user._id,
+        // userId: '6542502e2fc788baf01ebc54',
         transactionId: responseData.order_id,
         transactionIdForAdmin: responseData.payment_id,
         amount: responseData.price_amount,
