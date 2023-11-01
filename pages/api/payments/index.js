@@ -4,6 +4,7 @@ import { getToken } from 'next-auth/jwt';
 import db from '../../../utils/db';
 import { v4 as uuidv4 } from 'uuid';
 import accountHistoryModel from '../../../models/accountHistory';
+import paymentStatusModel from '../../../models/paymentStatus';
 
 // const apiUrl = 'https://api.nowpayments.io/v1/payment';
 const apiUrl = 'https://api.nowpayments.io/v1/payment';
@@ -59,9 +60,10 @@ export const createPayment = async (req, res) => {
     } else {
       const responseData = await response.json();
 
+      //! create Payment Order
       await accountHistoryModel.create({
-        // userId: session.user._id,
-        userId: '653fecf38ffb5e26514bdd6d',
+        userId: session.user._id,
+        // userId: '6542502e2fc788baf01ebc54',
         paymentStatus: 'pending',
         amount: responseData.price_amount,
         whatFor: responseData.order_description,
@@ -69,6 +71,15 @@ export const createPayment = async (req, res) => {
         transactionIdForAdmin: responseData.payment_id,
         payAddress: responseData.pay_address,
         payAmount: responseData.pay_amount,
+      });
+
+      //! create Status Report
+      await paymentStatusModel.create({
+        userId: session.user._id,
+        // userId: '6542502e2fc788baf01ebc54',
+        transactionId: responseData.order_id,
+        transactionIdForAdmin: responseData.payment_id,
+        amount: responseData.price_amount,
       });
 
       const formattedResponse = {

@@ -35,6 +35,7 @@ const Register = () => {
     password: '',
     confirmPassword: '',
     userName: '',
+    referralId: '',
   });
 
   const [responseMessage, setResponseMessage] = useState(null);
@@ -88,6 +89,7 @@ const Register = () => {
             password: '',
             confirmPassword: '',
             userName: '',
+            referralId: '',
           });
         }
         setLoading(false);
@@ -299,6 +301,25 @@ const Register = () => {
                   ) : (
                     ''
                   )}
+                </label>
+              </div>
+              <div className={styles.input_wrapper}>
+                <label htmlFor='referralId'>
+                  Referral ID: <br />
+                  <input
+                    type='text'
+                    value={formData.referralId}
+                    placeholder='optional'
+                    onChange={(e) =>
+                      setFormData({ ...formData, referralId: e.target.value })
+                    }
+                  />
+                  <br />
+                  {/* {formDataError && formData.referralId.length <= 0 ? (
+                    <span style={{ color: 'red' }}>* required</span>
+                  ) : (
+                    ''
+                  )} */}
                 </label>
               </div>
               <p>

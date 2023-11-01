@@ -45,6 +45,9 @@ async function handler(req, res) {
     const existingUser = await userModel.findOne({ email: email });
     const existingUserName = await userModel.findOne({ userName: userName });
 
+    // if (existingUser) {
+    //   return res.status(200).json({ message: existingUser });
+    // }
     if (existingUser) {
       return res.status(409).json({ message: 'Email already exists!' });
     }
