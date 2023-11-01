@@ -3,6 +3,7 @@ import db from '../../../../utils/db';
 import accountHistoryModel from '../../../../models/accountHistory';
 import walletProfileModel from '../../../../models/walletProfile';
 import referralModel from '../../../../models/referral';
+import paymentStatusModel from '../../../../models/paymentStatus';
 
 export default async (req, res) => {
   if (req.method === 'POST') {
@@ -28,6 +29,19 @@ export const verifyPaymentViaWebhook = async (req, res) => {
       .digest('hex');
 
     if (hash === req.headers['x-nowpayments-sig']) {
+      //! update extra payment status
+      const foundPaymentStatus = await paymentStatusModel.findOne({
+        transactionIdForAdmin: req.body.payment_id,
+        transactionId: req.body.order_id,
+      });
+
+      foundPaymentStatus.amountPaidByUser = req.body.actually_paid;
+      foundPaymentStatus.paymentStatus.push({
+        status: req.body.payment_status,
+      });
+      await foundPaymentStatus.save();
+      //
+      //
       if (
         foundOrder.paymentStatus === 'pending' &&
         req.body.actually_paid === req.body.price_amount &&
@@ -60,7 +74,7 @@ export const verifyPaymentViaWebhook = async (req, res) => {
 
         for (const referral of foundReferral.referredUsers) {
           if (
-            referral.userId === foundOrder.userId.toString() &&
+            referral.userId.toString() === foundOrder.userId.toString() &&
             referral.isUserBonusAdded === false
           ) {
             referral.isUserBonusAdded = true;
@@ -90,6 +104,11 @@ export const verifyPaymentViaWebhook = async (req, res) => {
       res.status(200).send('Ok');
       console.log('header was confirmed');
     }
+    //
+    //
+
+    //
+    //
     //! remove this when
     // res.status(200).send('Ok');
     // console.log('hook ran');
