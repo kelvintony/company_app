@@ -5,8 +5,6 @@ import walletProfileModel from '../../../../models/walletProfile';
 import referralModel from '../../../../models/referral';
 import paymentStatusModel from '../../../../models/paymentStatus';
 
-const allowedIPs = ['144.76.201.30', '15.235.114.152'];
-
 export default async (req, res) => {
   if (req.method === 'POST') {
     return verifyPaymentViaWebhook(req, res);
@@ -17,101 +15,100 @@ export default async (req, res) => {
 
 export const verifyPaymentViaWebhook = async (req, res) => {
   try {
-    const clientIp =
-      req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+    await db.connect();
 
-    if (allowedIPs.includes(clientIp)) {
-      const foundOrder = await accountHistoryModel.findOne({
+    const foundOrder = await accountHistoryModel.findOne({
+      transactionIdForAdmin: req.body.payment_id,
+      transactionId: req.body.order_id,
+    });
+
+    // Validate the event is from NowPayment
+    let hash = crypto
+      .createHmac('sha512', `${process.env.NOWPAYMENT_IPN_SECRET_KEY}`)
+      .update(JSON.stringify(req.body, Object.keys(req.body).sort()))
+      .digest('hex');
+
+    if (hash === req.headers['x-nowpayments-sig']) {
+      //! update extra payment status
+      const foundPaymentStatus = await paymentStatusModel.findOne({
         transactionIdForAdmin: req.body.payment_id,
         transactionId: req.body.order_id,
       });
 
-      await db.connect();
+      foundPaymentStatus.amountPaidByUser = req.body.actually_paid;
+      foundPaymentStatus.paymentStatus.push({
+        status: req.body.payment_status,
+      });
+      await foundPaymentStatus.save();
+      //
+      //
+      if (
+        foundOrder.paymentStatus === 'pending' &&
+        (req.body.payment_status === 'finished' ||
+          req.body.payment_status === 'partially_paid')
+      ) {
+        //! update payment status
+        foundOrder.paymentStatus = 'completed';
+        foundOrder.amountPaidByUser = req.body.actually_paid;
+        foundOrder.amountReceived = req.body.outcome_amount;
 
-      // Validate the event is from NowPayment
-      let hash = crypto
-        .createHmac('sha512', `${process.env.NOWPAYMENT_IPN_SECRET_KEY}`)
-        .update(JSON.stringify(req.body, Object.keys(req.body).sort()))
-        .digest('hex');
+        await foundOrder.save();
 
-      if (hash === req.headers['x-nowpayments-sig']) {
-        //! update extra payment status
-        const foundPaymentStatus = await paymentStatusModel.findOne({
-          transactionIdForAdmin: req.body.payment_id,
-          transactionId: req.body.order_id,
+        //! increase balance and equity
+        const updateOne = {
+          $inc: {
+            accountBalance: req.body.actually_paid,
+            equity: req.body.actually_paid,
+          },
+        };
+
+        await walletProfileModel.findOneAndUpdate(
+          { userId: foundOrder.userId },
+          updateOne
+        );
+
+        //! Give referral bonus and update
+        const foundReferral = await referralModel.findOne({
+          'referredUsers.userId': foundOrder.userId,
         });
 
-        foundPaymentStatus.amountPaidByUser = req.body.actually_paid;
-        foundPaymentStatus.paymentStatus.push({
-          status: req.body.payment_status,
-        });
-        await foundPaymentStatus.save();
-        //
-        //
-        if (
-          foundOrder.paymentStatus === 'pending' &&
-          (req.body.payment_status === 'finished' ||
-            req.body.payment_status === 'partially_paid')
-        ) {
-          //! update payment status
-          foundOrder.paymentStatus = 'completed';
-          foundOrder.amountPaidByUser = req.body.actually_paid;
-          foundOrder.amountReceived = req.body.outcome_amount;
+        for (const referral of foundReferral.referredUsers) {
+          if (
+            referral.userId.toString() === foundOrder.userId.toString() &&
+            referral.isUserBonusAdded === false
+          ) {
+            referral.isUserBonusAdded = true;
+            await foundReferral.save();
 
-          await foundOrder.save();
+            //* give 5% of the money paid to the upliner
+            const userReferralUpdateDetails = {
+              $inc: {
+                referralBonus: (req.body.actually_paid * 5) / 100,
+              },
+            };
 
-          //! increase balance and equity
-          const updateOne = {
-            $inc: {
-              accountBalance: req.body.actually_paid,
-              equity: req.body.actually_paid,
-            },
-          };
+            await walletProfileModel.findOneAndUpdate(
+              { userId: foundReferral.userId },
+              userReferralUpdateDetails
+            );
 
-          await walletProfileModel.findOneAndUpdate(
-            { userId: foundOrder.userId },
-            updateOne
-          );
-
-          //! Give referral bonus and update
-          const foundReferral = await referralModel.findOne({
-            'referredUsers.userId': foundOrder.userId,
-          });
-
-          for (const referral of foundReferral.referredUsers) {
-            if (
-              referral.userId.toString() === foundOrder.userId.toString() &&
-              referral.isUserBonusAdded === false
-            ) {
-              referral.isUserBonusAdded = true;
-              await foundReferral.save();
-
-              //* give 5% of the money paid to the upliner
-              const userReferralUpdateDetails = {
-                $inc: {
-                  referralBonus: (req.body.actually_paid * 5) / 100,
-                },
-              };
-
-              await walletProfileModel.findOneAndUpdate(
-                { userId: foundReferral.userId },
-                userReferralUpdateDetails
-              );
-
-              console.log('this place ran');
-              break; // If you found the user, you can exit the loop early.
-            }
+            console.log('this place ran');
+            break; // If you found the user, you can exit the loop early.
           }
-          //! Referral configuration ends here
-
-          console.log('value was given');
         }
+        //! Referral configuration ends here
 
-        res.status(200).send('Ok');
-        console.log('header was confirmed');
+        console.log('value was given');
       }
-    }
 
+      res.status(200).send('Ok');
+      console.log('header was confirmed');
+    }
+    //
+    //
+
+    //
+    //
     //! remove this when
     // res.status(200).send('Ok');
     // console.log('hook ran');
