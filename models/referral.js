@@ -4,7 +4,7 @@ import user from './user';
 const referralSchema = new mongoose.Schema(
   {
     userId: { type: mongoose.Schema.Types.ObjectId, ref: user },
-    referralId: { type: String, trim: true },
+    referralId: { type: String, trim: true, lowercase: true },
     referredUsers: [
       {
         userId: { type: mongoose.Schema.Types.ObjectId, ref: user },

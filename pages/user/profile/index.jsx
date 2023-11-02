@@ -83,6 +83,11 @@ const Profile = () => {
           </div>
 
           <div className={styles.profile_items}>
+            <p>Referral ID:</p>
+            <p>{userProfile?.userName}</p>
+          </div>
+
+          <div className={styles.profile_items}>
             <p>
               Wallet Address:{' '}
               <span style={{ fontSize: '14px' }}> USDT (TRC-20)</span>{' '}
