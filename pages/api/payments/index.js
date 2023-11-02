@@ -30,16 +30,19 @@ export const createPayment = async (req, res) => {
 
     const session = await getSession({ req });
 
-    if (!session) {
-      return res.status(401).json({ message: 'you are not authenticated' });
-    }
+    // if (!session) {
+    //   return res.status(401).json({ message: 'you are not authenticated' });
+    // }
 
     const data = {
       price_amount: req.body.amount,
       price_currency: 'usd',
       pay_currency: 'usdttrc20',
+      pay_amount: req.body.amount,
       order_id: uuidv4(),
       order_description: 'Wallet funding',
+      ipn_callback_url: `${process.env.IPN_CALL_BACK_URL}`,
+      // is_fixed_rate: true,
     };
 
     if (req.body.amount < 10) {
@@ -63,7 +66,7 @@ export const createPayment = async (req, res) => {
       //! create Payment Order
       await accountHistoryModel.create({
         userId: session.user._id,
-        // userId: '6542502e2fc788baf01ebc54',
+        // userId: '65424f6e2fc788baf01ebc49',
         paymentStatus: 'pending',
         amount: responseData.price_amount,
         whatFor: responseData.order_description,
@@ -76,7 +79,7 @@ export const createPayment = async (req, res) => {
       //! create Status Report
       await paymentStatusModel.create({
         userId: session.user._id,
-        // userId: '6542502e2fc788baf01ebc54',
+        // userId: '65424f6e2fc788baf01ebc49',
         transactionId: responseData.order_id,
         transactionIdForAdmin: responseData.payment_id,
         amount: responseData.price_amount,
@@ -102,14 +105,26 @@ export const verifyPayment = async (req, res) => {
   try {
     const session = await getSession({ req });
 
-    const gameId = req.query.gameId;
+    const paymentId = req.query.paymentId;
 
-    if (!session) {
-      return res.status(401).send('you are not authenticated');
-    }
+    // if (!session) {
+    //   return res.status(401).send('you are not authenticated');
+    // }
     // const foundGame = await gameModel.findById(gameId);
 
-    return res.status(200).json({ message: 'ok' });
+    const response = await fetch(`${apiUrl}/${paymentId}`, {
+      method: 'GET',
+      maxBodyLength: Infinity,
+      headers,
+    });
+
+    if (!response.ok) {
+      const dk = await response.json();
+      return res.status(409).json({ message: dk.message });
+    } else {
+      const responseData = await response.json();
+      return res.status(200).json({ message: responseData });
+    }
   } catch (error) {
     console.log(error.message);
     return res.status(400).json({ message: error.message });
