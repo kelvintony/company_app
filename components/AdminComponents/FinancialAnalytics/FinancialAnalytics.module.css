@@ -1,0 +1,11 @@
+.finance_container > h3 {
+  font-size: 30px;
+  margin-bottom: 20px;
+  margin-top: 20px;
+}
+
+@media screen and (max-width: 900px) {
+  .finance_container > h3 {
+    font-size: 26px;
+  }
+}

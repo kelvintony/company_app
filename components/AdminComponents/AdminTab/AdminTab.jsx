@@ -8,11 +8,11 @@ import styles from './AdminTab.module.css';
 import axios from 'axios';
 import { useSession } from 'next-auth/react';
 
-import Image from 'next/image';
 import EventSetup from '../EventSetup/EventSetup';
 import LiveEvent from '../LiveEvent/LiveEvent';
 import TradeTransactions from '../TradeTransactions/TradeTransactions';
 import AccountTransactions from '../AccountTransactions/AccountTransactions';
+import FinancialAnalytics from '../FinancialAnalytics/FinancialAnalytics';
 
 export default function AdminTab() {
   const { status, data: session } = useSession();
@@ -78,7 +78,7 @@ export default function AdminTab() {
         </TabPanel>
         <TabPanel value='5'>
           <div className={styles.tab_container}>
-            <h3>Financial Analytics</h3>
+            <FinancialAnalytics />
           </div>
         </TabPanel>
         <TabPanel value='6'>

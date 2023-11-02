@@ -105,10 +105,6 @@ export const verifyPaymentViaWebhook = async (req, res) => {
       console.log('header was confirmed');
     }
     //
-    //
-
-    //
-    //
     //! remove this when
     // res.status(200).send('Ok');
     // console.log('hook ran');
