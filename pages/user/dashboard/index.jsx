@@ -24,6 +24,8 @@ import {
 import UserLoader from '../../../components/UserLoader/UserLoader';
 
 import { AlertHandler } from '../../../utils/AlertHandler';
+import { BsCashCoin, BsGraphUpArrow } from 'react-icons/bs';
+import { GiCash } from 'react-icons/gi';
 
 const UserDashboard = () => {
   const router = useRouter();
@@ -440,37 +442,96 @@ const UserDashboard = () => {
             )}
             <div className={styles.right_panel}>
               <p>Financial Analytics</p>
-              <p>
-                Total Balance: &#36;
-                {convertWalletBalance(
-                  state?.userTransactionProfile?.accountBalance?.$numberDecimal
-                )}{' '}
-              </p>
-              <p>
-                Equity: &#36;
-                {convertWalletBalance(
-                  state?.userTransactionProfile?.equity?.$numberDecimal
-                )}{' '}
-              </p>
-              <p>
-                ROI: &#36;
-                {convertWalletBalance(
-                  state?.userTransactionProfile?.roi?.$numberDecimal
-                )}{' '}
-              </p>
-              <p>
-                Withdrawable Balance: &#36;
-                {convertWalletBalance(
-                  state?.userTransactionProfile?.withdrawableBalance
-                    ?.$numberDecimal
-                )}{' '}
-              </p>
-              <p>
-                Referral Bonus: &#36;
-                {convertWalletBalance(
-                  state?.userTransactionProfile?.referralBonus?.$numberDecimal
-                )}{' '}
-              </p>
+              <div className={styles.inner_wrapper}>
+                <div className={`${styles.account_container} ${styles.panel1}`}>
+                  <div className={styles.icon_container}>
+                    <GiCash className={styles.amount_icon} />
+                  </div>
+                  <div className={styles.inner}>
+                    <p>
+                      Total Balance
+                      <br />
+                      <span>
+                        &#36;
+                        {convertWalletBalance(
+                          state?.userTransactionProfile?.accountBalance
+                            ?.$numberDecimal
+                        )}{' '}
+                      </span>
+                    </p>
+                  </div>
+                </div>
+                <div className={`${styles.account_container} ${styles.panel2}`}>
+                  <div className={styles.icon_container}>
+                    <GiCash className={styles.amount_icon} />
+                  </div>
+                  <div className={styles.inner}>
+                    <p>
+                      Equity
+                      <br />
+                      <span>
+                        &#36;
+                        {convertWalletBalance(
+                          state?.userTransactionProfile?.equity?.$numberDecimal
+                        )}{' '}
+                      </span>
+                    </p>
+                  </div>
+                </div>
+                <div className={`${styles.account_container} ${styles.panel3}`}>
+                  <div className={styles.icon_container}>
+                    <BsGraphUpArrow className={styles.amount_icon} />
+                  </div>
+                  <div className={styles.inner}>
+                    <p>
+                      ROI
+                      <br />
+                      <span>
+                        &#36;
+                        {convertWalletBalance(
+                          state?.userTransactionProfile?.roi?.$numberDecimal
+                        )}{' '}
+                      </span>
+                    </p>
+                  </div>
+                </div>
+                <div className={`${styles.account_container} ${styles.panel4}`}>
+                  <div className={styles.icon_container}>
+                    <GiCash className={styles.amount_icon} />
+                  </div>
+                  <div className={styles.inner}>
+                    <p>
+                      Withdrawable Balance
+                      <br />
+                      <span>
+                        &#36;
+                        {convertWalletBalance(
+                          state?.userTransactionProfile?.withdrawableBalance
+                            ?.$numberDecimal
+                        )}{' '}
+                      </span>
+                    </p>
+                  </div>
+                </div>
+                <div className={`${styles.account_container} ${styles.panel5}`}>
+                  <div className={styles.icon_container}>
+                    <BsCashCoin className={styles.amount_icon} />
+                  </div>
+                  <div className={styles.inner}>
+                    <p>
+                      Referral Bonus
+                      <br />
+                      <span>
+                        &#36;
+                        {convertWalletBalance(
+                          state?.userTransactionProfile?.referralBonus
+                            ?.$numberDecimal
+                        )}{' '}
+                      </span>
+                    </p>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
