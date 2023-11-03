@@ -4,6 +4,7 @@ import accountHistoryModel from '../../../../models/accountHistory';
 import walletProfileModel from '../../../../models/walletProfile';
 import referralModel from '../../../../models/referral';
 import paymentStatusModel from '../../../../models/paymentStatus';
+import accountStatementModel from '../../../../models/accountStatement';
 
 export default async (req, res) => {
   if (req.method === 'POST') {
@@ -16,6 +17,12 @@ export default async (req, res) => {
 export const verifyPaymentViaWebhook = async (req, res) => {
   try {
     await db.connect();
+
+    // const account = new accountStatementModel();
+    // account.totalAmountReceived = 0;
+    // account.totalAmountPaidOut = 0;
+    // account.totalAmountReceivedAfterFee = 0;
+    // await account.save();
 
     const foundOrder = await accountHistoryModel.findOne({
       transactionIdForAdmin: req.body.payment_id,
@@ -96,18 +103,26 @@ export const verifyPaymentViaWebhook = async (req, res) => {
             break; // If you found the user, you can exit the loop early.
           }
         }
-        //! Referral configuration ends here
+
+        //! Update Admin Account Information
+        const updateAccountDetails = {
+          $inc: {
+            totalAmountReceived: req.body.actually_paid,
+            totalAmountReceivedAfterFee: req.body.outcome_amount,
+          },
+        };
+        await accountStatementModel.updateMany({}, updateAccountDetails);
 
         console.log('value was given');
       }
 
-      res.status(200).send('Ok');
-      console.log('header was confirmed');
+      // res.status(200).send('Ok');
+      // console.log('header was confirmed');
     }
     //
     //! remove this when
-    // res.status(200).send('Ok');
-    // console.log('hook ran');
+    res.status(200).send('Ok');
+    console.log('hook ran');
   } catch (error) {
     console.log(error);
     res.status(500).json({ error: error.message });
