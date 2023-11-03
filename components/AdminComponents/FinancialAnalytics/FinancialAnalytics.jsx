@@ -38,7 +38,7 @@ const FinancialAnalytics = () => {
               Total Received <br />
               <span>
                 &#36;{accountStatement?.totalAmountReceivedAfterFee.toFixed(2)}{' '}
-                | &#36;
+                / &#36;
                 {accountStatement?.totalAmountReceived}
               </span>
             </p>
