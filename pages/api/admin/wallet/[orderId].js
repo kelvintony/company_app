@@ -5,6 +5,7 @@ import db from '../../../../utils/db';
 import accountHistoryModel from '../../../../models/accountHistory';
 
 import walletProfileModel from '../../../../models/walletProfile';
+import accountStatementModel from '../../../../models/accountStatement';
 
 const concludeUserTradePassword = process.env.CONCLUDE_USER_TRADE_PASSWORD;
 
@@ -64,6 +65,14 @@ export const processUserOrder = async (req, res) => {
       },
       { new: true }
     );
+
+    //! Update Admin Account Information
+    const updateAccountDetails = {
+      $inc: {
+        totalAmountPaidOut: foundOrder.amount,
+      },
+    };
+    await accountStatementModel.updateMany({}, updateAccountDetails);
 
     return res.status(200).json({ message: 'Order completed' });
   } catch (error) {
