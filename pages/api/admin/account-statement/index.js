@@ -15,9 +15,9 @@ export default async (req, res) => {
 export const getAccountInformation = async (req, res) => {
   const session = await getSession({ req });
 
-  // if (!session || (session && !session.user.superUser)) {
-  //   return res.status(401).send('you are not authenticated');
-  // }
+  if (!session || (session && !session.user.superUser)) {
+    return res.status(401).send('you are not authenticated');
+  }
 
   try {
     await db.connect();
