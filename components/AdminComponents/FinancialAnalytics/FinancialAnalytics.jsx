@@ -15,7 +15,7 @@ const FinancialAnalytics = () => {
           <div className={styles.inner}>
             <p>
               Total Received <br />
-              <span>$4000</span>
+              <span>&#36;4000</span>
             </p>
           </div>
         </div>
@@ -26,7 +26,7 @@ const FinancialAnalytics = () => {
           <div className={styles.inner}>
             <p>
               Total Paid Out <br />
-              <span>$3250</span>
+              <span>&#36;3250</span>
             </p>
           </div>
         </div>
@@ -37,7 +37,7 @@ const FinancialAnalytics = () => {
           <div className={styles.inner}>
             <p>
               Profit <br />
-              <span>$750</span>
+              <span>&#36;750</span>
             </p>
           </div>
         </div>
