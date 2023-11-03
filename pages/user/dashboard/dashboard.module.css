@@ -13,8 +13,7 @@
   gap: 30px;
 }
 
-.left_panel,
-.right_panel {
+.left_panel {
   /* border: 1px solid rgb(201, 201, 201); */
   border-radius: 20px;
   padding: 15px;
@@ -95,71 +94,73 @@
 .success_trade_color {
   color: #0fd46c !important;
 }
-/* .lock_icon {
-  font-size: 30px;
-  color: #f05822;
-  position: absolute;
-  top: 12px;
-  cursor: pointer;
-} */
+
 /* @right panel  */
 .right_panel {
   height: fit-content;
 }
-.right_panel p:nth-of-type(1) {
+.right_panel > p {
   font-size: 30px;
-  margin-bottom: 5px;
+  margin-bottom: 20px;
   font-weight: 300;
 }
-.right_panel p:nth-of-type(2) {
-  font-size: 20px;
-  font-weight: 500;
-  background-color: #24738b;
-  background-color: #24738b;
 
-  color: #fff;
-  padding: 20px;
-  margin-top: 20px;
+.inner_wrapper {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 30px;
 }
-.right_panel p:nth-of-type(3) {
-  font-size: 20px;
-  font-weight: 500;
-  background-color: #a1cda8;
-
-  color: #fff;
-  color: #0d333f;
+.account_container {
+  display: flex;
+  /* width: fit-content; */
   padding: 20px;
-  margin-top: 20px;
+  border-radius: 15px;
+  align-items: center;
+  gap: 20px;
+  /* box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset,
+    rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset; */
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px,
+    rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
 }
-.right_panel p:nth-of-type(4) {
-  font-size: 20px;
-  font-weight: 500;
-  background-color: #b5dfca;
 
-  color: #0d333f;
-  padding: 20px;
-  margin-top: 20px;
+.panel1 {
+  background-color: #cee0de;
 }
-.right_panel p:nth-of-type(5) {
-  font-size: 20px;
-  font-weight: 500;
-
+.panel2 {
+  background-color: #d7ebba;
+}
+.panel3 {
   background-color: #c5e7e2;
-
-  color: #0d333f;
-  padding: 20px;
-  margin-top: 20px;
+}
+.panel4 {
+  background-color: #e7e3a1;
+}
+.panel5 {
+  background-color: #d6e9e6;
+}
+.icon_container {
+  padding: 10px;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid black;
+  /* background-color: rgba(255, 165, 0, 0.7); */
+}
+.amount_icon {
+  font-size: 25px;
+  /* color: #fff; */
 }
 
-.right_panel p:nth-of-type(6) {
-  font-size: 20px;
-  font-weight: 500;
+.inner p {
+  font-size: 20px !important;
+  font-family: 'Poppins';
+}
 
-  background-color: #d6e9e6;
-
-  color: #0d333f;
-  padding: 20px;
-  margin-top: 20px;
+.inner span {
+  font-weight: 600;
 }
 
 /* @utilities  */
@@ -225,11 +226,29 @@
   }
 
   /* @RIGHT PANEL  */
-  .right_panel p {
-    font-size: 15px !important;
+  .inner_wrapper {
+    grid-template-columns: 1fr;
+    gap: 20px;
   }
-  .right_panel p:nth-of-type(1) {
-    font-size: 26px !important;
-    font-weight: 300;
+  .right_panel > p {
+    padding-top: 10px;
+    border-top: 1px solid rgb(204, 204, 204);
+    margin-bottom: 20px;
+  }
+  .account_container {
+    gap: 10px;
+  }
+
+  .inner p {
+    font-size: 18px !important;
+  }
+
+  .icon_container {
+    width: 40px;
+    height: 40px;
+  }
+
+  .amount_icon {
+    font-size: 20px;
   }
 }
