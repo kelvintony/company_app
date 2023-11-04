@@ -20,6 +20,7 @@ import { LuLayoutDashboard } from 'react-icons/lu';
 import { VscAccount } from 'react-icons/vsc';
 import { FaHandHoldingDollar } from 'react-icons/fa6';
 import { GiMoneyStack, GiReceiveMoney } from 'react-icons/gi';
+import TimeDisplay from '../TimeDisplay/TimeDisplay';
 
 const menuItems = [
   {
@@ -124,14 +125,14 @@ const Dashboard = ({ children }) => {
     signOut({ callbackUrl: '/' });
     // Cookies.clear();
   };
-
+  // console.log('dashboard fired');
   return (
     <div className={styles.dashboard_container}>
       {/* ist content  */}
       <div className={styles.dashboard_topBar}>
         <div className={styles.site_message}>
-          <h3>Announcement!!</h3>
-          <p>We have a bonus coming up by 11:30pm today, be ready!</p>
+          <h3>Current Time</h3>
+          <TimeDisplay />
         </div>
         <RiMenu3Line onClick={toggleMenu} className={styles.mobile_men_close} />
       </div>

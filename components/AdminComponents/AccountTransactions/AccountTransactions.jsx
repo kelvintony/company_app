@@ -53,7 +53,7 @@ const AccountTransactions = () => {
       ),
     },
     // { field: 'walletAddress', headerName: 'Wallet Address', width: 200 },
-    { field: 'whatFor', headerName: 'What For', width: 230 },
+    { field: 'whatFor', headerName: 'Description', width: 230 },
 
     { field: 'fullName', headerName: 'Full Name', width: 200 },
 

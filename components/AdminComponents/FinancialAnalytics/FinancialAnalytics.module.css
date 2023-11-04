@@ -5,7 +5,7 @@
 }
 .inner_wrapper {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 37% 30% 26%;
   gap: 30px;
 }
 .account_container {
@@ -47,7 +47,7 @@
 }
 
 .inner p {
-  font-size: 30px;
+  font-size: 27px;
   font-family: 'Poppins';
 }
 
