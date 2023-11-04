@@ -451,13 +451,15 @@ const UserDashboard = () => {
                     <p>
                       Total Balance
                       <br />
-                      <span>
-                        &#36;
-                        {convertWalletBalance(
-                          state?.userTransactionProfile?.accountBalance
-                            ?.$numberDecimal
-                        )}{' '}
-                      </span>
+                      {state?.userTransactionProfile?.accountBalance && (
+                        <span>
+                          &#36;
+                          {convertWalletBalance(
+                            state?.userTransactionProfile?.accountBalance
+                              ?.$numberDecimal
+                          )}{' '}
+                        </span>
+                      )}
                     </p>
                   </div>
                 </div>
@@ -469,12 +471,15 @@ const UserDashboard = () => {
                     <p>
                       Equity
                       <br />
-                      <span>
-                        &#36;
-                        {convertWalletBalance(
-                          state?.userTransactionProfile?.equity?.$numberDecimal
-                        )}{' '}
-                      </span>
+                      {state?.userTransactionProfile?.equity && (
+                        <span>
+                          &#36;
+                          {convertWalletBalance(
+                            state?.userTransactionProfile?.equity
+                              ?.$numberDecimal
+                          )}{' '}
+                        </span>
+                      )}
                     </p>
                   </div>
                 </div>
@@ -486,12 +491,14 @@ const UserDashboard = () => {
                     <p>
                       ROI
                       <br />
-                      <span>
-                        &#36;
-                        {convertWalletBalance(
-                          state?.userTransactionProfile?.roi?.$numberDecimal
-                        )}{' '}
-                      </span>
+                      {state?.userTransactionProfile?.roi && (
+                        <span>
+                          &#36;
+                          {convertWalletBalance(
+                            state?.userTransactionProfile?.roi?.$numberDecimal
+                          )}{' '}
+                        </span>
+                      )}
                     </p>
                   </div>
                 </div>
@@ -503,13 +510,15 @@ const UserDashboard = () => {
                     <p>
                       Withdrawable Balance
                       <br />
-                      <span>
-                        &#36;
-                        {convertWalletBalance(
-                          state?.userTransactionProfile?.withdrawableBalance
-                            ?.$numberDecimal
-                        )}{' '}
-                      </span>
+                      {state?.userTransactionProfile?.withdrawableBalance && (
+                        <span>
+                          &#36;
+                          {convertWalletBalance(
+                            state?.userTransactionProfile?.withdrawableBalance
+                              ?.$numberDecimal
+                          )}{' '}
+                        </span>
+                      )}
                     </p>
                   </div>
                 </div>
@@ -521,13 +530,15 @@ const UserDashboard = () => {
                     <p>
                       Referral Bonus
                       <br />
-                      <span>
-                        &#36;
-                        {convertWalletBalance(
-                          state?.userTransactionProfile?.referralBonus
-                            ?.$numberDecimal
-                        )}{' '}
-                      </span>
+                      {state?.userTransactionProfile?.referralBonus && (
+                        <span>
+                          &#36;
+                          {convertWalletBalance(
+                            state?.userTransactionProfile?.referralBonus
+                              ?.$numberDecimal
+                          )}{' '}
+                        </span>
+                      )}
                     </p>
                   </div>
                 </div>

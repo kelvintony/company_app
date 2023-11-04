@@ -40,6 +40,7 @@
     "react-icons": "^4.11.0",
     "react-paystack": "^4.0.3",
     "react-router-dom": "^6.4.3",
+    "react-spring": "^9.7.3",
     "react-youtube": "^10.1.0",
     "resend": "^0.17.2",
     "styled-components": "^5.3.11",

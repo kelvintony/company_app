@@ -43,7 +43,7 @@ const AccountHistoryTable = () => {
       width: 140,
       renderCell: (params) => <p>&#36;{params.value}</p>,
     },
-    { field: 'whatFor', headerName: 'What For', width: 230 },
+    { field: 'whatFor', headerName: 'Description', width: 230 },
 
     {
       field: 'paymentStatus',

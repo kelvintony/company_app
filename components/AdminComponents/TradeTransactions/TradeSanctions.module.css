@@ -4,6 +4,7 @@
 
 .transaction_container > h3 {
   margin-bottom: 10px;
+  font-size: 30px;
 }
 
 .wallet_icon {
@@ -37,4 +38,10 @@
 
 .btn_wallet:hover {
   background-color: #ebae52;
+}
+
+@media screen and (max-width: 900px) {
+  .transaction_container > h3 {
+    font-size: 26px;
+  }
 }
