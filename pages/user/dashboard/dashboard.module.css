@@ -138,6 +138,7 @@
 }
 .panel5 {
   background-color: #d6e9e6;
+  position: relative;
 }
 .icon_container {
   padding: 10px;
@@ -187,6 +188,30 @@
 .hide_stake_button {
   opacity: 0;
   visibility: hidden;
+}
+
+.btn_transfer_amount {
+  position: absolute;
+  bottom: -30px;
+  right: 0;
+  margin-right: 10px;
+
+  font-weight: 600;
+  display: inline-flex;
+  margin-bottom: 20px;
+  border: none;
+  font-family: 'Rubik', sans-serif;
+  background-color: #b92b26;
+  color: #fff;
+  cursor: pointer;
+  width: fit-content;
+  padding: 5px 7px;
+  border-radius: 5px;
+  transition: all 0.3s ease-in-out;
+}
+
+.btn_transfer_amount:hover {
+  background-color: #b9403c;
 }
 @media screen and (max-width: 900px) {
   .section_a {
