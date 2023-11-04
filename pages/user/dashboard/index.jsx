@@ -26,6 +26,8 @@ import UserLoader from '../../../components/UserLoader/UserLoader';
 import { AlertHandler } from '../../../utils/AlertHandler';
 import { BsCashCoin, BsGraphUpArrow } from 'react-icons/bs';
 import { GiCash } from 'react-icons/gi';
+import { LiaHandPointRightSolid } from 'react-icons/lia';
+import { FaHandPointRight } from 'react-icons/fa';
 
 const UserDashboard = () => {
   const router = useRouter();
@@ -569,10 +571,17 @@ const UserDashboard = () => {
                     </p>
                   </div>
                   <button
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '5px',
+                    }}
                     disabled={bonusLoading}
                     onClick={handleTransferBonus}
                     className={styles.btn_transfer_amount}
                   >
+                    {/* <LiaHandPointRightSolid /> */}
+                    {!bonusLoading && <FaHandPointRight />}
                     {bonusLoading
                       ? 'Transferring...'
                       : 'Transfer bonus to balance'}
