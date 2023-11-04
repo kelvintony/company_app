@@ -47,8 +47,12 @@ const UserDashboard = () => {
   const [tradedGame, setTradedGame] = useState(null);
 
   const [loadGameData, setLoadGameData] = useState(false);
+
   const [tradeGameLoading, setTradeGameLoading] = useState(false);
+
   const [fetchTradeGameLoading, seFetchTradeGameLoading] = useState(false);
+
+  const [bonusLoading, setBonusLoading] = useState(false);
 
   //! ALERT SECTION
   const [errorMessage, setErrorMessage] = useState(null);
@@ -118,6 +122,29 @@ const UserDashboard = () => {
       setTradeGameLoading(false);
       setErrorMessage(error?.response?.data?.message);
       console.log(error);
+    }
+  };
+
+  const handleTransferBonus = async () => {
+    setErrorMessage(null);
+    setBonusLoading(true);
+    setOpen(true); //! make sure you set this guy open for the MUI alert
+
+    try {
+      const res = await axios.get('/api/customers/withdraw/transfer-bonus');
+      const res2 = await axios.get('/api/customers/user-wallet-profile');
+
+      if (res) {
+        setBonusLoading(false);
+        dispatch({
+          type: authConstants.FETCH_USER_TRANSACTION_DETAILS,
+          payload: res2.data,
+        });
+      }
+    } catch (error) {
+      setBonusLoading(false);
+      setErrorMessage(error?.response?.data?.message);
+      console.log('');
     }
   };
   return (
@@ -541,6 +568,15 @@ const UserDashboard = () => {
                       )}
                     </p>
                   </div>
+                  <button
+                    disabled={bonusLoading}
+                    onClick={handleTransferBonus}
+                    className={styles.btn_transfer_amount}
+                  >
+                    {bonusLoading
+                      ? 'Transferring...'
+                      : 'Transfer bonus to balance'}
+                  </button>
                 </div>
               </div>
             </div>
