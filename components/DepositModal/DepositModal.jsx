@@ -141,7 +141,11 @@ const DepositModal = ({
                   />
                 </div>
                 <div className={styles.usdt_icon_container}>
-                  <Image className={styles.usdt_pix} src={usdtIcon} />
+                  <Image
+                    alt='usdt_pix'
+                    className={styles.usdt_pix}
+                    src={usdtIcon}
+                  />
                   <p className={styles.otp_message}>
                     USDT <span style={{ fontWeight: 700 }}>(TRC-20)</span>
                   </p>

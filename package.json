@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "deploy": "npm run buid && rsync --exclude=.git -azP . ubuntu@13.43.83.78:/home/ubuntu/apps/dexompay"
+    "deploy": "npm run build && rsync --exclude=.git -azP . ubuntu@13.43.83.78:/home/ubuntu/apps/dexompay"
   },
   "dependencies": {
     "@emotion/react": "^11.10.5",
