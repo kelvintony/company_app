@@ -163,6 +163,13 @@ const AccountHistoryModal = ({
                     </label>
                   </div>
                   <div className={styles.input_wrapper}>
+                    <p>Actual Amount Paid:</p>
+                    <label htmlFor='amountPaidByUser'>
+                      <span>{transferDetails?.amountPaidByUser}</span>
+                      <br />
+                    </label>
+                  </div>
+                  <div className={styles.input_wrapper}>
                     <p>Transfer to wallet address:</p>
                     <label htmlFor='eventOneExpectedReturns'>
                       <span className={styles.wallet__address}>

@@ -13,7 +13,7 @@ const accountHistorySchema = new mongoose.Schema(
     whatFor: { type: String },
     transactionId: { type: String },
     transactionIdForAdmin: { type: String },
-    amountPaidByUser: { type: String },
+    amountPaidByUser: { type: String, default: '0' },
     payAddress: { type: String },
     payAmount: { type: Number, float: true },
     amountReceived: { type: Number, float: true },
