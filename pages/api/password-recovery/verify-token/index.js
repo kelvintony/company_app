@@ -3,7 +3,7 @@ import userModel from '../../../../models/user';
 import Token from '../../../../models/token';
 import bcryptjs from 'bcryptjs';
 
-export default async (req, res) => {
+const handler = async (req, res) => {
   await db.connect();
 
   switch (req.method) {
@@ -16,7 +16,7 @@ export default async (req, res) => {
   }
 };
 
-export const verifyPasswordLink = async (req, res) => {
+const verifyPasswordLink = async (req, res) => {
   const userid = req.query.userid;
   const token = req.query.token;
 
@@ -55,3 +55,5 @@ export const verifyPasswordLink = async (req, res) => {
     console.log(error.message);
   }
 };
+
+export default handler;

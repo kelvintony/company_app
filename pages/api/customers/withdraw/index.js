@@ -7,7 +7,7 @@ import { v4 as uuidv4 } from 'uuid';
 import db from '../../../../utils/db';
 import walletProfileModel from '../../../../models/walletProfile';
 
-export default async (req, res) => {
+const handler = async (req, res) => {
   if (req.method === 'GET') {
     return validateWithdrawAmount(req, res);
   } else if (req.method === 'POST') {
@@ -17,7 +17,7 @@ export default async (req, res) => {
   }
 };
 
-export const validateWithdrawAmount = async (req, res) => {
+const validateWithdrawAmount = async (req, res) => {
   const session = await getSession({ req });
 
   const userProfile = session.user;
@@ -58,7 +58,7 @@ export const validateWithdrawAmount = async (req, res) => {
   }
 };
 
-export const placeWithdrawal = async (req, res) => {
+const placeWithdrawal = async (req, res) => {
   const session = await getSession({ req });
 
   const userProfile = session.user;
@@ -134,3 +134,5 @@ export const placeWithdrawal = async (req, res) => {
     return res.status(500).json({ message: error.message });
   }
 };
+
+export default handler;

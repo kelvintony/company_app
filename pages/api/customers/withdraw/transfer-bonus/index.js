@@ -3,7 +3,7 @@ import db from '../../../../../utils/db';
 import walletProfileModel from '../../../../../models/walletProfile';
 const { Decimal128 } = require('mongodb');
 
-export default async (req, res) => {
+const handler = async (req, res) => {
   if (req.method === 'GET') {
     return transferBonusToBalance(req, res);
   } else {
@@ -11,7 +11,7 @@ export default async (req, res) => {
   }
 };
 
-export const transferBonusToBalance = async (req, res) => {
+const transferBonusToBalance = async (req, res) => {
   const session = await getSession({ req });
 
   if (!session) {
@@ -65,3 +65,5 @@ export const transferBonusToBalance = async (req, res) => {
     return res.status(500).json({ message: error.message });
   }
 };
+
+export default handler;

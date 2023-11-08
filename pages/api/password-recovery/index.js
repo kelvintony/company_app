@@ -9,7 +9,7 @@ const RESEND_API_KEY = `${process.env.RESEND_API_KEY}`;
 
 const resend = new Resend(RESEND_API_KEY);
 
-export default async (req, res) => {
+const handler = async (req, res) => {
   await db.connect();
   switch (req.method) {
     case 'POST':
@@ -25,7 +25,7 @@ export default async (req, res) => {
   }
 };
 
-export const sendPasswordLink = async (req, res) => {
+const sendPasswordLink = async (req, res) => {
   const { email } = req.body;
 
   try {
@@ -76,7 +76,7 @@ export const sendPasswordLink = async (req, res) => {
   }
 };
 
-export const verifyPasswordLink = async (req, res) => {
+const verifyPasswordLink = async (req, res) => {
   const userid = req.query.userid;
   const token = req.query.token;
 
@@ -119,3 +119,5 @@ export const verifyPasswordLink = async (req, res) => {
     console.log(error.message);
   }
 };
+
+export default handler;

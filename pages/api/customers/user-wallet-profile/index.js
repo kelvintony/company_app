@@ -2,7 +2,7 @@ import walletProfileModel from '../../../../models/walletProfile';
 import { getSession } from 'next-auth/react';
 import db from '../../../../utils/db';
 
-export default async (req, res) => {
+const handler = async (req, res) => {
   if (req.method === 'GET') {
     return fetchUser(req, res);
   } else {
@@ -10,7 +10,7 @@ export default async (req, res) => {
   }
 };
 
-export const fetchUser = async (req, res) => {
+const fetchUser = async (req, res) => {
   const session = await getSession({ req });
 
   const userProfile = session.user;
@@ -31,3 +31,5 @@ export const fetchUser = async (req, res) => {
     return res.status(500).json({ message: error.message });
   }
 };
+
+export default handler;

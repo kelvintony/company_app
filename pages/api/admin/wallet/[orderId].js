@@ -9,7 +9,7 @@ import accountStatementModel from '../../../../models/accountStatement';
 
 const concludeUserTradePassword = process.env.CONCLUDE_USER_TRADE_PASSWORD;
 
-export default async (req, res) => {
+const handler = async (req, res) => {
   if (req.method === 'PUT') {
     return processUserOrder(req, res);
   } else if (req.method === 'GET') {
@@ -19,7 +19,7 @@ export default async (req, res) => {
   }
 };
 
-export const processUserOrder = async (req, res) => {
+const processUserOrder = async (req, res) => {
   const session = await getSession({ req });
 
   if (!session || (session && !session.user.superUser)) {
@@ -81,7 +81,7 @@ export const processUserOrder = async (req, res) => {
   }
 };
 
-export const getSingleOrderByUser = async (req, res) => {
+const getSingleOrderByUser = async (req, res) => {
   const session = await getSession({ req });
 
   if (!session || (session && !session.user.superUser)) {
@@ -106,3 +106,5 @@ export const getSingleOrderByUser = async (req, res) => {
     return res.status(400).json({ message: error.message });
   }
 };
+
+export default handler;

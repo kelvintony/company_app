@@ -4,7 +4,7 @@ import gameModel from '../../../../models/game';
 import db from '../../../../utils/db';
 import tradedGameModel from '../../../../models/tradedGame';
 
-export default async (req, res) => {
+const handler = async (req, res) => {
   if (req.method === 'GET') {
     return getAllGames(req, res);
   } else {
@@ -12,7 +12,7 @@ export default async (req, res) => {
   }
 };
 
-export const getAllGames = async (req, res) => {
+const getAllGames = async (req, res) => {
   const session = await getSession({ req });
 
   if (!session) {
@@ -38,3 +38,5 @@ export const getAllGames = async (req, res) => {
     return res.status(400).json({ message: error.message });
   }
 };
+
+export default handler;

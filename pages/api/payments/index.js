@@ -14,7 +14,7 @@ const headers = {
   'Content-Type': 'application/json',
 };
 
-export default async (req, res) => {
+const handler = async (req, res) => {
   if (req.method === 'POST') {
     return createPayment(req, res);
   } else if (req.method === 'GET') {
@@ -24,7 +24,7 @@ export default async (req, res) => {
   }
 };
 
-export const createPayment = async (req, res) => {
+const createPayment = async (req, res) => {
   try {
     await db.connect();
 
@@ -101,7 +101,7 @@ export const createPayment = async (req, res) => {
   }
 };
 
-export const verifyPayment = async (req, res) => {
+const verifyPayment = async (req, res) => {
   try {
     const session = await getSession({ req });
 
@@ -130,3 +130,5 @@ export const verifyPayment = async (req, res) => {
     return res.status(400).json({ message: error.message });
   }
 };
+
+export default handler;

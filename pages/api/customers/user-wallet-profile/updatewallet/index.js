@@ -17,7 +17,7 @@ const generateOTP = () => {
   return otpCode;
 };
 
-export default async (req, res) => {
+const handler = async (req, res) => {
   await db.connect();
   switch (req.method) {
     case 'GET':
@@ -33,7 +33,7 @@ export default async (req, res) => {
   }
 };
 
-export const sendOTP = async (req, res) => {
+const sendOTP = async (req, res) => {
   const session = await getSession({ req });
 
   if (!session) {
@@ -87,7 +87,7 @@ export const sendOTP = async (req, res) => {
   }
 };
 
-export const updateWalletAddress = async (req, res) => {
+const updateWalletAddress = async (req, res) => {
   const session = await getSession({ req });
 
   if (!session) {
@@ -122,3 +122,5 @@ export const updateWalletAddress = async (req, res) => {
     console.log(error.message);
   }
 };
+
+export default handler;
