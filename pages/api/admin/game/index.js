@@ -4,7 +4,7 @@ import { getToken } from 'next-auth/jwt';
 import db from '../../../../utils/db';
 import gameModel from '../../../../models/game';
 
-export default async (req, res) => {
+const handler = async (req, res) => {
   if (req.method === 'POST') {
     return createGame(req, res);
   } else if (req.method === 'GET') {
@@ -14,7 +14,7 @@ export default async (req, res) => {
   }
 };
 
-export const createGame = async (req, res) => {
+const createGame = async (req, res) => {
   await db.connect();
 
   try {
@@ -70,7 +70,7 @@ export const createGame = async (req, res) => {
   }
 };
 
-export const getGame = async (req, res) => {
+const getGame = async (req, res) => {
   await db.connect();
 
   const session = await getSession({ req });
@@ -87,3 +87,5 @@ export const getGame = async (req, res) => {
     return res.status(400).json({ message: error.message });
   }
 };
+
+export default handler;

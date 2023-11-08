@@ -6,7 +6,7 @@ import gameModel from '../../../../models/game';
 import tradedGameModel from '../../../../models/tradedGame';
 import walletProfileModel from '../../../../models/walletProfile';
 
-export default async (req, res) => {
+const handler = async (req, res) => {
   if (req.method === 'POST') {
     return tradeGame(req, res);
   } else if (req.method === 'GET') {
@@ -16,7 +16,7 @@ export default async (req, res) => {
   }
 };
 
-export const tradeGame = async (req, res) => {
+const tradeGame = async (req, res) => {
   try {
     await db.connect();
 
@@ -111,7 +111,7 @@ export const tradeGame = async (req, res) => {
   }
 };
 
-export const getGame = async (req, res) => {
+const getGame = async (req, res) => {
   try {
     const session = await getSession({ req });
 
@@ -139,3 +139,5 @@ export const getGame = async (req, res) => {
     return res.status(400).json({ message: error.message });
   }
 };
+
+export default handler;

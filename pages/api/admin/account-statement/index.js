@@ -4,7 +4,7 @@ import { getToken } from 'next-auth/jwt';
 import db from '../../../../utils/db';
 import accountStatementModel from '../../../../models/accountStatement';
 
-export default async (req, res) => {
+const handler = async (req, res) => {
   if (req.method === 'GET') {
     return getAccountInformation(req, res);
   } else {
@@ -12,7 +12,7 @@ export default async (req, res) => {
   }
 };
 
-export const getAccountInformation = async (req, res) => {
+const getAccountInformation = async (req, res) => {
   const session = await getSession({ req });
 
   if (!session || (session && !session.user.superUser)) {
@@ -49,3 +49,5 @@ export const getAccountInformation = async (req, res) => {
     return res.status(400).json({ message: error.message });
   }
 };
+
+export default handler;

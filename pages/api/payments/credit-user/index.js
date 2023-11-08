@@ -6,7 +6,7 @@ import referralModel from '../../../../models/referral';
 import paymentStatusModel from '../../../../models/paymentStatus';
 import accountStatementModel from '../../../../models/accountStatement';
 
-export default async (req, res) => {
+const handler = async (req, res) => {
   if (req.method === 'POST') {
     return verifyPaymentViaWebhook(req, res);
   } else {
@@ -14,7 +14,7 @@ export default async (req, res) => {
   }
 };
 
-export const verifyPaymentViaWebhook = async (req, res) => {
+const verifyPaymentViaWebhook = async (req, res) => {
   try {
     await db.connect();
 
@@ -128,3 +128,5 @@ export const verifyPaymentViaWebhook = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
+
+export default handler;

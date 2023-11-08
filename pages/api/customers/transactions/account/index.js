@@ -4,7 +4,7 @@ import { getToken } from 'next-auth/jwt';
 import db from '../../../../../utils/db';
 import accountHistoryModel from '../../../../../models/accountHistory';
 
-export default async (req, res) => {
+const handler = async (req, res) => {
   if (req.method === 'GET') {
     return getAccountHistory(req, res);
   } else if (req.method === 'POST') {
@@ -14,7 +14,7 @@ export default async (req, res) => {
   }
 };
 
-export const getAccountHistory = async (req, res) => {
+const getAccountHistory = async (req, res) => {
   const session = await getSession({ req });
 
   if (!session) {
@@ -35,7 +35,7 @@ export const getAccountHistory = async (req, res) => {
   }
 };
 
-export const getSingleTransaction = async (req, res) => {
+const getSingleTransaction = async (req, res) => {
   const session = await getSession({ req });
 
   if (!session) {
@@ -55,3 +55,5 @@ export const getSingleTransaction = async (req, res) => {
     return res.status(400).json({ message: error.message });
   }
 };
+
+export default handler;

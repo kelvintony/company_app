@@ -8,7 +8,7 @@ import walletProfileModel from '../../../../../models/walletProfile';
 import { Decimal128 } from 'mongodb';
 const concludeUserTradePassword = process.env.CONCLUDE_USER_TRADE_PASSWORD;
 
-export default async (req, res) => {
+const handler = async (req, res) => {
   if (req.method === 'PUT') {
     return processUserTrade(req, res);
   } else if (req.method === 'GET') {
@@ -18,7 +18,7 @@ export default async (req, res) => {
   }
 };
 
-export const processUserTrade = async (req, res) => {
+const processUserTrade = async (req, res) => {
   const session = await getSession({ req });
 
   if (!session || (session && !session.user.superUser)) {
@@ -102,7 +102,7 @@ export const processUserTrade = async (req, res) => {
   }
 };
 
-export const getSingleGameTradedByUser = async (req, res) => {
+const getSingleGameTradedByUser = async (req, res) => {
   const session = await getSession({ req });
 
   if (!session || (session && !session.user.superUser)) {
@@ -124,6 +124,7 @@ export const getSingleGameTradedByUser = async (req, res) => {
   }
 };
 
+export default handler;
 /*
 const updateEquityWithRoi = (
   existingValueInDecimal128,

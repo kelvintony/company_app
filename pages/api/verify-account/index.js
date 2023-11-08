@@ -2,7 +2,7 @@ import db from '../../../utils/db';
 import userModel from '../../../models/user';
 import tokenModel from '../../../models/token';
 
-export default async (req, res) => {
+const handler = async (req, res) => {
   await db.connect();
 
   switch (req.method) {
@@ -15,7 +15,7 @@ export default async (req, res) => {
   }
 };
 
-export const verifyConfirmationLink = async (req, res) => {
+const verifyConfirmationLink = async (req, res) => {
   const userid = req.query.userid;
   const token = req.query.token;
 
@@ -47,3 +47,5 @@ export const verifyConfirmationLink = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
+export default handler;
