@@ -1,5 +1,4 @@
 import { getSession } from 'next-auth/react';
-import { getToken } from 'next-auth/jwt';
 
 import db from '../../../../utils/db';
 import accountStatementModel from '../../../../models/accountStatement';
