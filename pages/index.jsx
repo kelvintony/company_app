@@ -111,7 +111,7 @@ const Home = () => {
 
       {/* Partners section  */}
       <section className={styles.partners_container}>
-        <h3>Some Partners We Have Worked With.</h3>
+        <h3>Some Partners We Have Worked With..</h3>
         <section className={styles.our_partners}>
           {/* pauseOnHover={true} */}
           <Marquee speed={100} gradient={false}>
